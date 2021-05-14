@@ -8,13 +8,13 @@ def help():
     print("=" * len("changedet"))
     print("Change Detection Toolbox")
 
+
 def test():
     print("Hey there")
 
 
 def main():
-    fire.Fire({"help": help,
-               "test": test})
+    fire.Fire({"help": help, "test": test})
 
 
 if __name__ == "__main__":
