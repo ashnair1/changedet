@@ -1,6 +1,6 @@
 """Main module."""
 
-from algos import AlgoCatalog
+from changedet.algos import AlgoCatalog
 
 
 class ChangeDetPipeline:
@@ -15,6 +15,7 @@ class ChangeDetPipeline:
     def __init__(self, algo=None):
         self.algo = AlgoCatalog.get(algo)
 
+    # Remove this function. Image loading and preprocessing should be done internally.
     def load(self, im1, im2):
         print("loading images")
 
@@ -25,9 +26,7 @@ class ChangeDetPipeline:
         self.algo.run(im1, im2)
 
     def list_algos(self):
-        import pdb
-
-        pdb.set_trace()
+        print(AlgoCatalog.list())
 
     def help(self):
         docstring = self.algo.__doc__ if self.algo else self.__doc__

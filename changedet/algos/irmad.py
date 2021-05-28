@@ -1,4 +1,9 @@
-class IRMAD:
+from .base import MetaAlgo
+from .catalog import AlgoCatalog
+
+
+@AlgoCatalog.register("irmad")
+class IRMAD(MetaAlgo):
     """IRMAD algorithm"""
 
     @classmethod

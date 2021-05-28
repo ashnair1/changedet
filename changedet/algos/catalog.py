@@ -13,22 +13,14 @@ class _AlgoCatalog(UserDict):
 
     """
 
-    @staticmethod
-    def register(name):
-        import pdb
+    def register(self, name: str):
+        def inner_wrapper(wrapped_class):
+            if name in self.keys():
+                raise AssertionError(f"Algorithm {name} already exists.")
+            self[name] = wrapped_class
+            return wrapped_class
 
-        pdb.set_trace()
-
-        def _register(self, name, obj):
-            self[name] = obj
-            import pdb
-
-            pdb.set_trace()
-
-        return _register(name)  # , cls)
-
-    # def register(self, name, obj):
-    #     self[name] = obj
+        return inner_wrapper
 
     def get(self, name):
         try:
@@ -37,8 +29,7 @@ class _AlgoCatalog(UserDict):
             if isinstance(name, str):
                 avail_algos = ", ".join(list(self.keys()))
                 raise KeyError(
-                    f"Algorithm {name} is not registered. \
-                    Available algorithms are: {avail_algos}"
+                    f"Algorithm {name} is not registered. Available algorithms are: {avail_algos}"
                 ) from e
             else:
                 f = None
@@ -76,3 +67,43 @@ AlgoCatalog = _AlgoCatalog()
 # def register(cls):
 #     AlgoCatalog.register(name, cls)
 #     return cls
+
+# from abc import ABCMeta, abstractmethod
+
+
+# class MetaAlgo(metaclass=ABCMeta):
+#     """ Base class for an executor """
+
+#     def __init__(self, **kwargs):
+#         """ Constructor """
+#         pass
+
+#     @abstractmethod
+#     def run(self, command: str) -> (str, str):
+#         """ Abstract method to run a command """
+#         pass
+
+
+# class AlgoFactory:
+#     """ The factory class for creating change detection algo"""
+
+#     registry = {}
+#     AlgoCatalog = _AlgoCatalog()
+#     """ Internal registry for available executors """
+
+#     @classmethod
+#     def register(cls, name: str):
+#         import pdb
+
+#         pdb.set_trace()
+
+#         def inner_wrapper(wrapped_class: MetaAlgo):
+#             if name in cls.registry:
+#                 print("HEY there")
+#                 # logger.warning('Executor %s already exists. Will replace it', name)
+#             cls.registry[name] = wrapped_class
+#             return wrapped_class
+
+#         return inner_wrapper
+
+#     # end register()

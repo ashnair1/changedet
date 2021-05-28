@@ -2,7 +2,7 @@
 
 import fire
 
-from changedet import ChangeDetPipeline
+from changedet.pipeline import ChangeDetPipeline
 
 
 def help():

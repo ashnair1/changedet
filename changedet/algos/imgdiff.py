@@ -1,24 +1,42 @@
-from .catalog import AlgoCatalog  # , _AlgoCatalog  # MetaAlgo
+from pathlib import Path
+
+import rasterio as rio
+
+from .base import MetaAlgo
+from .catalog import AlgoCatalog
 
 
-@AlgoCatalog.register(name="imgdiff")
-class ImageDiff:
+@AlgoCatalog.register("imgdiff")
+class ImageDiff(MetaAlgo):
     """
-    Calculate absolute difference map
+    Calculate difference map
 
-    Builds a change map by calculating the
-     absolute difference
-    between image 1 & image 2
+    Builds a change map by calculating the difference between image 1 & image 2
     """
 
     @classmethod
     def run(cls, im1, im2):
         """
         Args:
-            im1 ([type]): [description]
-            im2 ([type]): [description]
+            im1 (str): Path to image 1
+            im2 (str): Path to image 2
         """
-        print("Ello IMDIFF here")
+        if Path(im1).exists() & Path(im2).exists():
+            im1 = rio.open(im1)
+            im2 = rio.open(im2)
+            arr1 = im1.read()
+            arr2 = im2.read()
+
+            # Calculate difference map
+            diff = arr1 - arr2
+
+            outfile = "diffmap.tif"
+
+            with rio.Env():
+                profile = im1.profile
+                with rio.open(outfile, "w", **profile) as dst:
+                    dst.write(diff)
+            print(f"Change map written to {outfile}")
 
     @classmethod
     def help(cls):
