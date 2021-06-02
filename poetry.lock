@@ -973,7 +973,7 @@ name = "tqdm"
 version = "4.61.0"
 description = "Fast, Extensible Progress Meter"
 category = "main"
-optional = true
+optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,>=2.7"
 
 [package.extras]
@@ -1076,7 +1076,7 @@ test = ["pytest", "black", "isort", "flake8", "flake8-docstrings", "pytest-cov"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7,<3.10"
-content-hash = "42ca3175495b74630578567452b995316a09f4062b8fe957b5163207f4ee0ccd"
+content-hash = "f482f8469911128c120899c5b0cca7ede5d567519623e576a50534c1c5472641"
 
 [metadata.files]
 affine = [

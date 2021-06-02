@@ -15,11 +15,15 @@ class ImageDiff(MetaAlgo):
     """
 
     @classmethod
-    def run(cls, im1, im2):
-        """
+    def run(cls, im1, im2, flags):
+        """Run Image Differencing algorithm
+
         Args:
             im1 (str): Path to image 1
             im2 (str): Path to image 2
+            flags (dict): Flags for the algorithm
+
+        Note: Image Differencing does not use flags
         """
         if Path(im1).exists() & Path(im2).exists():
             im1 = rio.open(im1)
@@ -37,8 +41,3 @@ class ImageDiff(MetaAlgo):
                 with rio.open(outfile, "w", **profile) as dst:
                     dst.write(diff)
             print(f"Change map written to {outfile}")
-
-    @classmethod
-    def help(cls):
-        """Print out docstring"""
-        print(cls.__doc__)

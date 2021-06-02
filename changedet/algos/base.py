@@ -12,8 +12,3 @@ class MetaAlgo(metaclass=ABCMeta):
     def run(cls):
         """ Abstract method to run change detection """
         pass
-
-    @abstractclassmethod
-    def help(cls):
-        """ Abstract method to return algorithm information """
-        pass
