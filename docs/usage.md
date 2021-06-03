@@ -20,3 +20,9 @@ changedet --algo imgdiff algo --help
 ```
 changedet --help
 ```
+
+4. List available algorithms
+
+```
+changedet list_algos
+```

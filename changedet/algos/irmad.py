@@ -33,7 +33,7 @@ def np_weight_stats(x, ws):
     return wsigma, mean2d
 
 
-def irmad(im1, im2, niter, sig):
+def irmad(im1, im2, niter, sig, logger):
     """Runs the IRMAD algorithm
 
     Args:
@@ -51,7 +51,8 @@ def irmad(im1, im2, niter, sig):
     ch2, r2, c2 = im2.shape
 
     if (ch1, r1, c1) != (ch2, r2, c2):
-        raise AssertionError(f"Image arrays should be of same shape")
+        logger.critical("Image array shapes do not match")
+        raise AssertionError
 
     m = r1 * c1
     N = ch1
@@ -164,6 +165,10 @@ class IRMAD(MetaAlgo):
         """
         niter = flags.get("niter", 1)
         sig = flags.get("sig", 0.0001)
+        logger = flags.get("logger", None)
+        logger.info(
+            "Running IRMAD algorithm for %d iteration(s) with significance level %f", niter, sig
+        )
 
         if Path(im1).exists() & Path(im2).exists():
             im1 = rio.open(im1)
@@ -171,7 +176,7 @@ class IRMAD(MetaAlgo):
             arr1 = im1.read()
             arr2 = im2.read()
 
-            cmap = irmad(arr1, arr2, niter=niter, sig=sig)
+            cmap = irmad(arr1, arr2, niter=niter, sig=sig, logger=logger)
 
             profile = im1.profile
             outfile = "irmad_cmap.tif"
@@ -180,5 +185,5 @@ class IRMAD(MetaAlgo):
                 with rio.open(outfile, "w", **profile) as dst:
                     for i in range(im1.count):
                         dst.write(cmap[:, :, i], i + 1)
-            print(f"Change map written to {outfile}")
+            logger.info("Change map written to %s", outfile)
             # Changemap by default does not appear as it should i.e. stretching

@@ -25,6 +25,7 @@ class ImageDiff(MetaAlgo):
 
         Note: Image Differencing does not use flags
         """
+        logger = flags.get("logger", None)
         if Path(im1).exists() & Path(im2).exists():
             im1 = rio.open(im1)
             im2 = rio.open(im2)
@@ -32,6 +33,7 @@ class ImageDiff(MetaAlgo):
             arr2 = im2.read()
 
             # Calculate difference map
+            logger.info("Calculating difference map")
             diff = arr1 - arr2
 
             outfile = "diffmap.tif"
@@ -40,4 +42,4 @@ class ImageDiff(MetaAlgo):
                 profile = im1.profile
                 with rio.open(outfile, "w", **profile) as dst:
                     dst.write(diff)
-            print(f"Change map written to {outfile}")
+            logger.info("Change map written to %s", outfile)

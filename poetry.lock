@@ -1076,7 +1076,7 @@ test = ["pytest", "black", "isort", "flake8", "flake8-docstrings", "pytest-cov"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7,<3.10"
-content-hash = "f482f8469911128c120899c5b0cca7ede5d567519623e576a50534c1c5472641"
+content-hash = "7d1b7da26d98f58390f1bb7e1f1b3c42bd481fd071d86496511b1cf1c82eb01c"
 
 [metadata.files]
 affine = [
