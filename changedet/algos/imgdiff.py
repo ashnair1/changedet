@@ -22,8 +22,6 @@ class ImageDiff(MetaAlgo):
             im1 (str): Path to image 1
             im2 (str): Path to image 2
             flags (dict): Flags for the algorithm
-
-        Note: Image Differencing does not use flags
         """
         logger = flags.get("logger", None)
         if Path(im1).exists() & Path(im2).exists():

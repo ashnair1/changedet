@@ -21,16 +21,16 @@ def np_weight_stats(x, ws):
         tuple: tuple containing:
 
             wsigma (numpy.array): Weighted covariance matrix
-            mean2d (numpy.array): Weighted mean
+            wmean (numpy.array): Weighted mean
     """
     mean = np.ma.average(x, axis=0, weights=ws)
-    mean2d = np.expand_dims(mean.data, axis=1)  # (H*W,) -> (H*W,1)
+    wmean = np.expand_dims(mean.data, axis=1)  # (H*W,) -> (H*W,1)
     xm = x - mean
     # np.isnan(xm).any() # Check if any element is Nan
     # xm.mul(w, axis=0) === np.multiply(xm, ws[:, np.newaxis])
     sigma2 = 1.0 / (ws.sum() - 1) * np.multiply(xm, ws[:, np.newaxis]).T.dot(xm)
     wsigma = sigma2.data
-    return wsigma, mean2d
+    return wsigma, wmean
 
 
 def irmad(im1, im2, niter, sig, logger):

@@ -4,12 +4,16 @@ from collections import UserDict
 class _AlgoCatalog(UserDict):
     """
 
-    A global dictionary that stores information about the datasets
-    and how to obtain them.
-    It contains a mapping from strings
-    (which are names that identify a dataset, e.g. "coco_2014_train")
-    to a function which parses the dataset and returns the samples in the
-    format of `list[dict]`.
+    A global dictionary that stores information about the algorithms used and
+    their corresponding pipeline. It contains a mapping of algorithm names to
+    the algorithm class object.
+
+    >>> from changedet.algos import AlgoCatalog
+    >>> import pprint
+    >>> pprint.pprint(AlgoCatalog)
+    {'imgdiff': <class 'changedet.algos.imgdiff.ImageDiff'>,
+    'irmad': <class 'changedet.algos.irmad.IRMAD'>}
+
 
     """
 
@@ -37,7 +41,7 @@ class _AlgoCatalog(UserDict):
 
     def list(self):
         """
-        List all registered datasets.
+        List all registered algorithms.
         Returns:
             list[str]
         """
@@ -50,6 +54,7 @@ class _AlgoCatalog(UserDict):
         self.pop(name)
 
 
+# Instantiate AlgoCatalog
 AlgoCatalog = _AlgoCatalog()
 
 
