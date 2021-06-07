@@ -119,6 +119,7 @@ def irmad(im1, im2, niter, sig, logger):
             mads = cv1 - cv2
 
             chisqr = (np.square(mads) / sig2s).sum(axis=1)
+            # Upper tailed test
             pvs = 1 - chi2(N).cdf(chisqr)
             # np.ma.average expects 1D weights
             pvs = pvs.squeeze()
