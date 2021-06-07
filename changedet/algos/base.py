@@ -2,10 +2,10 @@ from abc import ABCMeta, abstractclassmethod
 
 
 class MetaAlgo(metaclass=ABCMeta):
-    """ Base class for an algorithm """
+    """Base class for an algorithm"""
 
     def __init__(self, **kwargs):
-        """ Constructor """
+        """Constructor"""
         pass
 
     @abstractclassmethod
