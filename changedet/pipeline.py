@@ -1,7 +1,7 @@
 """Main module."""
 
 from changedet.algos import AlgoCatalog
-from changedet.utils import init_logger
+from changedet.utils.logger import init_logger
 
 
 class ChangeDetPipeline:

@@ -11,7 +11,7 @@ def calc_cvs(im1, im2):
     diffmap = im2 - im1
     # Euclidean norm
     # mag = np.sqrt(np.sum(np.square(diffmap), axis=0))
-    mag = np.linalg.norm(diffmap)
+    mag = np.linalg.norm(diffmap, axis=0)
     theta = np.arccos(diffmap / mag)
     return mag, theta
 
