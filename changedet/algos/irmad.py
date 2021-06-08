@@ -6,8 +6,9 @@ from scipy import linalg
 from scipy.stats import chi2
 from tqdm import tqdm
 
-from .base import MetaAlgo
-from .catalog import AlgoCatalog
+from changedet.algos.base import MetaAlgo
+from changedet.algos.catalog import AlgoCatalog
+from changedet.utils.postprocess import scale_image
 
 
 def np_weight_stats(x, ws):
@@ -136,6 +137,37 @@ def irmad(im1, im2, niter, sig, logger):
     return cmap
 
 
+def lin2pcstr(x):
+    #  2% linear stretch
+    x = bytestr(x)
+    hist, bin_edges = np.histogram(x, 256, (0, 256))
+    cdf = hist.cumsum()
+    lower = 0
+    i = 0
+    while cdf[i] < 0.02 * cdf[-1]:
+        lower += 1
+        i += 1
+    upper = 255
+    i = 255
+    while cdf[i] > 0.98 * cdf[-1]:
+        upper -= 1
+        i -= 1
+    fp = (bin_edges - lower) * 255 / (upper - lower)
+    fp = np.where(bin_edges <= lower, 0, fp)
+    fp = np.where(bin_edges >= upper, 255, fp)
+    return np.interp(x, bin_edges, fp)
+
+
+def bytestr(x):
+    mx = np.max(x)
+    mn = np.min(x)
+    if mx - mn > 0:
+        x = (x - mn) * 255.0 / (mx - mn)
+    x = np.where(x < 0, 0, x)
+    x = np.where(x > 255, 255, x)
+    return x
+
+
 @AlgoCatalog.register("irmad")
 class IRMAD(MetaAlgo):
     """IRMAD algorithm
@@ -178,6 +210,7 @@ class IRMAD(MetaAlgo):
             arr2 = im2.read()
 
             cmap = irmad(arr1, arr2, niter=niter, sig=sig, logger=logger)
+            cmap = scale_image(cmap, np.uint8)
 
             profile = im1.profile
             outfile = "irmad_cmap.tif"
