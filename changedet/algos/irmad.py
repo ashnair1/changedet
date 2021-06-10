@@ -8,7 +8,8 @@ from tqdm import tqdm
 
 from changedet.algos.base import MetaAlgo
 from changedet.algos.catalog import AlgoCatalog
-from changedet.utils.postprocess import scale_image
+from changedet.utils.image import contrast_stretch  # , histogram_equalisation
+from changedet.utils.plot import histplot
 
 
 def np_weight_stats(x, ws):
@@ -158,14 +159,16 @@ def lin2pcstr(x):
     return np.interp(x, bin_edges, fp)
 
 
-def bytestr(x):
-    mx = np.max(x)
-    mn = np.min(x)
-    if mx - mn > 0:
-        x = (x - mn) * 255.0 / (mx - mn)
-    x = np.where(x < 0, 0, x)
-    x = np.where(x > 255, 255, x)
-    return x
+def bytestr(arr, rng=None):
+    #  byte stretch image numpy array
+    shp = arr.shape
+    arr = arr.ravel()
+    if rng is None:
+        rng = [np.min(arr), np.max(arr)]
+    tmp = (arr - rng[0]) * 255.0 / (rng[1] - rng[0])
+    tmp = np.where(tmp < 0, 0, tmp)
+    tmp = np.where(tmp > 255, 255, tmp)
+    return np.asarray(np.reshape(tmp, shp), np.uint8)
 
 
 @AlgoCatalog.register("irmad")
@@ -210,7 +213,27 @@ class IRMAD(MetaAlgo):
             arr2 = im2.read()
 
             cmap = irmad(arr1, arr2, niter=niter, sig=sig, logger=logger)
-            cmap = scale_image(cmap, np.uint8)
+
+            t1 = contrast_stretch(cmap).astype(np.uint8)
+            # t2 = bytestr(cmap)
+
+            t1s = contrast_stretch(t1, stretch_type="percentile")
+            t1s2 = np.copy(t1)
+
+            for i in range(im1.count):
+                t1s2[:, :, i] = contrast_stretch(cmap[:, :, i], stretch_type="percentile")
+
+            t2s = lin2pcstr(cmap)
+            # t2s1 = histogram_equalisation(cmap)[0]
+            t3s = contrast_stretch(cmap, stretch_type="percentile")
+
+            # t2s1 and convert(cmap1,0,255) are same
+            # cmap_new = convert(exposure.equalize_hist(convert(cmap1, 0, 255)), 0, 255)
+            f1 = histplot([t1s, t1s2, t2s, t3s], ["t1s", "t1s2", "t2s", "t3s"])
+            f1.show()
+            import pdb
+
+            pdb.set_trace()
 
             profile = im1.profile
             outfile = "irmad_cmap.tif"
