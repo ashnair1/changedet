@@ -3,8 +3,8 @@ from pathlib import Path
 import numpy as np
 import rasterio as rio
 
-from .base import MetaAlgo
-from .catalog import AlgoCatalog
+from changedet.algos.base import MetaAlgo
+from changedet.algos.catalog import AlgoCatalog
 
 
 def calc_cvs(im1, im2):
