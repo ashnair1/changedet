@@ -1,15 +1,18 @@
 import numpy as np
 
 
-def contrast_stretch(img, *, target_type="uint8", stretch_type="default", percentile=(2, 98)):
-    """
-    Change image distribution to cover full range of target_type
+def contrast_stretch(img, *, target_type="uint8", stretch_type="minmax", percentile=(2, 98)):
+    """Change image distribution to cover full range of target_type.
+
+    Types of contrast stretching:
+    - minmax (Default)
+    - percentile
 
     Args:
         img (numpy.ndarray): Input image
-        target_type (dtype): Target type of rescaled image.
-        stretch_type (str): Types of contrast stretching. One of ["default", "percentile"]
-        percentile (tuple): Cut off percentiles. Used if stretch_type == "percentile
+        target_type (dtype): Target type of rescaled image. Defaults to "uint8".
+        stretch_type (str): Types of contrast stretching. Defaults to minmax.
+        percentile (tuple): Cut off percentiles if stretch_type == "percentile. Defaults to (2, 98).
 
     Returns:
         numpy.ndarray: Rescaled image

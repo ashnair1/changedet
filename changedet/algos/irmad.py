@@ -8,12 +8,11 @@ from tqdm import tqdm
 
 from changedet.algos.base import MetaAlgo
 from changedet.algos.catalog import AlgoCatalog
-from changedet.utils.image import contrast_stretch  # , histogram_equalisation
-from changedet.utils.plot import histplot
+from changedet.utils.image import contrast_stretch
 
 
 def np_weight_stats(x, ws):
-    """Calculate weighted mean and sample covariance
+    """Calculate weighted mean and sample covariance.
 
     Args:
         x (numpy.ndarray): Data matrix
@@ -36,7 +35,7 @@ def np_weight_stats(x, ws):
 
 
 def irmad(im1, im2, niter, sig, logger):
-    """Runs the IRMAD algorithm
+    """Runs the IRMAD algorithm.
 
     Args:
         im1 (numpy.ndarray): Image 1 array
@@ -127,55 +126,28 @@ def irmad(im1, im2, niter, sig, logger):
             pvs = pvs.squeeze()
             pbar.update()
 
-    cmap = mads
+    cmap = np.copy(mads)
     idx = np.where(pvs > sig)[0]
     cmap[idx, :] = 0.0
 
-    cmap = cmap.reshape((r1, c1, ch1))  # Change map
-    mads = mads.reshape((r1, c1, ch1))  # MAD variates
-    chisqr = chisqr.reshape((r1, c1))
+    cmap = cmap.T.reshape(im1.shape)  # Change map
+    mads = mads.T.reshape(im1.shape)  # MAD variates
+    chisqr = chisqr.reshape((1, r1, c1))
 
     return cmap
 
 
-def lin2pcstr(x):
-    #  2% linear stretch
-    x = bytestr(x)
-    hist, bin_edges = np.histogram(x, 256, (0, 256))
-    cdf = hist.cumsum()
-    lower = 0
-    i = 0
-    while cdf[i] < 0.02 * cdf[-1]:
-        lower += 1
-        i += 1
-    upper = 255
-    i = 255
-    while cdf[i] > 0.98 * cdf[-1]:
-        upper -= 1
-        i -= 1
-    fp = (bin_edges - lower) * 255 / (upper - lower)
-    fp = np.where(bin_edges <= lower, 0, fp)
-    fp = np.where(bin_edges >= upper, 255, fp)
-    return np.interp(x, bin_edges, fp)
-
-
-def bytestr(arr, rng=None):
-    #  byte stretch image numpy array
-    shp = arr.shape
-    arr = arr.ravel()
-    if rng is None:
-        rng = [np.min(arr), np.max(arr)]
-    tmp = (arr - rng[0]) * 255.0 / (rng[1] - rng[0])
-    tmp = np.where(tmp < 0, 0, tmp)
-    tmp = np.where(tmp > 255, 255, tmp)
-    return np.asarray(np.reshape(tmp, shp), np.uint8)
-
-
 @AlgoCatalog.register("irmad")
 class IRMAD(MetaAlgo):
-    """IRMAD algorithm
+    """IRMAD algorithm.
 
-    Invariant to affine transforms
+    The core idea behind the Multivariate Alteration Detection (MAD) algorithm is to identify a
+    linear transformation that minimises the correlation between the canonical components of the two
+    images thereby maximising change information. An advantage of the MAD algorithm is that it's in-
+    variant to affine transforms of the original image intensities. Iteratively Reweighted (IR)-MAD
+    is an improvement on the MAD approach where observations are iteratively reweighted in order to
+    establish a better no change background against which allows better separability between change
+    and no-change.
 
     Accepted flags:
     - niter = Number of iterations IRMAD should be run
@@ -184,13 +156,11 @@ class IRMAD(MetaAlgo):
     Reference:
     A. A. Nielsen, “The Regularized Iteratively Reweighted {MAD} Method for Change Detection in
     Multi- and Hyperspectral Data” IEEE Trans. Image Process., vol. 16, no. 2, pp. 463–478, 2007.
-
-
     """
 
     @classmethod
     def run(cls, im1, im2, flags):
-        """Run IRMAD algorithm
+        """Run IRMAD algorithm.
 
         Args:
             im1 (str): Path to image 1
@@ -213,27 +183,7 @@ class IRMAD(MetaAlgo):
             arr2 = im2.read()
 
             cmap = irmad(arr1, arr2, niter=niter, sig=sig, logger=logger)
-
-            t1 = contrast_stretch(cmap).astype(np.uint8)
-            # t2 = bytestr(cmap)
-
-            t1s = contrast_stretch(t1, stretch_type="percentile")
-            t1s2 = np.copy(t1)
-
-            for i in range(im1.count):
-                t1s2[:, :, i] = contrast_stretch(cmap[:, :, i], stretch_type="percentile")
-
-            t2s = lin2pcstr(cmap)
-            # t2s1 = histogram_equalisation(cmap)[0]
-            t3s = contrast_stretch(cmap, stretch_type="percentile")
-
-            # t2s1 and convert(cmap1,0,255) are same
-            # cmap_new = convert(exposure.equalize_hist(convert(cmap1, 0, 255)), 0, 255)
-            f1 = histplot([t1s, t1s2, t2s, t3s], ["t1s", "t1s2", "t2s", "t3s"])
-            f1.show()
-            import pdb
-
-            pdb.set_trace()
+            cmap = contrast_stretch(cmap, stretch_type="percentile")
 
             profile = im1.profile
             outfile = "irmad_cmap.tif"
@@ -241,6 +191,5 @@ class IRMAD(MetaAlgo):
             with rio.Env():
                 with rio.open(outfile, "w", **profile) as dst:
                     for i in range(im1.count):
-                        dst.write(cmap[:, :, i], i + 1)
+                        dst.write(cmap[i], i + 1)
             logger.info("Change map written to %s", outfile)
-            # Changemap by default does not appear as it should i.e. stretching
