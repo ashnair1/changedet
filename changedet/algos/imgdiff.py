@@ -1,9 +1,5 @@
-from pathlib import Path
-
-import rasterio as rio
-
-from .base import MetaAlgo
-from .catalog import AlgoCatalog
+from changedet.algos.base import MetaAlgo
+from changedet.algos.catalog import AlgoCatalog
 
 
 @AlgoCatalog.register("imgdiff")
@@ -24,20 +20,9 @@ class ImageDiff(MetaAlgo):
             flags (dict): Flags for the algorithm
         """
         logger = flags.get("logger", None)
-        if Path(im1).exists() & Path(im2).exists():
-            im1 = rio.open(im1)
-            im2 = rio.open(im2)
-            arr1 = im1.read()
-            arr2 = im2.read()
 
-            # Calculate difference map
-            logger.info("Calculating difference map")
-            diff = arr1 - arr2
+        # Calculate difference map
+        logger.info("Calculating difference map")
+        diff = im1 - im2
 
-            outfile = "diffmap.tif"
-
-            with rio.Env():
-                profile = im1.profile
-                with rio.open(outfile, "w", **profile) as dst:
-                    dst.write(diff)
-            logger.info("Change map written to %s", outfile)
+        return diff

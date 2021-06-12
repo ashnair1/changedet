@@ -3,25 +3,31 @@ site_name: changedet
 repo_url: https://github.com/ashnair1/changedet
 repo_name: changedet
 #strict: true
+
 nav:
-  - home: index.md
-  - installation: installation.md
-  - usage: usage.md
-  - modules: api.md
-  - contributing: contributing.md
-  - authors: authors.md
-  - history: history.md
+  - Home: index.md
+  - Installation: installation.md
+  - Usage: usage.md
+  - Contributing: contributing.md
+  - Authors: authors.md
+  - History: history.md
+  - API Reference: 
+        - algos: algos.md
+        - utils: utils.md
+        
 theme:
   name: material
   language: en
   #logo: assets/logo.png
   palette:
-    primary: light blue
+    primary: blue grey
+    scheme: preference
   features:
     - navigation.indexes
     - navigation.tabs
     - navigation.instant
     - navigation.tabs.sticky
+
 markdown_extensions:
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji
@@ -44,6 +50,7 @@ markdown_extensions:
       permalink: true
       slugify: !!python/name:pymdownx.slugs.uslugify
   - meta
+
 plugins:
   - include-markdown
   - search:
@@ -51,6 +58,7 @@ plugins:
   - mkdocstrings:
       watch:
         - changedet
+
 extra:
   social:
     - icon: fontawesome/brands/twitter

@@ -1,7 +1,4 @@
-from pathlib import Path
-
 import numpy as np
-import rasterio as rio
 
 from changedet.algos.base import MetaAlgo
 from changedet.algos.catalog import AlgoCatalog
@@ -65,22 +62,10 @@ class CVA(MetaAlgo):
             flags (dict): Flags for the algorithm
         """
         logger = flags.get("logger", None)
-        if Path(im1).exists() & Path(im2).exists():
-            im1 = rio.open(im1)
-            im2 = rio.open(im2)
-            arr1 = im1.read()
-            arr2 = im2.read()
 
-            # Calculate change vectors
-            logger.info("Calculating change vectors")
-            mag, theta = calc_cvs(arr1, arr2)
-            bcm = appy_threshold(mag)
+        # Calculate change vectors
+        logger.info("Calculating change vectors")
+        mag, theta = calc_cvs(im1, im2)
+        bcm = appy_threshold(mag)
 
-            outfile = "cva_changemap.tif"
-
-            with rio.Env():
-                profile = im1.profile
-                profile["count"] = 1
-                with rio.open(outfile, "w", **profile) as dst:
-                    dst.write(bcm, 1)
-            logger.info("Change map written to %s", outfile)
+        return bcm

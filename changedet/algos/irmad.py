@@ -1,14 +1,11 @@
-from pathlib import Path
-
 import numpy as np
-import rasterio as rio
 from scipy import linalg
 from scipy.stats import chi2
 from tqdm import tqdm
 
 from changedet.algos.base import MetaAlgo
 from changedet.algos.catalog import AlgoCatalog
-from changedet.utils.image import contrast_stretch
+from changedet.utils import contrast_stretch
 
 
 def np_weight_stats(x, ws):
@@ -19,10 +16,9 @@ def np_weight_stats(x, ws):
         ws (numpy.ndarray): Weight vector
 
     Returns:
-        tuple: tuple containing:
-
-            wsigma (numpy.array): Weighted covariance matrix
-            wmean (numpy.array): Weighted mean
+        tuple:
+        - wsigma (numpy.ndarray): Weighted covariance matrix
+        - wmean (numpy.ndarray): Weighted mean
     """
     mean = np.ma.average(x, axis=0, weights=ws)
     wmean = np.expand_dims(mean.data, axis=1)  # (H*W,) -> (H*W,1)
@@ -50,10 +46,6 @@ def irmad(im1, im2, niter, sig, logger):
     itr = 0
     ch1, r1, c1 = im1.shape
     ch2, r2, c2 = im2.shape
-
-    if (ch1, r1, c1) != (ch2, r2, c2):
-        logger.critical("Image array shapes do not match")
-        raise AssertionError
 
     m = r1 * c1
     N = ch1
@@ -150,6 +142,7 @@ class IRMAD(MetaAlgo):
     and no-change.
 
     Accepted flags:
+
     - niter = Number of iterations IRMAD should be run
     - sig = Change map significance level
 
@@ -176,20 +169,7 @@ class IRMAD(MetaAlgo):
             "Running IRMAD algorithm for %d iteration(s) with significance level %f", niter, sig
         )
 
-        if Path(im1).exists() & Path(im2).exists():
-            im1 = rio.open(im1)
-            im2 = rio.open(im2)
-            arr1 = im1.read()
-            arr2 = im2.read()
+        cmap = irmad(im1, im2, niter=niter, sig=sig, logger=logger)
+        cmap = contrast_stretch(cmap, stretch_type="percentile")
 
-            cmap = irmad(arr1, arr2, niter=niter, sig=sig, logger=logger)
-            cmap = contrast_stretch(cmap, stretch_type="percentile")
-
-            profile = im1.profile
-            outfile = "irmad_cmap.tif"
-
-            with rio.Env():
-                with rio.open(outfile, "w", **profile) as dst:
-                    for i in range(im1.count):
-                        dst.write(cmap[i], i + 1)
-            logger.info("Change map written to %s", outfile)
+        return cmap
