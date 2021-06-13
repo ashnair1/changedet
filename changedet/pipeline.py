@@ -50,6 +50,7 @@ class ChangeDetPipeline:
         if not self.algo_obj:
             raise AssertionError("Algorithm not specified")
         im1a, im2a = self.read(im1, im2)
+        # TODO: Decide whether algos should have their own loggers
         kwargs.update({"logger": self.logger})
         cmap = self.algo_obj.run(im1a, im2a, kwargs)
         self.write(cmap)

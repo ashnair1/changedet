@@ -4,11 +4,16 @@ from changedet.algos.base import MetaAlgo
 from changedet.algos.catalog import AlgoCatalog
 
 
-def calc_cvs(im1, im2):
+def calc_cvs(im1, im2, distance="euclidean"):
     diffmap = im2 - im1
-    # Euclidean norm
-    # mag = np.sqrt(np.sum(np.square(diffmap), axis=0))
-    mag = np.linalg.norm(diffmap, axis=0)
+    if distance == "manhattan":
+        # Manhattan distance/L1 norm
+        # mag = np.sum(np.abs(diffmap),axis=0)
+        mag = np.linalg.norm(diffmap, ord=1, axis=0)
+    else:
+        # Euclidean distance/L2 norm
+        # mag = np.sqrt(np.sum(np.square(diffmap), axis=0))
+        mag = np.linalg.norm(diffmap, ord=2, axis=0)
     theta = np.arccos(diffmap / mag)
     return mag, theta
 
@@ -57,8 +62,8 @@ class CVA(MetaAlgo):
         """Run Image Differencing algorithm
 
         Args:
-            im1 (str): Path to image 1
-            im2 (str): Path to image 2
+            im1 (str): Image 1 array
+            im2 (str): Image 2 array
             flags (dict): Flags for the algorithm
         """
         logger = flags.get("logger", None)

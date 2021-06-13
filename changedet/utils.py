@@ -17,8 +17,8 @@ def contrast_stretch(img, *, target_type="uint8", stretch_type="minmax", percent
     Args:
         img (numpy.ndarray): Input image
         target_type (dtype): Target type of rescaled image. Defaults to "uint8".
-        stretch_type (str): Types of contrast stretching. Defaults to minmax.
-        percentile (tuple): Cut off percentiles if stretch_type == "percentile. Defaults to (2, 98).
+        stretch_type (str): Types of contrast stretching. Defaults to "minmax".
+        percentile (tuple): Cut off percentiles if stretch_type = "percentile". Defaults to (2, 98).
 
     Returns:
         scaled (numpy.ndarray): Rescaled image

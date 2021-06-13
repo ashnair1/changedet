@@ -15,8 +15,8 @@ class ImageDiff(MetaAlgo):
         """Run Image Differencing algorithm
 
         Args:
-            im1 (str): Path to image 1
-            im2 (str): Path to image 2
+            im1 (str): Image 1 array
+            im2 (str): Image 2 array
             flags (dict): Flags for the algorithm
         """
         logger = flags.get("logger", None)

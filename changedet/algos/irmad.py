@@ -133,13 +133,11 @@ def irmad(im1, im2, niter, sig, logger):
 class IRMAD(MetaAlgo):
     """IRMAD algorithm.
 
-    The core idea behind the Multivariate Alteration Detection (MAD) algorithm is to identify a
-    linear transformation that minimises the correlation between the canonical components of the two
-    images thereby maximising change information. An advantage of the MAD algorithm is that it's in-
-    variant to affine transforms of the original image intensities. Iteratively Reweighted (IR)-MAD
-    is an improvement on the MAD approach where observations are iteratively reweighted in order to
-    establish a better no change background against which allows better separability between change
-    and no-change.
+    The Multivariate Alteration Detection (MAD) algorithm aims to identify a linear transformation
+    that minimises the correlation between the canonical components of the two images thereby
+    maximising change information. Iteratively Reweighted (IR)-MAD is an improvement on the MAD
+    approach where observations are iteratively reweighted in order to establish a better no change
+    background which allows better separability between change and no-change.
 
     Accepted flags:
 
@@ -156,8 +154,8 @@ class IRMAD(MetaAlgo):
         """Run IRMAD algorithm.
 
         Args:
-            im1 (str): Path to image 1
-            im2 (str): Path to image 2
+            im1 (str): Image 1 array
+            im2 (str): Image 2 array
             flags (dict): Flags for the algorithm
 
         Run `changedet --algo irmad algo --help` for information on flags
