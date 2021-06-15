@@ -46,6 +46,9 @@ mkdocs-include-markdown-plugin  = { version = "^1.0.0", optional = true}
 mkdocs-material  = { version = "^6.1.7", optional = true}
 mkdocstrings  = { version = "^0.13.6", optional = true}
 mkdocs-material-extensions  = { version = "^1.0.1", optional = true}
+mkdocs-literate-nav = {version = "^0.4.0", extras = ["doc"]}
+mkdocs-gen-files = {version = "^0.3.3", extras = ["doc"]}
+mkdocs-section-index = {version = "^0.3.1", extras = ["doc"]}
 twine  = { version = "^3.3.0", optional = true}
 mkdocs-autorefs = {version = "0.1.1", optional = true}
 pre-commit = {version = "^2.12.0", optional = true}
@@ -65,10 +68,12 @@ dev = ["tox", "pre-commit", "virtualenv", "pip", "twine", "toml"]
 
 doc = [
     "mkdocs",
+    "mkdocs-gen-files",
     "mkdocs-include-markdown-plugin",
+    "mkdocs-literate-nav",
     "mkdocs-material",
-    "mkdocstrings",
     "mkdocs-material-extension",
+    "mkdocstrings",
     "mkdocs-autorefs"
     ]
 

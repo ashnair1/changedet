@@ -1,32 +1,38 @@
 site_name: changedet
-# site_url: http://www.jieyu.ai
+site_url: "" #http://www.jieyu.ai
 repo_url: https://github.com/ashnair1/changedet
 repo_name: changedet
+use_directory_urls: False
 #strict: true
 
-nav:
-  - Home: index.md
-  - Installation: installation.md
-  - Usage: usage.md
-  - Contributing: contributing.md
-  - Authors: authors.md
-  - History: history.md
-  - API Reference: 
-        - algos: algos.md
-        - utils: utils.md
         
+# Configuration
 theme:
   name: material
   language: en
-  #logo: assets/logo.png
-  palette:
-    primary: blue grey
-    scheme: preference
   features:
-    - navigation.indexes
+    - content.tabs.link
+    # - navigation.instant
+    - navigation.sections
     - navigation.tabs
-    - navigation.instant
-    - navigation.tabs.sticky
+    - navigation.tracking
+    - search.highlight
+    - search.share
+    - search.suggest
+  palette:
+    - scheme: slate
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+    - scheme: default
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+
 
 markdown_extensions:
   - pymdownx.emoji:
@@ -56,8 +62,24 @@ plugins:
   - search:
       lang: en
   - mkdocstrings:
+      handlers:
+        python:
+          setup_commands:
+          - import sys
+          - sys.path.append("docs")
+          selection:
+            new_path_syntax: yes
+          rendering:
+            show_root_heading: true
       watch:
         - changedet
+  - gen-files:
+      scripts:
+       - docs/gen_doc_stubs.py
+  - literate-nav:
+      nav_file: SUMMARY.md
+  - section-index
+  
 
 extra:
   social:

@@ -1,4 +1,4 @@
-# Installation
+<h1> Installation </h1>
 
 ## Stable release
 

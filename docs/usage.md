@@ -1,4 +1,4 @@
-# Usage
+<h1> Usage </h1>
 
 Changedet uses [fire](https://github.com/google/python-fire) for its CLI. Basic usage commands are given below.
 

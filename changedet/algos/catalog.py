@@ -1,18 +1,20 @@
 from collections import UserDict
 
 
-class _AlgoCatalog(UserDict):
+class AlgoCatalog_(UserDict):
     """
 
     A global dictionary that stores information about the algorithms used and
     their corresponding pipeline. It contains a mapping of algorithm names to
     the algorithm class object.
 
+    ```
     >>> from changedet.algos import AlgoCatalog
     >>> import pprint
     >>> pprint.pprint(AlgoCatalog)
     {'imgdiff': <class 'changedet.algos.imgdiff.ImageDiff'>,
     'irmad': <class 'changedet.algos.irmad.IRMAD'>}
+    ```
 
 
     """
@@ -40,10 +42,10 @@ class _AlgoCatalog(UserDict):
         return f
 
     def list(self):
-        """
-        List all registered algorithms.
+        """List all registered algorithms.
+
         Returns:
-            list[str]
+            list[str]: [description]
         """
         return list(self.keys())
 
@@ -55,7 +57,7 @@ class _AlgoCatalog(UserDict):
 
 
 # Instantiate AlgoCatalog
-AlgoCatalog = _AlgoCatalog()
+AlgoCatalog = AlgoCatalog_()
 
 
 # class MetaAlgo(type):

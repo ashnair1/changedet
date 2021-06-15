@@ -7,6 +7,28 @@ import numpy as np
 from termcolor import colored
 
 
+def np_weight_stats(x, ws):
+    """Calculate weighted mean and sample covariance.
+
+    Args:
+        x (numpy.ndarray): Data matrix of shape (N,D)
+        ws (numpy.ndarray): Weight vector of shape (N,)
+
+    Returns:
+        tuple:
+        - wsigma (numpy.ndarray): Weighted covariance matrix
+        - wmean (numpy.ndarray): Weighted mean
+    """
+    mean = np.ma.average(x, axis=0, weights=ws)
+    wmean = np.expand_dims(mean.data, axis=1)  # (H*W,) -> (H*W,1)
+    xm = x - mean
+    # np.isnan(xm).any() # Check if any element is Nan
+    # xm.mul(w, axis=0) === np.multiply(xm, ws[:, np.newaxis])
+    sigma2 = 1.0 / (ws.sum() - 1) * np.multiply(xm, ws[:, np.newaxis]).T.dot(xm)
+    wsigma = sigma2.data
+    return wsigma, wmean
+
+
 def contrast_stretch(img, *, target_type="uint8", stretch_type="minmax", percentile=(2, 98)):
     """Change image distribution to cover full range of target_type.
 

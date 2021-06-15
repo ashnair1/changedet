@@ -1,4 +1,4 @@
-# Contributing
+<h1> Contributing </h1>
 
 Contributions are welcome, and they are greatly appreciated! Every little bit
 helps, and credit will always be given.
@@ -52,20 +52,20 @@ Ready to contribute? Here's how to set up `changedet` for local development.
 2. Clone your fork locally
 
 ```
-    $ git clone git@github.com:your_name_here/changedet.git
+$ git clone git@github.com:your_name_here/changedet.git
 ```
 
 3. Ensure [poetry](https://python-poetry.org/docs/) is installed.
 4. Install dependencies and start your virtualenv:
 
 ```
-    $ poetry install -E test -E doc -E dev
+$ poetry install -E test -E doc -E dev
 ```
 
 5. Create a branch for local development:
 
 ```
-    $ git checkout -b name-of-your-bugfix-or-feature
+$ git checkout -b name-of-your-bugfix-or-feature
 ```
 
    Now you can make your changes locally.
@@ -74,15 +74,15 @@ Ready to contribute? Here's how to set up `changedet` for local development.
    tests, including testing other Python versions, with tox:
 
 ```
-    $ tox
+$ tox
 ```
 
 7. Commit your changes and push your branch to GitHub:
 
 ```
-    $ git add .
-    $ git commit -m "Your detailed description of your changes."
-    $ git push origin name-of-your-bugfix-or-feature
+$ git add .
+$ git commit -m "Your detailed description of your changes."
+$ git push origin name-of-your-bugfix-or-feature
 ```
 
 8. Submit a pull request through the GitHub website.
@@ -99,9 +99,12 @@ Before you submit a pull request, check that it meets these guidelines:
    https://github.com/ashnair1/changedet/actions
    and make sure that the tests pass for all supported Python versions.
 
-## Tips```
-    $ pytest tests.test_changedet
-```To run a subset of tests.
+## Tips
+
+To run a subset of tests.
+```
+$ pytest tests.test_changedet
+```
 
 
 ## Deploying

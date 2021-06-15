@@ -22,12 +22,32 @@ class ChangeDetPipeline:
     """
 
     def __init__(self, algo):
+        """Initialise Pipeline
+
+        Args:
+            algo (str): Change detection algorithm to be used
+        """
         self.algo_name = algo
         self.algo_obj = AlgoCatalog.get(algo)
         self.logger = init_logger("changedet")
 
     # Image loading and sanity checks should be done here
     def read(self, im1, im2):
+        """Read and prepare images
+
+        Args:
+            im1 (str1): Path to image 1
+            im2 (str1): Path to image 2
+
+        Raises:
+            AssertionError: If images are not in the same projection system
+            AssertionError: Images are not of same shape
+
+        Returns:
+            tuple:
+            - arr1 (numpy.ndarray): Image 1 array of shape (B, H, W)
+            - arr2 (numpy.ndarray): Image 2 array of shape (B, H, W)
+        """
         if Path(im1).exists() & Path(im2).exists():
             im1 = rio.open(im1)
             im2 = rio.open(im2)
@@ -47,6 +67,16 @@ class ChangeDetPipeline:
             return arr1, arr2
 
     def run(self, im1, im2, **kwargs):
+        """
+        Run change detection on images
+
+        Args:
+            im1 (numpy.ndarray): Image 1 array of shape (B, H, W)
+            im2 (numpy.ndarray): Image 2 array of shape (B, H, W)
+
+        Raises:
+            AssertionError: If no algorithm is specified
+        """
         if not self.algo_obj:
             raise AssertionError("Algorithm not specified")
         im1a, im2a = self.read(im1, im2)
@@ -56,6 +86,12 @@ class ChangeDetPipeline:
         self.write(cmap)
 
     def write(self, cmap):
+        """Write change map to disk
+
+        Args:
+            cmap (numpy.ndarray): Change map of shape (B, H, W)
+
+        """
 
         profile = self.meta1
         outfile = f"{self.algo_name}_cmap.tif"
@@ -73,4 +109,5 @@ class ChangeDetPipeline:
 
     @classmethod
     def list_algos(cls):
+        """List available algorithms"""
         print(AlgoCatalog.list())
