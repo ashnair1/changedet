@@ -7,18 +7,20 @@ import numpy as np
 from termcolor import colored
 
 
-def np_weight_stats(x, ws):
+def np_weight_stats(x, ws=None):
     """Calculate weighted mean and sample covariance.
 
     Args:
         x (numpy.ndarray): Data matrix of shape (N,D)
-        ws (numpy.ndarray): Weight vector of shape (N,)
+        ws (numpy.ndarray, optional): Weight vector of shape (N,). Defaults to None
 
     Returns:
         tuple:
         - wsigma (numpy.ndarray): Weighted covariance matrix
         - wmean (numpy.ndarray): Weighted mean
     """
+    if not ws:
+        ws = np.ones(x.shape[0])
     mean = np.ma.average(x, axis=0, weights=ws)
     wmean = np.expand_dims(mean.data, axis=1)  # (H*W,) -> (H*W,1)
     xm = x - mean
