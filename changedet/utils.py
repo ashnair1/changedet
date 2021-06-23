@@ -7,6 +7,25 @@ import numpy as np
 from termcolor import colored
 
 
+class OnlineWeightStats:
+    def __init__(self, N):
+        self.mean = np.zeros(N)
+        self.wsum = 1e-7
+        self.xpsum = np.zeros((N, N))  # Sum of cross-products
+
+    def update(self, X, weights=None):
+        if weights is None:
+            weights = np.ones(X.shape[0])
+        for d, w in zip(X, weights):
+            self.wsum += w
+            upcon = w / self.wsum
+            delta = d - self.mean
+            self.mean += delta * upcon
+            self.xpsum += np.outer(delta, delta) * w * (1 - upcon)
+
+        self.cov = self.xpsum / self.wsum
+
+
 def np_weight_stats(x, ws=None):
     """Calculate weighted mean and sample covariance.
 
@@ -18,6 +37,12 @@ def np_weight_stats(x, ws=None):
         tuple:
         - wsigma (numpy.ndarray): Weighted covariance matrix
         - wmean (numpy.ndarray): Weighted mean
+
+    To be deprecated:
+    Weighted stats can be computed purely using numpy:
+    wmean = np.average(x, axis=0, weights=ws)
+    wsigma = np.cov(x, rowvar=False, aweights=ws)
+
     """
     if not ws:
         ws = np.ones(x.shape[0])
