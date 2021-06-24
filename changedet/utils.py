@@ -37,22 +37,12 @@ def np_weight_stats(x, ws=None):
         tuple:
         - wsigma (numpy.ndarray): Weighted covariance matrix
         - wmean (numpy.ndarray): Weighted mean
-
-    To be deprecated:
-    Weighted stats can be computed purely using numpy:
-    wmean = np.average(x, axis=0, weights=ws)
-    wsigma = np.cov(x, rowvar=False, aweights=ws)
-
     """
-    if not ws:
+    if ws is None:
         ws = np.ones(x.shape[0])
     mean = np.ma.average(x, axis=0, weights=ws)
     wmean = np.expand_dims(mean.data, axis=1)  # (H*W,) -> (H*W,1)
-    xm = x - mean
-    # np.isnan(xm).any() # Check if any element is Nan
-    # xm.mul(w, axis=0) === np.multiply(xm, ws[:, np.newaxis])
-    sigma2 = 1.0 / (ws.sum() - 1) * np.multiply(xm, ws[:, np.newaxis]).T.dot(xm)
-    wsigma = sigma2.data
+    wsigma = np.cov(x, rowvar=False, aweights=ws)
     return wsigma, wmean
 
 
