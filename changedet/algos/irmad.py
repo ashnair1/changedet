@@ -25,8 +25,9 @@ class IRMAD(MetaAlgo):
 
     References
     ----------
-    - A. A. Nielsen, “The Regularized Iteratively Reweighted {MAD} Method for Change Detection in
-    Multi- and Hyperspectral Data” IEEE Trans. Image Process., vol. 16, no. 2, pp. 463–478, 2007.
+    - Nielsen, A. A. (2007). The regularized iteratively reweighted MAD method for change detection
+    in multi- and hyperspectral data. IEEE Transactions on Image Processing, 16(2):463–478. Internet
+    http://www2.compute.dtu.dk/pubdb/pubs/4695-full.html.
 
 
     """
@@ -40,9 +41,9 @@ class IRMAD(MetaAlgo):
             im2 (str): Image 2 array
             flags (dict): Flags for the algorithm
 
-        Run `changedet --algo irmad algo --help` for information on flags
+        Run `changedet --algo irmad run --help` for information on flags
         """
-        niter = flags.get("niter", 1)
+        niter = flags.get("niter", 10)
         sig = flags.get("sig", 0.0001)
         logger = flags.get("logger", None)
         logger.info(

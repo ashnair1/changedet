@@ -4,7 +4,99 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
+from scipy.stats import multivariate_normal
 from termcolor import colored
+
+
+class GMM:
+    def __init__(self, K, niter=100, tol=1e-4, reg_covar=1e-6):
+        self.n_components = K
+        self.tol = tol
+        self.niter = niter
+        self.reg_covar = reg_covar
+
+    def __repr__(self):
+        rep = f"GMM(n_components={self.n_components})"
+        return rep
+
+    def fit(self, X, resp=None, sample_inds=None):
+        """
+        Fit a GMM to X with initial responsibility resp. If sample_inds are specified, only those
+        indexes are considered.
+
+
+        Args:
+            X (numpy.ndarray): Data matrix
+            resp (numpy.ndarray, optional): Initial responsibility matrix. Defaults to None.
+            sample_inds (array-like, optional): Sample indexes to be considered. Defaults to None.
+
+        Returns:
+            resp (numpy.ndarray): Responsibility matrix
+        """
+
+        n_samples, n_features = X.shape
+
+        if resp is None:
+            resp = np.zeros((n_samples, self.n_components))
+        else:
+            wpdf = resp * resp.sum(axis=1, keepdims=True)
+
+        if sample_inds is None:
+            sample_inds = range(n_samples)
+
+        means = np.zeros((self.n_components, self.n_components))
+        cov = np.zeros((self.n_components, n_features, n_features))
+
+        # Initialise
+        # Mean -> random data point
+        # Cov -> spherical covariance
+        for k in range(self.n_components):
+            # Random point in X as mean
+            means[k] = X[np.random.choice(n_samples)]
+            cov[k] = np.eye(self.n_components)
+
+        pi = np.ones(self.n_components) / self.n_components
+        lls = []
+
+        for i in range(self.niter):
+            # resp_old = resp + 0.0
+            if i > 0:
+                # E step
+                for k in range(self.n_components):
+                    resp[sample_inds, k] = pi[k] * multivariate_normal.pdf(
+                        X[sample_inds], means[k], cov[k]
+                    )
+                wpdf = resp.copy()  # For log likelihood computation
+                # Safe normalisation
+                a = np.sum(resp, axis=1, keepdims=True)
+                idx = np.where(a == 0)[0]
+                a[idx] = 1.0
+                resp = resp / a
+                # resp = resp / resp.sum(axis=1, keepdims=True)
+
+            # M step
+            for k in range(self.n_components):
+                nk = resp[:, k].sum()
+                pi[k] = nk / n_samples
+                means[k] = resp[:, k].dot(X) / nk
+                delta = X - means[k]
+                Rdelta = np.expand_dims(resp[:, k], -1) * delta
+                cov[k] = Rdelta.T.dot(delta) / nk + np.eye(self.n_components) * self.reg_covar
+
+            # resp_flat = resp.ravel()
+            # resp_old_flat = resp_old.ravel()
+            # idx = np.where(resp.flat)[0]
+            # ll = np.sum(resp_old_flat[idx] * np.log(resp_flat[idx]))
+            ll = np.log(wpdf.sum(axis=1)).sum()
+            lls.append(ll)
+
+            # print(f"Log-likelihood:{ll}")
+            if i > 0:
+                if np.abs(lls[i] - lls[i - 1]) < self.tol:
+                    # print("Exiting")
+                    break
+
+        return resp
 
 
 class OnlineWeightStats:

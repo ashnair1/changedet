@@ -32,12 +32,13 @@ class ChangeDetPipeline:
         self.logger = init_logger("changedet")
 
     # Image loading and sanity checks should be done here
-    def read(self, im1, im2):
+    def read(self, im1, im2, band):
         """Read and prepare images
 
         Args:
-            im1 (str1): Path to image 1
-            im2 (str1): Path to image 2
+            im1 (str): Path to image 1
+            im2 (str): Path to image 2
+            band (int): Band selection
 
         Raises:
             AssertionError: If images are not in the same projection system
@@ -54,8 +55,13 @@ class ChangeDetPipeline:
             # Will be necessary for writing
             self.meta1 = im1.profile
             self.meta2 = im2.profile
-            arr1 = im1.read()
-            arr2 = im2.read()
+
+            if band == -1:
+                arr1 = im1.read()
+                arr2 = im2.read()
+            else:
+                arr1 = np.expand_dims(im1.read(band), axis=0)
+                arr2 = np.expand_dims(im2.read(band), axis=0)
 
             if im1.crs != im2.crs:
                 self.logger.critical("Images are not in the same projection system.")
@@ -66,22 +72,22 @@ class ChangeDetPipeline:
                 raise AssertionError
             return arr1, arr2
 
-    def run(self, im1, im2, **kwargs):
+    def run(self, im1, im2, band=-1, **kwargs):
         """
         Run change detection on images
 
         Args:
-            im1 (numpy.ndarray): Image 1 array of shape (B, H, W)
-            im2 (numpy.ndarray): Image 2 array of shape (B, H, W)
+            im1 (str): Path to image 1
+            im2 (str): Path to image 2
 
         Raises:
             AssertionError: If no algorithm is specified
         """
         if not self.algo_obj:
             raise AssertionError("Algorithm not specified")
-        im1a, im2a = self.read(im1, im2)
+        im1a, im2a = self.read(im1, im2, band)
         # TODO: Decide whether algos should have their own loggers
-        kwargs.update({"logger": self.logger})
+        kwargs.update({"logger": self.logger, "band": band})
         cmap = self.algo_obj.run(im1a, im2a, kwargs)
         self.write(cmap)
 
