@@ -10,7 +10,7 @@ from changedet.utils import contrast_stretch, np_weight_stats
 
 @AlgoCatalog.register("irmad")
 class IRMAD(MetaAlgo):
-    """Multivariate Alteration Detection
+    """Iteratively Reweighted Multivariate Alteration Detection
 
     The Multivariate Alteration Detection (MAD) algorithm aims to identify a linear transformation
     that minimises the correlation between the canonical components of the two images thereby
