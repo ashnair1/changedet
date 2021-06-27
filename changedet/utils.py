@@ -8,6 +8,33 @@ from scipy.stats import multivariate_normal
 from termcolor import colored
 
 
+class ICM:
+    def __init__(self, mode="hist"):
+        self.mode = mode
+        self.gmm = GMM(3)
+
+    def prepare(self, im1, im2):
+        # Linear stretch
+        im1 = contrast_stretch(im1, stretch_type="percentile")
+        im2 = contrast_stretch(im2, stretch_type="percentile")
+
+        ch1, r1, c1 = im1.shape
+        ch2, r2, c2 = im2.shape
+
+        m = r1 * c1
+        N = ch1
+
+        im1r = im1.reshape(N, m).T
+        im2r = im2.reshape(N, m).T
+
+        diff = np.abs(im1r - im2r)
+
+        _, mean, cov, pi = self.gmm.fit(diff)
+        import pdb
+
+        pdb.set_trace()
+
+
 class GMM:
     def __init__(self, K, niter=100, tol=1e-4, reg_covar=1e-6):
         self.n_components = K
@@ -18,6 +45,54 @@ class GMM:
     def __repr__(self):
         rep = f"GMM(n_components={self.n_components})"
         return rep
+
+    def e_step(self, X, resp, means, cov, pi, sample_inds):
+        """Expectation
+
+        Args:
+            X ([type]): [description]
+            resp ([type]): [description]
+            means ([type]): [description]
+            cov ([type]): [description]
+            pi ([type]): [description]
+            sample_inds ([type]): [description]
+
+        Returns:
+            [type]: [description]
+        """
+        for k in range(self.n_components):
+            resp[sample_inds, k] = pi[k] * multivariate_normal.pdf(X[sample_inds], means[k], cov[k])
+        wpdf = resp.copy()  # For log likelihood computation
+        # Safe normalisation
+        a = np.sum(resp, axis=1, keepdims=True)
+        idx = np.where(a == 0)[0]
+        a[idx] = 1.0
+        resp = resp / a
+        return resp, wpdf
+
+    def m_step(self, X, resp, means, cov, pi):
+        """Maximisation step
+
+        Args:
+            X ([type]): [description]
+            resp ([type]): [description]
+            means ([type]): [description]
+            cov ([type]): [description]
+            pi ([type]): [description]
+
+        Returns:
+            [type]: [description]
+        """
+        # M step
+        n_samples, n_features = X.shape
+        for k in range(self.n_components):
+            nk = resp[:, k].sum()
+            pi[k] = nk / n_samples
+            means[k] = resp[:, k].dot(X) / nk
+            delta = X - means[k]
+            Rdelta = np.expand_dims(resp[:, k], -1) * delta
+            cov[k] = Rdelta.T.dot(delta) / nk + np.eye(n_features) * self.reg_covar
+        return means, pi, cov
 
     def fit(self, X, resp=None, sample_inds=None):
         """
@@ -36,15 +111,10 @@ class GMM:
 
         n_samples, n_features = X.shape
 
-        if resp is None:
-            resp = np.zeros((n_samples, self.n_components))
-        else:
-            wpdf = resp * resp.sum(axis=1, keepdims=True)
-
         if sample_inds is None:
             sample_inds = range(n_samples)
 
-        means = np.zeros((self.n_components, self.n_components))
+        means = np.zeros((self.n_components, n_features))
         cov = np.zeros((self.n_components, n_features, n_features))
 
         # Initialise
@@ -53,35 +123,25 @@ class GMM:
         for k in range(self.n_components):
             # Random point in X as mean
             means[k] = X[np.random.choice(n_samples)]
-            cov[k] = np.eye(self.n_components)
+            cov[k] = np.eye(n_features)
 
         pi = np.ones(self.n_components) / self.n_components
         lls = []
 
+        if resp is None:
+            resp = np.random.rand(n_samples, self.n_components)
+            resp /= resp.sum(axis=1, keepdims=True)
+        else:
+            means, pi, cov = self.m_step(X, resp, means, cov, pi)
+
+        # EM algorithm
         for i in range(self.niter):
             # resp_old = resp + 0.0
-            if i > 0:
-                # E step
-                for k in range(self.n_components):
-                    resp[sample_inds, k] = pi[k] * multivariate_normal.pdf(
-                        X[sample_inds], means[k], cov[k]
-                    )
-                wpdf = resp.copy()  # For log likelihood computation
-                # Safe normalisation
-                a = np.sum(resp, axis=1, keepdims=True)
-                idx = np.where(a == 0)[0]
-                a[idx] = 1.0
-                resp = resp / a
-                # resp = resp / resp.sum(axis=1, keepdims=True)
 
+            # E step
+            resp, wpdf = self.e_step(X, resp, means, cov, pi, sample_inds)
             # M step
-            for k in range(self.n_components):
-                nk = resp[:, k].sum()
-                pi[k] = nk / n_samples
-                means[k] = resp[:, k].dot(X) / nk
-                delta = X - means[k]
-                Rdelta = np.expand_dims(resp[:, k], -1) * delta
-                cov[k] = Rdelta.T.dot(delta) / nk + np.eye(self.n_components) * self.reg_covar
+            means, pi, cov = self.m_step(X, resp, means, cov, pi)
 
             # resp_flat = resp.ravel()
             # resp_old_flat = resp_old.ravel()
@@ -91,12 +151,12 @@ class GMM:
             lls.append(ll)
 
             # print(f"Log-likelihood:{ll}")
-            if i > 0:
+            if i > 1:
                 if np.abs(lls[i] - lls[i - 1]) < self.tol:
                     # print("Exiting")
                     break
 
-        return resp
+        return resp, means, cov, pi
 
 
 class OnlineWeightStats:

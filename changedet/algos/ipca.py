@@ -91,7 +91,7 @@ class IteratedPCA(MetaAlgo):
                     for j in range(2):
                         U[:, j] = U[:, j] / np.sum(U, 1)
 
-                r = gmm.fit(X, U, unfrozen)
+                r, _, _, _ = gmm.fit(X, U, unfrozen)
 
                 tmp = r[:, 0] + 1 - 1
                 ows.update(X, tmp)

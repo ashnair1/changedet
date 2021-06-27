@@ -5,7 +5,7 @@ from tqdm import tqdm
 
 from changedet.algos.base import MetaAlgo
 from changedet.algos.catalog import AlgoCatalog
-from changedet.utils import contrast_stretch, np_weight_stats
+from changedet.utils import ICM, contrast_stretch, np_weight_stats
 
 
 @AlgoCatalog.register("irmad")
@@ -49,6 +49,9 @@ class IRMAD(MetaAlgo):
         logger.info(
             "Running IRMAD algorithm for %d iteration(s) with significance level %f", niter, sig
         )
+
+        icm = ICM()
+        icm.prepare(im1, im2)
 
         ch1, r1, c1 = im1.shape
         ch2, r2, c2 = im2.shape
