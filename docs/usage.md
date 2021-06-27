@@ -12,7 +12,7 @@ changedet --algo imgdiff run sample1.tif sample2.tif
 2. Get more information on algorithm used
 
 ```
-changedet --algo imgdiff algo --help
+changedet --algo imgdiff algo_obj --help
 ```
 
 3. Get more info on changedet pipeline

@@ -12,8 +12,10 @@ class AlgoCatalog_(UserDict):
     >>> from changedet.algos import AlgoCatalog
     >>> import pprint
     >>> pprint.pprint(AlgoCatalog)
-    {'imgdiff': <class 'changedet.algos.imgdiff.ImageDiff'>,
-    'irmad': <class 'changedet.algos.irmad.IRMAD'>}
+    {'cva': <class 'changedet.algos.cva.CVA'>,
+     'imgdiff': <class 'changedet.algos.imgdiff.ImageDiff'>,
+     'ipca': <class 'changedet.algos.ipca.IteratedPCA'>,
+     'irmad': <class 'changedet.algos.irmad.IRMAD'>}
     ```
 
 

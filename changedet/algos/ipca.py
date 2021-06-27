@@ -38,6 +38,8 @@ class IteratedPCA(MetaAlgo):
             im1 (str): Image 1 array
             im2 (str): Image 2 array
             flags (dict): Flags for the algorithm
+
+        Run `changedet --algo ipca algo --help` for information on flags
         """
         niter = flags.get("niter", 5)
         band_idx = flags.get("band")

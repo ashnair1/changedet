@@ -42,7 +42,7 @@ class ChangeDetPipeline:
 
         Raises:
             AssertionError: If images are not in the same projection system
-            AssertionError: Images are not of same shape
+            AssertionError: If images are not of same shape
 
         Returns:
             tuple:
