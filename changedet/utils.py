@@ -30,9 +30,15 @@ class ICM:
         diff = np.abs(im1r - im2r)
 
         _, mean, cov, pi = self.gmm.fit(diff)
-        import pdb
+        # idx = np.argsort(mean, axis=0)
+        # cov = cov[idx]
+        # pi = pi[idx]
 
-        pdb.set_trace()
+        # icov = np.linalg.inv(cov)
+        # det = np.linalg.det(cov)
+        # logprior = np.log(pi)
+
+        # import pdb; pdb.set_trace()
 
 
 class GMM:
@@ -47,18 +53,25 @@ class GMM:
         return rep
 
     def e_step(self, X, resp, means, cov, pi, sample_inds):
-        """Expectation
+        """Expectation step
+
+        Shape notation:
+        - N: number of samples
+        - D: number of features
+        - K: number of mixture components
 
         Args:
-            X ([type]): [description]
-            resp ([type]): [description]
-            means ([type]): [description]
-            cov ([type]): [description]
-            pi ([type]): [description]
-            sample_inds ([type]): [description]
+            X (numpy.ndarray): Data matrix of shape (N, D)
+            resp (numpy.ndarray): Responsibility matrix of shape (N,K)
+            means (numpy.ndarray): Means array of shape (D, K)
+            cov (numpy.ndarray): Covariance matrix of shape (K,D,D) - full
+            pi (numpy.ndarray): Mixture weights of shape (N,)
+            sample_inds (array-like): Samples to be considered
 
         Returns:
-            [type]: [description]
+            tuple:
+            - resp (numpy.ndarray): Responsibility matrix of shape (N,K)
+            - wpdf (numpy.ndarray): Unnormalised responsibility matrix of shape (N,K)
         """
         for k in range(self.n_components):
             resp[sample_inds, k] = pi[k] * multivariate_normal.pdf(X[sample_inds], means[k], cov[k])
@@ -73,15 +86,23 @@ class GMM:
     def m_step(self, X, resp, means, cov, pi):
         """Maximisation step
 
+        Shape notation:
+        - N: number of samples
+        - D: number of features
+        - K: number of mixture components
+
         Args:
-            X ([type]): [description]
-            resp ([type]): [description]
-            means ([type]): [description]
-            cov ([type]): [description]
-            pi ([type]): [description]
+            X (numpy.ndarray): Data matrix of shape (N, D)
+            resp (numpy.ndarray): Responsibility matrix of shape (N,K)
+            means (numpy.ndarray): Means array of shape (D, K)
+            cov (numpy.ndarray): Covariance matrix of shape (K,D,D) - full
+            pi (numpy.ndarray): Mixture weights of shape (N,)
 
         Returns:
-            [type]: [description]
+            tuple:
+            - means (numpy.ndarray): Means array of shape (D, K)
+            - cov (numpy.ndarray): Covariance matrix of shape (K,D,D) - full
+            - pi (numpy.ndarray): Mixture weights of shape (N,)
         """
         # M step
         n_samples, n_features = X.shape
@@ -90,8 +111,7 @@ class GMM:
             pi[k] = nk / n_samples
             means[k] = resp[:, k].dot(X) / nk
             delta = X - means[k]
-            Rdelta = np.expand_dims(resp[:, k], -1) * delta
-            cov[k] = Rdelta.T.dot(delta) / nk + np.eye(n_features) * self.reg_covar
+            cov[k] = np.dot(resp[:, k] * delta.T, delta) / nk + np.eye(n_features) * self.reg_covar
         return means, pi, cov
 
     def fit(self, X, resp=None, sample_inds=None):
