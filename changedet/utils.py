@@ -56,9 +56,10 @@ class GMM:
         """Expectation step
 
         Shape notation:
-        - N: number of samples
-        - D: number of features
-        - K: number of mixture components
+
+            N: number of samples
+            D: number of features
+            K: number of mixture components
 
         Args:
             X (numpy.ndarray): Data matrix of shape (N, D)
@@ -87,9 +88,10 @@ class GMM:
         """Maximisation step
 
         Shape notation:
-        - N: number of samples
-        - D: number of features
-        - K: number of mixture components
+
+            N: number of samples
+            D: number of features
+            K: number of mixture components
 
         Args:
             X (numpy.ndarray): Data matrix of shape (N, D)
