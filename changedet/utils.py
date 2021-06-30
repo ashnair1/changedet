@@ -41,7 +41,7 @@ class ICM:
         # import pdb; pdb.set_trace()
 
 
-def estimate_full_covariance(X, resp, nk, means, reg_covar, cov):
+def estimate_full_covariance(X, resp, nk, means, reg_covar):
     """Estimate full covariance matrix
 
     Shape notation:
@@ -57,12 +57,12 @@ def estimate_full_covariance(X, resp, nk, means, reg_covar, cov):
         means (numpy.ndarray): Means array of shape (K, D)
         reg_covar (float): Regularisation added to diagonal of covariance matrix
         to ensure positive definiteness
-        cov (numpy.ndarray): Covariance matrix of shape (K,D,D)
 
     Returns:
         cov (numpy.ndarray): Covariance matrix of shape (K,D,D)
     """
     n_components, n_features = means.shape
+    cov = np.empty((n_components, n_features, n_features))
     for k in range(n_components):
         delta = X - means[k]
         cov[k] = np.dot(resp[:, k] * delta.T, delta) / nk[k] + np.eye(n_features) * reg_covar
@@ -113,7 +113,7 @@ class GMM:
         resp = resp / a
         return resp, wpdf
 
-    def m_step(self, X, resp, cov):
+    def m_step(self, X, resp):
         """Maximisation step
 
         Shape notation:
@@ -125,7 +125,6 @@ class GMM:
         Args:
             X (numpy.ndarray): Data matrix of shape (N, D)
             resp (numpy.ndarray): Responsibility matrix of shape (N,K)
-            cov (numpy.ndarray): Covariance matrix of shape (K,D,D) - full
 
         Returns:
             tuple:
@@ -141,7 +140,7 @@ class GMM:
 
         # Estimate full covariance
         if self.cov_type == "full":
-            cov = estimate_full_covariance(X, resp, nk, means, self.reg_covar, cov)
+            cov = estimate_full_covariance(X, resp, nk, means, self.reg_covar)
         else:
             raise Exception
 
@@ -185,7 +184,7 @@ class GMM:
             resp = np.random.rand(n_samples, self.n_components)
             resp /= resp.sum(axis=1, keepdims=True)
         else:
-            means, pi, cov = self.m_step(X, resp, cov)
+            means, pi, cov = self.m_step(X, resp)
 
         # EM algorithm
         for i in range(self.niter):
@@ -194,7 +193,7 @@ class GMM:
             # E step
             resp, wpdf = self.e_step(X, resp, means, cov, pi, sample_inds)
             # M step
-            means, pi, cov = self.m_step(X, resp, cov)
+            means, pi, cov = self.m_step(X, resp)
 
             # resp_flat = resp.ravel()
             # resp_old_flat = resp_old.ravel()
