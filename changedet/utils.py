@@ -84,7 +84,7 @@ class GMM:
         resp = resp / a
         return resp, wpdf
 
-    def m_step(self, X, resp, means, cov, pi):
+    def m_step(self, X, resp, cov):
         """Maximisation step
 
         Shape notation:
@@ -96,9 +96,7 @@ class GMM:
         Args:
             X (numpy.ndarray): Data matrix of shape (N, D)
             resp (numpy.ndarray): Responsibility matrix of shape (N,K)
-            means (numpy.ndarray): Means array of shape (D, K)
             cov (numpy.ndarray): Covariance matrix of shape (K,D,D) - full
-            pi (numpy.ndarray): Mixture weights of shape (N,)
 
         Returns:
             tuple:
@@ -108,12 +106,16 @@ class GMM:
         """
         # M step
         n_samples, n_features = X.shape
+        nk = resp.sum(axis=0)
+        means = np.dot(resp.T, X) / nk[:, np.newaxis]
+        pi = nk / n_samples
+
+        # Estimate full covariance
         for k in range(self.n_components):
-            nk = resp[:, k].sum()
-            pi[k] = nk / n_samples
-            means[k] = resp[:, k].dot(X) / nk
             delta = X - means[k]
-            cov[k] = np.dot(resp[:, k] * delta.T, delta) / nk + np.eye(n_features) * self.reg_covar
+            cov[k] = (
+                np.dot(resp[:, k] * delta.T, delta) / nk[k] + np.eye(n_features) * self.reg_covar
+            )
         return means, pi, cov
 
     def fit(self, X, resp=None, sample_inds=None):
@@ -154,7 +156,7 @@ class GMM:
             resp = np.random.rand(n_samples, self.n_components)
             resp /= resp.sum(axis=1, keepdims=True)
         else:
-            means, pi, cov = self.m_step(X, resp, means, cov, pi)
+            means, pi, cov = self.m_step(X, resp, cov)
 
         # EM algorithm
         for i in range(self.niter):
@@ -163,7 +165,7 @@ class GMM:
             # E step
             resp, wpdf = self.e_step(X, resp, means, cov, pi, sample_inds)
             # M step
-            means, pi, cov = self.m_step(X, resp, means, cov, pi)
+            means, pi, cov = self.m_step(X, resp, cov)
 
             # resp_flat = resp.ravel()
             # resp_old_flat = resp_old.ravel()
