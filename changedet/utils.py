@@ -11,7 +11,7 @@ from termcolor import colored
 class ICM:
     def __init__(self, mode="hist"):
         self.mode = mode
-        self.gmm = GMM(3)
+        self.gmm = GMM(3, cov_type="tied")
 
     def prepare(self, im1, im2):
         # Linear stretch
@@ -66,6 +66,36 @@ def estimate_full_covariance(X, resp, nk, means, reg_covar):
     for k in range(n_components):
         delta = X - means[k]
         cov[k] = np.dot(resp[:, k] * delta.T, delta) / nk[k] + np.eye(n_features) * reg_covar
+    return cov
+
+
+def estimate_tied_covariance(X, resp, nk, means, reg_covar):
+    """Estimate tied covariance matrix
+
+    Shape notation:
+
+            N: number of samples
+            D: number of features
+            K: number of mixture components
+
+    Args:
+        X (numpy.ndarray): Data matrix of shape (N, D)
+        resp (numpy.ndarray): Responsibility matrix of shape (N,K)
+        nk (numpy.ndarray): Total responsibility per cluster of shape (K,)
+        means (numpy.ndarray): Means array of shape (K, D)
+        reg_covar (float): Regularisation added to diagonal of covariance matrix \
+            to ensure positive definiteness
+
+    Returns:
+        cov (numpy.ndarray): Covariance matrix of shape (K,D,D)
+    """
+    n_components, n_features = means.shape
+    avg_X2 = np.dot(X.T, X)
+    avg_means2 = np.dot(nk * means.T, means)
+    cov = (avg_X2 - avg_means2) / nk.sum() + np.eye(n_features) * reg_covar
+
+    # Convert (D,D) cov to (K,D,D) cov where all K cov matrices are equal
+    cov = np.repeat(cov[np.newaxis], n_components, axis=0)
     return cov
 
 
@@ -179,11 +209,10 @@ class GMM:
         means = np.dot(resp.T, X) / nk[:, np.newaxis]
         pi = nk / n_samples
 
-        # Estimate full covariance
-        if self.cov_type == "full":
-            cov = estimate_full_covariance(X, resp, nk, means, self.reg_covar)
+        if self.cov_type == "tied":
+            cov = estimate_tied_covariance(X, resp, nk, means, self.reg_covar)
         else:
-            raise Exception
+            cov = estimate_full_covariance(X, resp, nk, means, self.reg_covar)
 
         return means, pi, cov
 
