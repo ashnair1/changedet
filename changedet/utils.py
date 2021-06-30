@@ -55,8 +55,8 @@ def estimate_full_covariance(X, resp, nk, means, reg_covar):
         resp (numpy.ndarray): Responsibility matrix of shape (N,K)
         nk (numpy.ndarray): Total responsibility per cluster of shape (K,)
         means (numpy.ndarray): Means array of shape (K, D)
-        reg_covar (float): Regularisation added to diagonal of covariance matrix
-        to ensure positive definiteness
+        reg_covar (float): Regularisation added to diagonal of covariance matrix \
+            to ensure positive definiteness
 
     Returns:
         cov (numpy.ndarray): Covariance matrix of shape (K,D,D)
@@ -76,6 +76,47 @@ class GMM:
         self.tol = tol
         self.niter = niter
         self.reg_covar = reg_covar
+
+    def init_cluster_params(self, X):
+        """Initialse cluster parameters
+
+        Shape notation:
+
+            N: number of samples
+            D: number of features
+            K: number of mixture components
+
+        Initialisation method:
+
+            Initialise means to a random data point in X
+            Initialse cov to a spherical covariance matrix of variance 1
+            Initialse pi to uniform distribution
+
+        Args:
+            X (numpy.ndarray): Data matrix of shape (N,D)
+
+        Returns:
+            tuple:
+            - means (numpy.ndarray): Means array of shape (K, D)
+            - cov (numpy.ndarray): Covariance matrix of shape (K,D,D)
+            - pi (numpy.ndarray): Mixture weights of shape (K,)
+        """
+
+        n_samples, n_features = X.shape
+        means = np.zeros((self.n_components, n_features))
+        cov = np.zeros((self.n_components, n_features, n_features))
+
+        # Initialise
+        # Mean -> random data point
+        # Cov -> spherical covariance - all clusters have same diagonal cov
+        # matrix and diagonal elements are all equal
+        for k in range(self.n_components):
+            means[k] = X[np.random.choice(n_samples)]
+            cov[k] = np.eye(n_features)
+
+        pi = np.ones(self.n_components) / self.n_components
+
+        return means, cov, pi
 
     def __repr__(self):
         rep = f"GMM(n_components={self.n_components})"
@@ -166,18 +207,7 @@ class GMM:
         if sample_inds is None:
             sample_inds = range(n_samples)
 
-        means = np.zeros((self.n_components, n_features))
-        cov = np.zeros((self.n_components, n_features, n_features))
-
-        # Initialise
-        # Mean -> random data point
-        # Cov -> spherical covariance
-        for k in range(self.n_components):
-            # Random point in X as mean
-            means[k] = X[np.random.choice(n_samples)]
-            cov[k] = np.eye(n_features)
-
-        pi = np.ones(self.n_components) / self.n_components
+        means, cov, pi = self.init_cluster_params(X)
         lls = []
 
         if resp is None:
