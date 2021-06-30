@@ -41,9 +41,38 @@ class ICM:
         # import pdb; pdb.set_trace()
 
 
+def estimate_full_covariance(X, resp, nk, means, reg_covar, cov):
+    """Estimate full covariance matrix
+
+    Shape notation:
+
+            N: number of samples
+            D: number of features
+            K: number of mixture components
+
+    Args:
+        X (numpy.ndarray): Data matrix of shape (N, D)
+        resp (numpy.ndarray): Responsibility matrix of shape (N,K)
+        nk (numpy.ndarray): Total responsibility per cluster of shape (K,)
+        means (numpy.ndarray): Means array of shape (K, D)
+        reg_covar (float): Regularisation added to diagonal of covariance matrix
+        to ensure positive definiteness
+        cov (numpy.ndarray): Covariance matrix of shape (K,D,D)
+
+    Returns:
+        cov (numpy.ndarray): Covariance matrix of shape (K,D,D)
+    """
+    n_components, n_features = means.shape
+    for k in range(n_components):
+        delta = X - means[k]
+        cov[k] = np.dot(resp[:, k] * delta.T, delta) / nk[k] + np.eye(n_features) * reg_covar
+    return cov
+
+
 class GMM:
-    def __init__(self, K, niter=100, tol=1e-4, reg_covar=1e-6):
+    def __init__(self, K, niter=100, *, cov_type="full", tol=1e-4, reg_covar=1e-6):
         self.n_components = K
+        self.cov_type = cov_type
         self.tol = tol
         self.niter = niter
         self.reg_covar = reg_covar
@@ -64,9 +93,9 @@ class GMM:
         Args:
             X (numpy.ndarray): Data matrix of shape (N, D)
             resp (numpy.ndarray): Responsibility matrix of shape (N,K)
-            means (numpy.ndarray): Means array of shape (D, K)
+            means (numpy.ndarray): Means array of shape (K, D)
             cov (numpy.ndarray): Covariance matrix of shape (K,D,D) - full
-            pi (numpy.ndarray): Mixture weights of shape (N,)
+            pi (numpy.ndarray): Mixture weights of shape (K,)
             sample_inds (array-like): Samples to be considered
 
         Returns:
@@ -100,9 +129,9 @@ class GMM:
 
         Returns:
             tuple:
-            - means (numpy.ndarray): Means array of shape (D, K)
+            - means (numpy.ndarray): Means array of shape (K, D)
             - cov (numpy.ndarray): Covariance matrix of shape (K,D,D) - full
-            - pi (numpy.ndarray): Mixture weights of shape (N,)
+            - pi (numpy.ndarray): Mixture weights of shape (K,)
         """
         # M step
         n_samples, n_features = X.shape
@@ -111,11 +140,11 @@ class GMM:
         pi = nk / n_samples
 
         # Estimate full covariance
-        for k in range(self.n_components):
-            delta = X - means[k]
-            cov[k] = (
-                np.dot(resp[:, k] * delta.T, delta) / nk[k] + np.eye(n_features) * self.reg_covar
-            )
+        if self.cov_type == "full":
+            cov = estimate_full_covariance(X, resp, nk, means, self.reg_covar, cov)
+        else:
+            raise Exception
+
         return means, pi, cov
 
     def fit(self, X, resp=None, sample_inds=None):
