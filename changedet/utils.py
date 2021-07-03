@@ -11,7 +11,7 @@ from termcolor import colored
 class ICM:
     def __init__(self, mode="hist"):
         self.mode = mode
-        self.gmm = GMM(3, cov_type="tied")
+        self.gmm = GMM(3, cov_type="full")
 
     def prepare(self, im1, im2):
         # Linear stretch
@@ -28,16 +28,31 @@ class ICM:
         im2r = im2.reshape(N, m).T
 
         diff = np.abs(im1r - im2r)
+        # Max difference
+        diff = diff.max(axis=1)[:, np.newaxis]
 
         _, mean, cov, pi = self.gmm.fit(diff)
-        # idx = np.argsort(mean, axis=0)
-        # cov = cov[idx]
-        # pi = pi[idx]
 
-        # icov = np.linalg.inv(cov)
-        # det = np.linalg.det(cov)
-        # logprior = np.log(pi)
+        mean = mean.flatten()
+        cov = cov.flatten()
+        pi = pi.flatten()
 
+        # Sort in ascending order
+        idx = np.argsort(mean)
+        mean = mean[idx]
+        cov = cov[idx]
+        pi = pi[idx]
+
+        a = cov[1] - cov[0]
+        b = -2 * (mean[0] * cov[1] - mean[1] * cov[0])
+        c = (
+            mean[0] ** 2 * cov[1]
+            + mean[1] ** 2 * cov[0]
+            + cov[0] * cov[1] * (np.log(pi[0] / pi[1]) - 0.5 * np.log(cov[0] / cov[1]))
+        )
+        roots = np.roots([a, b, c])
+        _ = roots
+        # What if the threshold is complex?
         # import pdb; pdb.set_trace()
 
 
@@ -149,8 +164,7 @@ class GMM:
         return means, cov, pi
 
     def __repr__(self):
-        rep = f"GMM(n_components={self.n_components})"
-        return rep
+        return f"GMM(n_components={self.n_components})"
 
     def e_step(self, X, resp, means, cov, pi, sample_inds):
         """Expectation step
@@ -262,10 +276,9 @@ class GMM:
             lls.append(ll)
 
             # print(f"Log-likelihood:{ll}")
-            if i > 1:
-                if np.abs(lls[i] - lls[i - 1]) < self.tol:
-                    # print("Exiting")
-                    break
+            if i > 1 and np.abs(lls[i] - lls[i - 1]) < self.tol:
+                # print("Exiting")
+                break
 
         return resp, means, cov, pi
 
@@ -340,8 +353,7 @@ def contrast_stretch(img, *, target_type="uint8", stretch_type="minmax", percent
     a = (maxout - minout) / (upper - lower)
     b = minout - a * lower
     g = a * img + b
-    scaled = np.clip(g, minout, maxout)
-    return scaled
+    return np.clip(g, minout, maxout)
 
 
 def histogram_equalisation(im, nbr_bins=256):
@@ -368,7 +380,7 @@ class _ColorFormatter(logging.Formatter):
         msg = "%(message)s"
         if record.levelno == logging.WARNING:
             fmt = date + " " + colored("WRN", "red", attrs=["blink"]) + " " + msg
-        elif record.levelno == logging.ERROR or record.levelno == logging.CRITICAL:
+        elif record.levelno in [logging.ERROR, logging.CRITICAL]:
             fmt = date + " " + colored("ERR", "red", attrs=["blink", "underline"]) + " " + msg
         elif record.levelno == logging.DEBUG:
             fmt = date + " " + colored("DBG", "yellow", attrs=["blink"]) + " " + msg
@@ -401,10 +413,7 @@ def init_logger(name="logger", output=None):
     # Output logs to file
     if output:
         output = Path(output)
-        if output.suffix in [".txt", ".log"]:
-            logfile = output
-        else:
-            logfile = output / "log.txt"
+        logfile = output if output.suffix in [".txt", ".log"] else output / "log.txt"
         Path.mkdir(output.parent)
 
         filehandler = logging.FileHandler(logfile)

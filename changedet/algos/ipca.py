@@ -52,6 +52,7 @@ class IteratedPCA(MetaAlgo):
         bands, rows, cols = im1.shape
 
         cmaps = []
+        n_clusters = 2
         for band in range(bands):
             # TODO: Allow band sublist
             if band_idx == -1:
@@ -75,14 +76,12 @@ class IteratedPCA(MetaAlgo):
 
             pcs = X @ eigvecs
 
-            n_clusters = 2
             gmm = GMM(n_clusters, 60)
 
-            itr = 0
-            while itr < niter:
+            for itr in range(niter):
                 # Calculate responsibility matrix
                 U = np.random.rand(X.shape[0], n_clusters)
-                for k in range(n_clusters):
+                for _ in range(n_clusters):
                     sigma = np.sqrt(eivals[1])
                     unfrozen = np.where(np.abs(pcs[:, 1]) >= sigma)[0]
                     frozen = np.where(np.abs(pcs[:, 1]) < sigma)[0]
@@ -100,8 +99,6 @@ class IteratedPCA(MetaAlgo):
                 eigvecs = eigvecs[:, ::-1]
 
                 pcs = X @ eigvecs
-
-                itr += 1
 
             cmap = np.reshape(r[:, 1], (rows, cols))
             cmaps.append(cmap)

@@ -12,4 +12,3 @@ class MetaAlgo(metaclass=ABCMeta):
         Every algorithm will have at least one keyword argument - the global logger
         """
         assert kwargs is True
-        pass
