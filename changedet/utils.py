@@ -43,17 +43,17 @@ class ICM:
         cov = cov[idx]
         pi = pi[idx]
 
+        # Refer https://gist.github.com/ashnair1/433ffbc1e747f80067f8a0439e346279
+        # for derivation of the equation
         a = cov[1] - cov[0]
         b = -2 * (mean[0] * cov[1] - mean[1] * cov[0])
         c = (
             mean[0] ** 2 * cov[1]
-            + mean[1] ** 2 * cov[0]
-            + cov[0] * cov[1] * (np.log(pi[0] / pi[1]) - 0.5 * np.log(cov[0] / cov[1]))
+            - mean[1] ** 2 * cov[0]
+            + 2 * np.log((cov[0] * pi[1]) / (cov[1] * pi[0])) * (cov[0] * cov[1])
         )
         roots = np.roots([a, b, c])
         _ = roots
-        # What if the threshold is complex?
-        # import pdb; pdb.set_trace()
 
 
 def estimate_full_covariance(X, resp, nk, means, reg_covar):
