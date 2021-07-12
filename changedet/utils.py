@@ -8,7 +8,7 @@ from scipy.stats import multivariate_normal
 from termcolor import colored
 
 
-class ICM:
+class InitialChangeMask:
     def __init__(self, mode="hist"):
         self.mode = mode
         self.gmm = GMM(3, cov_type="full")
@@ -53,7 +53,24 @@ class ICM:
             + 2 * np.log((cov[0] * pi[1]) / (cov[1] * pi[0])) * (cov[0] * cov[1])
         )
         roots = np.roots([a, b, c])
-        _ = roots
+
+        m1 = mean[0]
+        m2 = mean[1]
+        s1 = roots[0]
+        s2 = roots[1]
+        thresh = (
+            ((m1 > m2) * (m1 > s1) * (m2 < s1) * s1)
+            + ((m1 > m2) * (m1 > s2) * (m2 < s2) * s2)
+            + ((m2 > m1) * (m2 > s1) * (m1 < s1) * s1)
+            + ((m2 > m1) * (m2 > s2) * (m1 < s2) * s2)
+        )
+
+        if not thresh:
+            return None
+
+        icm = np.where(diff < thresh, 0, 1)
+        icm = icm.reshape(r1, c1)
+        return icm
 
 
 def estimate_full_covariance(X, resp, nk, means, reg_covar):
