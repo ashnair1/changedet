@@ -88,8 +88,8 @@ class IRMAD(MetaAlgo):
                 sigma22 = sigma[ch1:, ch1:]
                 assert np.allclose(sigma21, sigma12.T)
 
-                A1 = sigma12 @ np.linalg.inv(sigma22) @ sigma12.T
-                A2 = sigma12.T @ np.linalg.inv(sigma11) @ sigma12
+                A1 = sigma12 @ np.linalg.solve(sigma22, sigma12.T)
+                A2 = sigma12.T @ np.linalg.solve(sigma11, sigma12)
 
                 # Scipy's linalg.eig returns normalised eigenvectors
                 lamda1, eigvec1 = linalg.eigh(A1, sigma11)
