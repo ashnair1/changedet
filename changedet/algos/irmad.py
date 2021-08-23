@@ -22,6 +22,7 @@ class IRMAD(MetaAlgo):
     --------------
     - niter = Number of iterations IRMAD should be run
     - sig = Change map significance level
+    - icm = Initial change mask
 
     References
     ----------
@@ -45,25 +46,34 @@ class IRMAD(MetaAlgo):
         """
         niter = flags.get("niter", 10)
         sig = flags.get("sig", 0.0001)
+        apply_icm = flags.get("icm", False)
         logger = flags.get("logger", None)
         logger.info(
             "Running IRMAD algorithm for %d iteration(s) with significance level %f", niter, sig
         )
 
-        icm = InitialChangeMask()
-        change_mask = icm.prepare(im1, im2)
-
-        if not change_mask:
-            logger.info("Invalid threshold. Skipping ICM")
-
         ch1, r1, c1 = im1.shape
-        ch2, r2, c2 = im2.shape
 
         m = r1 * c1
         N = ch1
 
         im1r = im1.reshape(N, m).T
         im2r = im2.reshape(N, m).T
+
+        # Calculate ICM
+        if apply_icm:
+            icm = InitialChangeMask()
+            change_mask = icm.prepare(im1, im2, plot=False)
+
+            if change_mask is None:
+                logger.warn("Invalid threshold. Skipping ICM")
+                change_mask = np.ones((m, 1))
+            else:
+                change_mask = change_mask.reshape(m, 1)
+
+            # Apply change mask
+            im1r = im1r * change_mask
+            im2r = im2r * change_mask
 
         # Center data
         im1r = im1r - np.mean(im1r, 0)

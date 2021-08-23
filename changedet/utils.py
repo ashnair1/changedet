@@ -4,22 +4,73 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
-from scipy.stats import multivariate_normal
+from scipy.stats import multivariate_normal, norm
 from termcolor import colored
 
 
+def check_pos_semi_def(mat):
+    """Test whether matrix is positive semi-definite
+
+    Ref:
+    - https://scicomp.stackexchange.com/a/12984/39306
+    - https://stackoverflow.com/a/63911811/10800115
+
+    Args:
+        mat (np.ndarray): Input matrix
+
+    Returns:
+        bool: True if mat is positive semi-definite else False
+    """
+
+    try:
+        reg_mat = mat + np.eye(mat.shape[0]) * 1e-3
+        np.linalg.cholesky(reg_mat)
+        return True
+    except np.linalg.LinAlgError:
+        return False
+
+
 class InitialChangeMask:
+    """Initial Change Mask
+
+    Create a change mask to remove strong changes and enable better radiometric
+    normalisation.
+
+
+    References
+    ----------
+    - P. R. Marpu, P. Gamba and M. J. Canty, "Improving Change Detection Results
+      of IR-MAD by Eliminating Strong Changes," in IEEE Geoscience and Remote
+      Sensing Letters, vol. 8 no. 4, pp. 799-803, July 2011,
+      doi:10.1109/LGRS.2011.2109697.
+    """
+
     def __init__(self, mode="hist"):
         self.mode = mode
         self.gmm = GMM(3, cov_type="full")
 
-    def prepare(self, im1, im2):
+    @staticmethod
+    def plot(mean, cov, thresh):
+
+        sigma = np.sqrt(cov)
+        mix_names = ["No change", "Ambiguous", "Pure Change"]
+        mix_colours = ["r", "g", "b"]
+        # f1 = plt.figure()
+        for m, sig, name, colour in zip(mean, sigma, mix_names, mix_colours):
+            p = np.linspace(m - 3 * sig, m + 3 * sig, 100)
+            plt.plot(p, norm.pdf(p, m, sig), label=name, color=colour)
+        plt.legend()
+        plt.tight_layout()
+        plt.margins(0)
+        plt.axvline(x=thresh, color="k", linestyle="--")
+        plt.show()
+
+    def prepare(self, im1, im2, plot=True):
         # Linear stretch
         im1 = contrast_stretch(im1, stretch_type="percentile")
         im2 = contrast_stretch(im2, stretch_type="percentile")
 
         ch1, r1, c1 = im1.shape
-        ch2, r2, c2 = im2.shape
 
         m = r1 * c1
         N = ch1
@@ -58,12 +109,17 @@ class InitialChangeMask:
         m2 = mean[1]
         s1 = roots[0]
         s2 = roots[1]
+
         thresh = (
             ((m1 > m2) * (m1 > s1) * (m2 < s1) * s1)
             + ((m1 > m2) * (m1 > s2) * (m2 < s2) * s2)
             + ((m2 > m1) * (m2 > s1) * (m1 < s1) * s1)
             + ((m2 > m1) * (m2 > s2) * (m1 < s2) * s2)
         )
+
+        # Plot distributions and threshold
+        if plot:
+            self.plot(mean, cov, thresh)
 
         if not thresh:
             return None
@@ -235,7 +291,7 @@ class GMM:
             - pi (numpy.ndarray): Mixture weights of shape (K,)
         """
         # M step
-        n_samples, n_features = X.shape
+        n_samples, _ = X.shape
         nk = resp.sum(axis=0)
         means = np.dot(resp.T, X) / nk[:, np.newaxis]
         pi = nk / n_samples
@@ -262,7 +318,7 @@ class GMM:
             resp (numpy.ndarray): Responsibility matrix
         """
 
-        n_samples, n_features = X.shape
+        n_samples, _ = X.shape
 
         if sample_inds is None:
             sample_inds = range(n_samples)

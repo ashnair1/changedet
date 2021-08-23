@@ -1,7 +1,8 @@
 # changedet
 
+Experimental repo for trying out classical change detection algorithms. Refer docs for further details.
 
-<p align="center">
+<!-- <p align="center">
 <a href="https://pypi.python.org/pypi/changedet">
     <img src="https://img.shields.io/pypi/v/changedet.svg"
         alt = "Release Status">
@@ -37,4 +38,4 @@ Refer [usage.md](./docs/usage.md) for usage details.
 
 ## Credits
 
-This package was created with [Cookiecutter](https://github.com/audreyr/cookiecutter) and the [zillionare/cookiecutter-pypackage](https://github.com/zillionare/cookiecutter-pypackage) project template.
+This package was created with [Cookiecutter](https://github.com/audreyr/cookiecutter) and the [zillionare/cookiecutter-pypackage](https://github.com/zillionare/cookiecutter-pypackage) project template. -->

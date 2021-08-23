@@ -1,6 +1,6 @@
 <h1> Installation </h1>
 
-## Stable release
+<!-- ## Stable release
 
 To install changedet, run this command in your
 terminal:
@@ -12,7 +12,7 @@ $ pip install changedet
 This is the preferred method to install changedet, as it will always install the most recent stable release.
 
 If you don't have [pip][] installed, this [Python installation guide][]
-can guide you through the process.
+can guide you through the process. -->
 
 ## From source
 
