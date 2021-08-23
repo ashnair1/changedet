@@ -2,19 +2,13 @@
 
 import fire
 
-
-def help():
-    print("changedet")
-    print("=" * len("changedet"))
-    print("Change Detection Toolbox")
-
-
-def test():
-    print("Hey there")
+from changedet.pipeline import ChangeDetPipeline
 
 
 def main():
-    fire.Fire({"help": help, "test": test})
+    # fire.Fire({"help": help, "test": test, "cdet": cdet})
+    # cdet = ChangeDetPipeline()
+    fire.Fire(ChangeDetPipeline)
 
 
 if __name__ == "__main__":

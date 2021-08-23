@@ -1,27 +1,39 @@
 site_name: changedet
-# site_url: http://www.jieyu.ai
+site_url: "" #http://www.jieyu.ai
 repo_url: https://github.com/ashnair1/changedet
 repo_name: changedet
+use_directory_urls: False
 #strict: true
-nav:
-  - home: index.md
-  - installation: installation.md
-  - usage: usage.md
-  - modules: api.md
-  - contributing: contributing.md
-  - authors: authors.md
-  - history: history.md
+
+        
+# Configuration
 theme:
   name: material
   language: en
-  #logo: assets/logo.png
-  palette:
-    primary: light blue
   features:
-    - navigation.indexes
+    - content.tabs.link
+    # - navigation.instant
+    - navigation.sections
     - navigation.tabs
-    - navigation.instant
-    - navigation.tabs.sticky
+    - navigation.tracking
+    - search.highlight
+    - search.share
+    - search.suggest
+  palette:
+    - scheme: slate
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+    - scheme: default
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+
+
 markdown_extensions:
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji
@@ -44,13 +56,31 @@ markdown_extensions:
       permalink: true
       slugify: !!python/name:pymdownx.slugs.uslugify
   - meta
+
 plugins:
   - include-markdown
   - search:
       lang: en
   - mkdocstrings:
+      handlers:
+        python:
+          setup_commands:
+          - import sys
+          - sys.path.append("docs")
+          selection:
+            new_path_syntax: yes
+          rendering:
+            show_root_heading: true
       watch:
         - changedet
+  - gen-files:
+      scripts:
+       - docs/gen_doc_stubs.py
+  - literate-nav:
+      nav_file: SUMMARY.md
+  - section-index
+  
+
 extra:
   social:
     - icon: fontawesome/brands/twitter
