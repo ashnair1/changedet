@@ -1,7 +1,10 @@
 from collections import UserDict
+from typing import Any, Callable, List, Type
+
+from changedet.algos.base import MetaAlgo
 
 
-class AlgoCatalog_(UserDict):
+class AlgoCatalog_(UserDict[str, Type[MetaAlgo]]):
     """
 
     A global dictionary that stores information about the algorithms used and
@@ -21,8 +24,8 @@ class AlgoCatalog_(UserDict):
 
     """
 
-    def register(self, name: str):
-        def inner_wrapper(wrapped_class):
+    def register(self, name: str) -> Callable[[Type[MetaAlgo]], Type[MetaAlgo]]:
+        def inner_wrapper(wrapped_class: Type[MetaAlgo]) -> Type[MetaAlgo]:
             if name in self.keys():
                 raise AssertionError(f"Algorithm {name} already exists.")
             self[name] = wrapped_class
@@ -30,7 +33,7 @@ class AlgoCatalog_(UserDict):
 
         return inner_wrapper
 
-    def get(self, name):
+    def get(self, name: str) -> Any:
         try:
             f = self[name]
         except KeyError as e:
@@ -43,7 +46,7 @@ class AlgoCatalog_(UserDict):
                 f = None
         return f
 
-    def list(self):
+    def list(self) -> List[str]:
         """List all registered algorithms.
 
         Returns:
@@ -51,7 +54,7 @@ class AlgoCatalog_(UserDict):
         """
         return list(self.keys())
 
-    def remove(self, name):
+    def remove(self, name: str) -> None:
         """
         Alias of ``pop``.
         """

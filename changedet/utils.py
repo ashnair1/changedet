@@ -1,14 +1,16 @@
 import logging
 import sys
 from pathlib import Path
+from typing import List, Optional, Tuple
 
 import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib.figure import Figure
 from scipy.stats import multivariate_normal, norm
 from termcolor import colored
 
 
-def check_pos_semi_def(mat):
+def check_pos_semi_def(mat: np.ndarray) -> bool:
     """Test whether matrix is positive semi-definite
 
     Ref:
@@ -45,7 +47,7 @@ class InitialChangeMask:
       doi:10.1109/LGRS.2011.2109697.
     """
 
-    def __init__(self, mode="hist"):
+    def __init__(self, mode: str = "hist") -> None:
         self.mode = mode
         self.gmm = GMM(3, cov_type="full")
 
@@ -65,7 +67,7 @@ class InitialChangeMask:
         plt.axvline(x=thresh, color="k", linestyle="--")
         plt.show()
 
-    def prepare(self, im1, im2, plot=True):
+    def prepare(self, im1, im2, plot: bool = True):
         # Linear stretch
         im1 = contrast_stretch(im1, stretch_type="percentile")
         im2 = contrast_stretch(im2, stretch_type="percentile")
@@ -375,7 +377,9 @@ class OnlineWeightStats:
         self.cov = self.xpsum / self.wsum
 
 
-def np_weight_stats(x, ws=None):
+def np_weight_stats(
+    x: np.ndarray, ws: Optional[np.ndarray] = None
+) -> Tuple[np.ndarray, np.ndarray]:
     """Calculate weighted mean and sample covariance.
 
     Args:
@@ -395,7 +399,13 @@ def np_weight_stats(x, ws=None):
     return wsigma, wmean
 
 
-def contrast_stretch(img, *, target_type="uint8", stretch_type="minmax", percentile=(2, 98)):
+def contrast_stretch(
+    img: np.ndarray,
+    *,
+    target_type: str = "uint8",
+    stretch_type: str = "minmax",
+    percentile: Tuple[int] = (2, 98),
+) -> np.ndarray:
     """Change image distribution to cover full range of target_type.
 
     Types of contrast stretching:
@@ -466,7 +476,7 @@ class _ColorFormatter(logging.Formatter):
         return super(_ColorFormatter, self).format(record)
 
 
-def init_logger(name="logger", output=None):
+def init_logger(name: str = "logger", output: Optional[str] = None) -> logging.Logger:
     """
     Initialise changedet logger
 
@@ -485,9 +495,9 @@ def init_logger(name="logger", output=None):
 
     # Output logs to file
     if output:
-        output = Path(output)
-        logfile = output if output.suffix in [".txt", ".log"] else output / "log.txt"
-        Path.mkdir(output.parent)
+        output_path = Path(output)
+        logfile = output_path if output_path.suffix in [".txt", ".log"] else output_path / "log.txt"
+        Path.mkdir(output_path.parent)
 
         filehandler = logging.FileHandler(logfile)
         filehandler.setLevel(logging.DEBUG)
@@ -496,7 +506,7 @@ def init_logger(name="logger", output=None):
     return logger
 
 
-def histplot(xlist, xlabel, bins=50):
+def histplot(xlist: List[np.ndarray], xlabel: List[str], bins: Optional[int] = 50) -> Figure:
     """Plot multiple histograms in the same figure
 
     Args:
@@ -505,7 +515,7 @@ def histplot(xlist, xlabel, bins=50):
         bins (int, optional): Histogram bins. Defaults to 50.
 
     Returns:
-        matplotlib.pyplot.figure: Figure with histograms
+        matplotlib.figure.figure: Figure with histograms
     """
     f = plt.figure()
     for i, j in zip(xlist, xlabel):

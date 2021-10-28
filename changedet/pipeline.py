@@ -1,7 +1,10 @@
 from pathlib import Path
+from typing import Any, Tuple
 
 import numpy as np
 import rasterio as rio
+from rasterio.crs import CRS
+from rasterio.profiles import Profile
 
 from changedet.algos import AlgoCatalog
 from changedet.utils import init_logger
@@ -21,7 +24,7 @@ class ChangeDetPipeline:
 
     """
 
-    def __init__(self, algo):
+    def __init__(self, algo: str):
         """Initialise Pipeline
 
         Args:
@@ -32,7 +35,7 @@ class ChangeDetPipeline:
         self.logger = init_logger("changedet")
 
     # Image loading and sanity checks should be done here
-    def read(self, im1, im2, band):
+    def read(self, im1: str, im2: str, band: int) -> Tuple[np.ndarray, np.ndarray]:
         """Read and prepare images
 
         Args:
@@ -49,36 +52,41 @@ class ChangeDetPipeline:
             - arr1 (numpy.ndarray): Image 1 array of shape (B, H, W)
             - arr2 (numpy.ndarray): Image 2 array of shape (B, H, W)
         """
-        if Path(im1).exists() & Path(im2).exists():
-            im1 = rio.open(im1)
-            im2 = rio.open(im2)
-            # Will be necessary for writing
-            self.meta1 = im1.profile
-            self.meta2 = im2.profile
+        if not Path(im1).exists() or not Path(im2).exists():
+            self.logger.critical("Images not found")
+            raise AssertionError
+
+        arr1, crs1, self.meta1 = self._read(im1, band)
+        arr2, crs2, self.meta2 = self._read(im2, band)
+
+        if crs1 != crs2:
+            self.logger.critical("Images are not in the same projection system.")
+            raise AssertionError
+
+        if arr1.shape != arr2.shape:
+            self.logger.critical("Image array shapes do not match")
+            raise AssertionError
+        return arr1, arr2
+
+    def _read(self, im: str, band: int) -> Tuple[np.ndarray, CRS, Profile]:
+        with rio.open(im) as raster:
+            profile = raster.profile
+            crs = raster.crs
 
             if band == -1:
-                arr1 = im1.read()
-                arr2 = im2.read()
+                arr = raster.read()
             else:
-                arr1 = np.expand_dims(im1.read(band), axis=0)
-                arr2 = np.expand_dims(im2.read(band), axis=0)
+                arr = np.expand_dims(raster.read(band), axis=0)
+        return arr, crs, profile
 
-            if im1.crs != im2.crs:
-                self.logger.critical("Images are not in the same projection system.")
-                raise AssertionError
-
-            if im1.shape != im2.shape:
-                self.logger.critical("Image array shapes do not match")
-                raise AssertionError
-            return arr1, arr2
-
-    def run(self, im1, im2, band=-1, **kwargs):
+    def run(self, im1: str, im2: str, band: int = -1, **kwargs: Any) -> None:
         """
         Run change detection on images
 
         Args:
             im1 (str): Path to image 1
             im2 (str): Path to image 2
+            band (int): Band selection
 
         Raises:
             AssertionError: If no algorithm is specified
@@ -91,7 +99,7 @@ class ChangeDetPipeline:
         cmap = self.algo_obj.run(im1a, im2a, kwargs)
         self.write(cmap)
 
-    def write(self, cmap):
+    def write(self, cmap: np.ndarray) -> None:
         """Write change map to disk
 
         Args:
@@ -114,6 +122,6 @@ class ChangeDetPipeline:
         self.logger.info("Change map written to %s", outfile)
 
     @classmethod
-    def list_algos(cls):
+    def list_algos(cls) -> None:
         """List available algorithms"""
         print(AlgoCatalog.list())

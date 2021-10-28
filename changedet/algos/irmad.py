@@ -1,3 +1,5 @@
+from typing import Any
+
 import numpy as np
 from scipy import linalg
 from scipy.stats import chi2
@@ -34,12 +36,12 @@ class IRMAD(MetaAlgo):
     """
 
     @classmethod
-    def run(cls, im1, im2, flags):
+    def run(cls, im1: np.ndarray, im2: np.ndarray, flags: Any) -> np.ndarray:
         """Run IRMAD algorithm.
 
         Args:
-            im1 (str): Image 1 array
-            im2 (str): Image 2 array
+            im1 (np.ndarray): Image 1 array
+            im2 (np.ndarray): Image 2 array
             flags (dict): Flags for the algorithm
 
         Run `changedet --algo irmad algo_obj --help` for information on flags.

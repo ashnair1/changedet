@@ -5,7 +5,7 @@ import fire
 from changedet.pipeline import ChangeDetPipeline
 
 
-def main():
+def main() -> None:
     # fire.Fire({"help": help, "test": test, "cdet": cdet})
     # cdet = ChangeDetPipeline()
     fire.Fire(ChangeDetPipeline)
