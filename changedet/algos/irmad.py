@@ -36,7 +36,7 @@ class IRMAD(MetaAlgo):
     """
 
     @classmethod
-    def run(cls, im1: np.ndarray, im2: np.ndarray, flags: Any) -> np.ndarray:
+    def run(cls, im1: np.ndarray, im2: np.ndarray, **flags: Any) -> np.ndarray:
         """Run IRMAD algorithm.
 
         Args:
@@ -51,7 +51,9 @@ class IRMAD(MetaAlgo):
         apply_icm = flags.get("icm", False)
         logger = flags.get("logger", None)
         logger.info(
-            "Running IRMAD algorithm for %d iteration(s) with significance level %f", niter, sig
+            "Running IRMAD algorithm for %d iteration(s) with significance level %f",
+            niter,
+            sig,
         )
 
         ch1, r1, c1 = im1.shape

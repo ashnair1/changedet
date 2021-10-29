@@ -96,7 +96,7 @@ class ChangeDetPipeline:
         im1a, im2a = self.read(im1, im2, band)
         # TODO: Decide whether algos should have their own loggers
         kwargs.update({"logger": self.logger, "band": band})
-        cmap = self.algo_obj.run(im1a, im2a, kwargs)
+        cmap = self.algo_obj.run(im1a, im2a, **kwargs)
         self.write(cmap)
 
     def write(self, cmap: np.ndarray) -> None:

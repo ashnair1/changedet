@@ -3,7 +3,7 @@ name = "changedet"
 version = "0.1.0"
 homepage = "https://github.com/ashnair1/changedet"
 description = "Change Detection Toolbox."
-authors = ["Ashwin Nair <ash1995@gmail.com>"]
+authors = ["Ashwin Nair <ashnair0007@gmail.com>"]
 readme = "README.md"
 license =  "MIT"
 classifiers=[
@@ -120,7 +120,7 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.black]
-line-length = 100
+line-length = 90
 include = '\.pyi?$'
 exclude = '''
 /(
@@ -143,5 +143,5 @@ sections = ['FUTURE','STDLIB','THIRDPARTY','FIRSTPARTY','LOCALFOLDER']
 known_first_party = ['changedet']
 known_third_party = ['torch','numpy']
 force_grid_wrap = 0
-line_length = 100
+line_length = 90
 multi_line_output = 3

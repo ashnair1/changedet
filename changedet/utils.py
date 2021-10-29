@@ -6,6 +6,7 @@ from typing import List, Optional, Tuple
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.figure import Figure
+from numpy.typing import ArrayLike
 from scipy.stats import multivariate_normal, norm
 from termcolor import colored
 
@@ -52,7 +53,7 @@ class InitialChangeMask:
         self.gmm = GMM(3, cov_type="full")
 
     @staticmethod
-    def plot(mean, cov, thresh):
+    def plot(mean: np.ndarray, cov: np.ndarray, thresh: float) -> None:
 
         sigma = np.sqrt(cov)
         mix_names = ["No change", "Ambiguous", "Pure Change"]
@@ -67,7 +68,7 @@ class InitialChangeMask:
         plt.axvline(x=thresh, color="k", linestyle="--")
         plt.show()
 
-    def prepare(self, im1, im2, plot: bool = True):
+    def prepare(self, im1: np.ndarray, im2: np.ndarray, plot: bool = True) -> np.ndarray:
         # Linear stretch
         im1 = contrast_stretch(im1, stretch_type="percentile")
         im2 = contrast_stretch(im2, stretch_type="percentile")
@@ -131,7 +132,9 @@ class InitialChangeMask:
         return icm
 
 
-def estimate_full_covariance(X, resp, nk, means, reg_covar):
+def estimate_full_covariance(
+    X: np.ndarray, resp: np.ndarray, nk: np.ndarray, means: np.ndarray, reg_covar: float
+) -> np.ndarray:
     """Estimate full covariance matrix
 
     Shape notation:
@@ -155,11 +158,15 @@ def estimate_full_covariance(X, resp, nk, means, reg_covar):
     cov = np.empty((n_components, n_features, n_features))
     for k in range(n_components):
         delta = X - means[k]
-        cov[k] = np.dot(resp[:, k] * delta.T, delta) / nk[k] + np.eye(n_features) * reg_covar
+        cov[k] = (
+            np.dot(resp[:, k] * delta.T, delta) / nk[k] + np.eye(n_features) * reg_covar
+        )
     return cov
 
 
-def estimate_tied_covariance(X, resp, nk, means, reg_covar):
+def estimate_tied_covariance(
+    X: np.ndarray, resp: np.ndarray, nk: np.ndarray, means: np.ndarray, reg_covar: float
+) -> np.ndarray:
     """Estimate tied covariance matrix
 
     Shape notation:
@@ -190,14 +197,24 @@ def estimate_tied_covariance(X, resp, nk, means, reg_covar):
 
 
 class GMM:
-    def __init__(self, K, niter=100, *, cov_type="full", tol=1e-4, reg_covar=1e-6):
+    def __init__(
+        self,
+        K: int,
+        niter: int = 100,
+        *,
+        cov_type: str = "full",
+        tol: float = 1e-4,
+        reg_covar: float = 1e-6,
+    ):
         self.n_components = K
         self.cov_type = cov_type
         self.tol = tol
         self.niter = niter
         self.reg_covar = reg_covar
 
-    def init_cluster_params(self, X):
+    def init_cluster_params(
+        self, X: np.ndarray
+    ) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
         """Initialse cluster parameters
 
         Shape notation:
@@ -238,10 +255,18 @@ class GMM:
 
         return means, cov, pi
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"GMM(n_components={self.n_components})"
 
-    def e_step(self, X, resp, means, cov, pi, sample_inds):
+    def e_step(
+        self,
+        X: np.ndarray,
+        resp: np.ndarray,
+        means: np.ndarray,
+        cov: np.ndarray,
+        pi: np.ndarray,
+        sample_inds: ArrayLike,
+    ) -> Tuple[np.ndarray, np.ndarray]:
         """Expectation step
 
         Shape notation:
@@ -264,7 +289,9 @@ class GMM:
             - wpdf (numpy.ndarray): Unnormalised responsibility matrix of shape (N,K)
         """
         for k in range(self.n_components):
-            resp[sample_inds, k] = pi[k] * multivariate_normal.pdf(X[sample_inds], means[k], cov[k])
+            resp[sample_inds, k] = pi[k] * multivariate_normal.pdf(
+                X[sample_inds], means[k], cov[k]
+            )
         wpdf = resp.copy()  # For log likelihood computation
         # Safe normalisation
         a = np.sum(resp, axis=1, keepdims=True)
@@ -273,7 +300,9 @@ class GMM:
         resp = resp / a
         return resp, wpdf
 
-    def m_step(self, X, resp):
+    def m_step(
+        self, X: np.ndarray, resp: np.ndarray
+    ) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
         """Maximisation step
 
         Shape notation:
@@ -305,7 +334,12 @@ class GMM:
 
         return means, pi, cov
 
-    def fit(self, X, resp=None, sample_inds=None):
+    def fit(
+        self,
+        X: np.ndarray,
+        resp: Optional[np.ndarray] = None,
+        sample_inds: Optional[ArrayLike] = None,
+    ) -> np.ndarray:
         """
         Fit a GMM to X with initial responsibility resp. If sample_inds are specified, only those
         indexes are considered.
@@ -359,12 +393,12 @@ class GMM:
 
 
 class OnlineWeightStats:
-    def __init__(self, N):
+    def __init__(self, N: int):
         self.mean = np.zeros(N)
         self.wsum = 1e-7
         self.xpsum = np.zeros((N, N))  # Sum of cross-products
 
-    def update(self, X, weights=None):
+    def update(self, X: np.ndarray, weights: Optional[np.ndarray] = None) -> None:
         if weights is None:
             weights = np.ones(X.shape[0])
         for d, w in zip(X, weights):
@@ -404,7 +438,7 @@ def contrast_stretch(
     *,
     target_type: str = "uint8",
     stretch_type: str = "minmax",
-    percentile: Tuple[int] = (2, 98),
+    percentile: Tuple[int, int] = (2, 98),
 ) -> np.ndarray:
     """Change image distribution to cover full range of target_type.
 
@@ -439,7 +473,9 @@ def contrast_stretch(
     return np.clip(g, minout, maxout)
 
 
-def histogram_equalisation(im, nbr_bins=256):
+def histogram_equalisation(
+    im: np.ndarray, nbr_bins: int = 256
+) -> Tuple[np.ndarray, np.ndarray]:
     # Refer http://www.janeriksolem.net/histogram-equalization-with-python-and.html
     # get image histogram
     imhist, bins = np.histogram(im.flatten(), nbr_bins)
@@ -458,13 +494,21 @@ class _ColorFormatter(logging.Formatter):
     Refer: https://github.com/tensorpack/dataflow/blob/master/dataflow/utils/logger.py
     """
 
-    def format(self, record):
-        date = colored("[%(asctime)s]:%(name)s:%(module)s:%(lineno)d:%(levelname)s:", "cyan")
+    def format(self, record: logging.LogRecord) -> str:
+        date = colored(
+            "[%(asctime)s]:%(name)s:%(module)s:%(lineno)d:%(levelname)s:", "cyan"
+        )
         msg = "%(message)s"
         if record.levelno == logging.WARNING:
             fmt = date + " " + colored("WRN", "red", attrs=["blink"]) + " " + msg
         elif record.levelno in [logging.ERROR, logging.CRITICAL]:
-            fmt = date + " " + colored("ERR", "red", attrs=["blink", "underline"]) + " " + msg
+            fmt = (
+                date
+                + " "
+                + colored("ERR", "red", attrs=["blink", "underline"])
+                + " "
+                + msg
+            )
         elif record.levelno == logging.DEBUG:
             fmt = date + " " + colored("DBG", "yellow", attrs=["blink"]) + " " + msg
         else:
@@ -496,7 +540,11 @@ def init_logger(name: str = "logger", output: Optional[str] = None) -> logging.L
     # Output logs to file
     if output:
         output_path = Path(output)
-        logfile = output_path if output_path.suffix in [".txt", ".log"] else output_path / "log.txt"
+        logfile = (
+            output_path
+            if output_path.suffix in [".txt", ".log"]
+            else output_path / "log.txt"
+        )
         Path.mkdir(output_path.parent)
 
         filehandler = logging.FileHandler(logfile)
@@ -506,11 +554,11 @@ def init_logger(name: str = "logger", output: Optional[str] = None) -> logging.L
     return logger
 
 
-def histplot(xlist: List[np.ndarray], xlabel: List[str], bins: Optional[int] = 50) -> Figure:
+def histplot(xlist: ArrayLike, xlabel: List[str], bins: Optional[int] = 50) -> Figure:
     """Plot multiple histograms in the same figure
 
     Args:
-        xlist (list[]): Sequence
+        xlist (arraylike): Sequence
         xlabel (list[str]): Sequence label
         bins (int, optional): Histogram bins. Defaults to 50.
 

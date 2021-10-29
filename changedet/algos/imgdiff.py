@@ -1,3 +1,7 @@
+from typing import Any
+
+import numpy as np
+
 from changedet.algos.base import MetaAlgo
 from changedet.algos.catalog import AlgoCatalog
 
@@ -11,12 +15,12 @@ class ImageDiff(MetaAlgo):
     """
 
     @classmethod
-    def run(cls, im1, im2, flags):
+    def run(cls, im1: np.ndarray, im2: np.ndarray, **flags: Any) -> np.ndarray:
         """Run Image Differencing algorithm
 
         Args:
-            im1 (str): Image 1 array
-            im2 (str): Image 2 array
+            im1 (np.ndarray): Image 1 array
+            im2 (np.ndarray): Image 2 array
             flags (dict): Flags for the algorithm
         """
         logger = flags.get("logger", None)

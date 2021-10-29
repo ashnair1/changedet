@@ -1,10 +1,16 @@
 from collections import UserDict
-from typing import Any, Callable, List, Type
+from typing import TYPE_CHECKING, Callable, List, Type
 
 from changedet.algos.base import MetaAlgo
 
+# Refer https://github.com/python/typing/issues/60
+if TYPE_CHECKING:
+    _Base = UserDict[str, Type[MetaAlgo]]
+else:
+    _Base = UserDict
 
-class AlgoCatalog_(UserDict[str, Type[MetaAlgo]]):
+
+class AlgoCatalog_(_Base):
     """
 
     A global dictionary that stores information about the algorithms used and
@@ -33,7 +39,7 @@ class AlgoCatalog_(UserDict[str, Type[MetaAlgo]]):
 
         return inner_wrapper
 
-    def get(self, name: str) -> Any:
+    def get(self, name: str) -> Type[MetaAlgo]:  # type: ignore[override]
         try:
             f = self[name]
         except KeyError as e:

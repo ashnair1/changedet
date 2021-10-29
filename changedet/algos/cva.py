@@ -1,10 +1,14 @@
+from typing import Any, Tuple
+
 import numpy as np
 
 from changedet.algos.base import MetaAlgo
 from changedet.algos.catalog import AlgoCatalog
 
 
-def calc_cvs(im1, im2, distance="euclidean"):
+def calc_cvs(
+    im1: np.ndarray, im2: np.ndarray, distance: str = "euclidean"
+) -> Tuple[np.ndarray, np.ndarray]:
     diffmap = im2 - im1
     if distance == "manhattan":
         # Manhattan distance/L1 norm
@@ -18,7 +22,7 @@ def calc_cvs(im1, im2, distance="euclidean"):
     return mag, theta
 
 
-def otsu_thresh(im, bins=256):
+def otsu_thresh(im: np.ndarray, bins: int = 256) -> float:
     # Adapted from scikit image's otsu threshold
 
     counts, bin_edges = np.histogram(im, bins=bins, range=None)
@@ -37,12 +41,11 @@ def otsu_thresh(im, bins=256):
     variance12 = weight1[:-1] * weight2[1:] * (mean1[:-1] - mean2[1:]) ** 2
 
     idx = np.argmax(variance12)
-    threshold = bin_centers[idx]
-
+    threshold = float(bin_centers[idx])
     return threshold
 
 
-def appy_threshold(dmap):
+def appy_threshold(dmap: np.ndarray) -> np.ndarray:
     bcm = np.zeros(dmap.shape)
     thresh = otsu_thresh(dmap)
     bcm[dmap > thresh] = 255
@@ -58,12 +61,12 @@ class CVA(MetaAlgo):
     """
 
     @classmethod
-    def run(cls, im1, im2, flags):
+    def run(cls, im1: np.ndarray, im2: np.ndarray, **flags: Any) -> np.ndarray:
         """Run Image Differencing algorithm
 
         Args:
-            im1 (str): Image 1 array
-            im2 (str): Image 2 array
+            im1 (np.ndarray): Image 1 array
+            im2 (np.ndarray): Image 2 array
             flags (dict): Flags for the algorithm
         """
         logger = flags.get("logger", None)
