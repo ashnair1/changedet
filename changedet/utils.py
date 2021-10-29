@@ -99,13 +99,11 @@ class InitialChangeMask:
 
         # Refer https://gist.github.com/ashnair1/433ffbc1e747f80067f8a0439e346279
         # for derivation of the equation
+        k = np.log((np.sqrt(cov[0]) * pi[1]) / (np.sqrt(cov[1]) * pi[0]))
         a = cov[1] - cov[0]
         b = -2 * (mean[0] * cov[1] - mean[1] * cov[0])
-        c = (
-            mean[0] ** 2 * cov[1]
-            - mean[1] ** 2 * cov[0]
-            + 2 * np.log((cov[0] * pi[1]) / (cov[1] * pi[0])) * (cov[0] * cov[1])
-        )
+        c = mean[0] ** 2 * cov[1] - mean[1] ** 2 * cov[0] + 2 * k * (cov[0] * cov[1])
+
         roots = np.roots([a, b, c])
 
         m1 = mean[0]
