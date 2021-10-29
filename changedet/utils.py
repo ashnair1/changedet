@@ -99,12 +99,17 @@ class InitialChangeMask:
 
         # Refer https://gist.github.com/ashnair1/433ffbc1e747f80067f8a0439e346279
         # for derivation of the equation
-        k = np.log((np.sqrt(cov[0]) * pi[1]) / (np.sqrt(cov[1]) * pi[0]))
-        a = cov[1] - cov[0]
-        b = -2 * (mean[0] * cov[1] - mean[1] * cov[0])
-        c = mean[0] ** 2 * cov[1] - mean[1] ** 2 * cov[0] + 2 * k * (cov[0] * cov[1])
 
-        roots = np.roots([a, b, c])
+        # TODO: Computing roots via this method results in invalid thresholds.
+        # In theory, this and the current method should yield same results.
+
+        # k = np.log((np.sqrt(cov[0]) * pi[1]) / (np.sqrt(cov[1]) * pi[0]))
+        # a = cov[1] - cov[0]
+        # b = -2 * (mean[0] * cov[1] - mean[1] * cov[0])
+        # c = mean[0] ** 2 * cov[1] - mean[1] ** 2 * cov[0] + 2 * k * (cov[0] * cov[1])
+        # roots = np.roots([a, b, c])
+
+        roots = self.roots(mean, cov, pi)
 
         m1 = mean[0]
         m2 = mean[1]
@@ -128,6 +133,35 @@ class InitialChangeMask:
         icm = np.where(diff < thresh, 0, 1)
         icm = icm.reshape(r1, c1)
         return icm
+
+    @staticmethod
+    def roots(mean: np.ndarray, var: np.ndarray, pi: np.ndarray) -> Tuple[float, float]:
+        """Compute the threshold between the no-change and change distributions
+        from the mean, variance and mixture weight (pi) of no change, change and
+        ambigous distributions.
+
+        Refer https://gist.github.com/ashnair1/433ffbc1e747f80067f8a0439e346279
+        for full derivation.
+
+        Args:
+            mean (np.ndarray): means of distributions
+            var (np.ndarray): variances of distributions
+            pi (np.ndarray): mixture weights
+
+        Returns:
+            Tuple[float, float]: thresholds
+        """
+        std1 = np.sqrt(var[0])
+        std2 = np.sqrt(var[1])
+        k = np.log((std1 * pi[1]) / (std2 * pi[0]))
+        n1 = var[1] * mean[0] - var[0] * mean[1]
+        n2 = np.sqrt(
+            var[0] * var[1] * (mean[0] - mean[1]) ** 2 + 0.5 * k * (var[0] - var[1])
+        )
+        d1 = var[1] - var[0]
+        root1 = (n1 + n2) / d1
+        root2 = (n1 - n2) / d1
+        return root1, root2
 
 
 def estimate_full_covariance(
