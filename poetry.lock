@@ -1133,14 +1133,14 @@ docs = ["sphinx", "jaraco.packaging (>=8.2)", "rst.linker (>=1.9)"]
 testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pytest-cov", "pytest-enabler", "jaraco.itertools", "func-timeout", "pytest-black (>=0.3.7)", "pytest-mypy"]
 
 [extras]
-dev = ["tox", "pre-commit", "virtualenv", "pip", "twine", "toml"]
+dev = ["pre-commit", "virtualenv", "pip", "twine", "toml"]
 doc = ["livereload", "mkdocs", "mkdocs-gen-files", "mkdocs-include-markdown-plugin", "mkdocs-literate-nav", "mkdocs-material", "mkdocstrings", "mkdocs-autorefs"]
 test = ["pytest", "black", "isort", "flake8", "flake8-docstrings", "pytest-cov"]
 
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7,<3.10"
-content-hash = "89718cf6f941650a522cd93801fb52f955e2a9dfa25ade93409c87049bf346f3"
+content-hash = "e7feca3fe19b5d6f126a23ecc38efbbd1d0c5d086da21ffe863933fff5d9fe01"
 
 [metadata.files]
 affine = [

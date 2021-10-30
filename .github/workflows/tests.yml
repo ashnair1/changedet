@@ -29,7 +29,7 @@ jobs:
         python -m pip install poetry mypy types-termcolor
 
     - name: Run mypy checks
-      run: mypy --strict --ignore-missing-imports --show-error-codes .
+      run: mypy --strict --ignore-missing-imports --show-error-codes --exclude docs/ --exclude tests/ .
   pytest:
     name: pytest
     runs-on: ${{ matrix.os }}
@@ -57,7 +57,7 @@ jobs:
 
       - name: Run pytest checks
         run:
-          pytest
+          poetry run pytest
 
   # publish_dev_build:
   #   # if test failed, we should not publish
