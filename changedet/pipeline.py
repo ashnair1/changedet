@@ -122,6 +122,6 @@ class ChangeDetPipeline:
         self.logger.info("Change map written to %s", outfile)
 
     @classmethod
-    def list_algos(cls) -> None:
+    def list(cls) -> None:
         """List available algorithms"""
         print(AlgoCatalog.list())

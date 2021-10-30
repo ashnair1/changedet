@@ -24,5 +24,5 @@ changedet --help
 4. List available algorithms
 
 ```
-changedet list_algos
+changedet list
 ```
