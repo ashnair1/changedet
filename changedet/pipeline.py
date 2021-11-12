@@ -52,20 +52,27 @@ class ChangeDetPipeline:
             - arr1 (numpy.ndarray): Image 1 array of shape (B, H, W)
             - arr2 (numpy.ndarray): Image 2 array of shape (B, H, W)
         """
-        if not Path(im1).exists() or not Path(im2).exists():
+        try:
+            assert Path(im1).exists() and Path(im2).exists()
+        except AssertionError as err:
             self.logger.critical("Images not found")
-            raise AssertionError
+            raise err
 
         arr1, crs1, self.meta1 = self._read(im1, band)
         arr2, crs2, self.meta2 = self._read(im2, band)
 
-        if crs1 != crs2:
-            self.logger.critical("Images are not in the same projection system.")
-            raise AssertionError
+        try:
+            assert crs1 == crs2
+        except AssertionError as err:
+            self.logger.critical("Images are not in the same projection system")
+            raise err
 
-        if arr1.shape != arr2.shape:
+        try:
+            assert arr1.shape == arr2.shape
+        except AssertionError as err:
             self.logger.critical("Image array shapes do not match")
-            raise AssertionError
+            raise err
+
         return arr1, arr2
 
     def _read(self, im: str, band: int) -> Tuple[np.ndarray, CRS, Profile]:
