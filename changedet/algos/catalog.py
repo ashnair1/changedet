@@ -56,9 +56,9 @@ class AlgoCatalog_(_Base):
         """List all registered algorithms.
 
         Returns:
-            list[str]: [description]
+            list[str]: List of algorithm names
         """
-        return list(self.keys())
+        return list(sorted(self.keys()))
 
     def remove(self, name: str) -> None:
         """
