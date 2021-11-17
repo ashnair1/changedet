@@ -54,24 +54,24 @@ class ChangeDetPipeline:
         """
         try:
             assert Path(im1).exists() and Path(im2).exists()
-        except AssertionError as err:
+        except AssertionError:
             self.logger.critical("Images not found")
-            raise err
+            raise
 
         arr1, crs1, self.meta1 = self._read(im1, band)
         arr2, crs2, self.meta2 = self._read(im2, band)
 
         try:
             assert crs1 == crs2
-        except AssertionError as err:
+        except AssertionError:
             self.logger.critical("Images are not in the same projection system")
-            raise err
+            raise
 
         try:
             assert arr1.shape == arr2.shape
-        except AssertionError as err:
+        except AssertionError:
             self.logger.critical("Image array shapes do not match")
-            raise err
+            raise
 
         return arr1, arr2
 
