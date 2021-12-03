@@ -54,7 +54,14 @@ jobs:
 
       - name: Run pytest checks
         run:
-          poetry run pytest
+          poetry run pytest --cov=changedet --cov-report=xml
+
+      - name: Report coverage
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
+          files: coverage.xml
 
   # publish_dev_build:
   #   # if test failed, we should not publish
