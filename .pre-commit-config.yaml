@@ -29,5 +29,5 @@ repos:
         rev: 2fa6c17a71f085507156d5d9c4f570246741914c
         hooks:
         - id: poetry-check
-        - id: poetry-lock
-          args: [--no-update]
+        #- id: poetry-lock
+        #  args: [--no-update]
