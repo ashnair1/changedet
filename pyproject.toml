@@ -34,7 +34,7 @@ tqdm = "^4.61.0"
 
 black  = { version = "20.8b1", optional = true}
 isort  = { version = "5.6.4", optional = true}
-coverage = {extras = ["toml"], version = "^6.2"}
+coverage = {extras = ["toml"], version = "^6.2", optional = true}
 flake8  = { version = "3.8.4", optional = true}
 flake8-docstrings = { version = "^1.6.0", optional = true }
 pytest  = { version = "^6.2.0", optional = true}
@@ -49,7 +49,7 @@ mkdocstrings  = { version = "^0.16.0", extras = ["doc"], optional = true}
 mkdocs-material-extensions  = { version = "^1.0.1", extras = ["doc"], optional = true}
 mkdocs-literate-nav = {version = "^0.4.0", extras = ["doc"], optional = true}
 mkdocs-gen-files = {version = "^0.3.3", extras = ["doc"], optional = true}
-mkdocs-section-index = {version = "^0.3.1", extras = ["doc"]}
+mkdocs-section-index = {version = "^0.3.1", extras = ["doc"], optional = true}
 twine  = { version = "^3.3.0", optional = true}
 mkdocs-autorefs = {version = "0.1.1", extras = ["doc"], optional = true}
 pre-commit = {version = "^2.12.0", optional = true}
