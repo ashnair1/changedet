@@ -457,7 +457,8 @@ def np_weight_stats(
         - wsigma (numpy.ndarray): Weighted covariance matrix
         - wmean (numpy.ndarray): Weighted mean
     """
-    if ws is None:
+    # Uniform weight if ws is unspecified or array of zeros
+    if ws is None or not np.any(ws):
         ws = np.ones(x.shape[0])
     mean = np.ma.average(x, axis=0, weights=ws)
     wmean = np.expand_dims(mean.data, axis=1)  # (H*W,) -> (H*W,1)

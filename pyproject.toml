@@ -148,7 +148,8 @@ multi_line_output = 3
 [tool.coverage.run]
 source = ["changedet"]
 branch = true
+omit = ["changedet/cli.py"]
 
 [tool.coverage.report]
 show_missing = true
-fail_under = 10
+fail_under = 75
