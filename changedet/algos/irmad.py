@@ -49,6 +49,10 @@ class IRMAD(MetaAlgo):
         niter = flags.get("niter", 10)
         sig = flags.get("sig", 0.0001)
         apply_icm = flags.get("icm", False)
+        if apply_icm:
+            raise NotImplementedError(
+                "Initial Change Mask is under construction and not ready for use"
+            )
         logger = flags.get("logger", None)
         logger.info(
             "Running IRMAD algorithm for %d iteration(s) with significance level %f",
@@ -67,7 +71,7 @@ class IRMAD(MetaAlgo):
         # Calculate ICM
         if apply_icm:
             icm = InitialChangeMask()
-            change_mask = icm.prepare(im1, im2, plot=False)
+            change_mask = icm.prepare(im1, im2, plot=True)
 
             if change_mask is None:
                 logger.warn("Invalid threshold. Skipping ICM")
