@@ -1201,13 +1201,13 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 
 [extras]
 dev = ["pre-commit", "virtualenv", "pip", "twine", "toml"]
-doc = ["livereload", "mkdocs", "mkdocs-gen-files", "mkdocs-include-markdown-plugin", "mkdocs-literate-nav", "mkdocs-material", "mkdocstrings", "mkdocs-autorefs"]
+doc = ["livereload", "mkdocs", "mkdocs-gen-files", "mkdocs-include-markdown-plugin", "mkdocs-literate-nav", "mkdocs-material", "mkdocstrings", "mkdocs-autorefs", "mkdocs-section-index"]
 test = ["pytest", "black", "isort", "flake8", "flake8-docstrings", "pytest-cov"]
 
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7,<3.10"
-content-hash = "6da2baca5d2280df3a76fc32eecbfc08689db528bf5c60f6bd6228bfb2101128"
+content-hash = "76e11b789489acb445b1b8270e02cc44596a7b4b412bdd104b1d3c8ca6e013c6"
 
 [metadata.files]
 affine = [

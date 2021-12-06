@@ -109,7 +109,8 @@ doc = [
     "mkdocs-material",
     "mkdocs-material-extension",
     "mkdocstrings",
-    "mkdocs-autorefs"
+    "mkdocs-autorefs",
+    "mkdocs-section-index"
     ]
 
 [tool.poetry.scripts]
