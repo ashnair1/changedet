@@ -19,6 +19,6 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install poetry
           poetry install -E doc
-      #- run: git config user.name 'github-actions[bot]' && git config user.email 'github-actions[bot]@users.noreply.github.com'
+      - run: git config user.name 'github-actions[bot]' && git config user.email 'github-actions[bot]@users.noreply.github.com'
       - name: Publish docs
         run: poetry run mkdocs gh-deploy
