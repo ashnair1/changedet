@@ -48,6 +48,14 @@ def test_changedet_irmad(caplog):
     assert caplog.records[1].message == "Change map written to irmad_cmap.tif"
 
 
+def test_changedet_imgdiff(caplog):
+    img1 = os.path.join(TEST_DATA, "t1.tif")
+    img2 = os.path.join(TEST_DATA, "t2.tif")
+    fire.Fire(ChangeDetPipeline, ["--algo", "imgdiff", "run", img1, img2])
+    assert caplog.records[0].message == "Calculating difference map"
+    assert caplog.records[1].message == "Change map written to imgdiff_cmap.tif"
+
+
 @pytest.mark.parametrize("dist", ["euclidean", "manhattan"])
 def test_changedet_cva(caplog, dist):
     img1 = os.path.join(TEST_DATA, "t1.tif")
