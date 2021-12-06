@@ -45,7 +45,7 @@ class IteratedPCA(MetaAlgo):
         """
         niter = flags.get("niter", 5)
         band_idx = flags.get("band")
-        logger = flags.get("logger", None)
+        logger = flags["logger"]
 
         band_str = "all bands" if band_idx == -1 else "band " + str(band_idx)
 

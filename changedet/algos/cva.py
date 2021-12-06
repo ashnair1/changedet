@@ -70,7 +70,7 @@ class CVA(MetaAlgo):
             flags (dict): Flags for the algorithm
         """
         distance = flags.get("distance", "euclidean")
-        logger = flags.get("logger", None)
+        logger = flags["logger"]
 
         assert distance in ["euclidean", "manhattan"]
 

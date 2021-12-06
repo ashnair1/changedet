@@ -53,7 +53,7 @@ class IRMAD(MetaAlgo):
             raise NotImplementedError(
                 "Initial Change Mask is under construction and not ready for use"
             )
-        logger = flags.get("logger", None)
+        logger = flags["logger"]
         logger.info(
             "Running IRMAD algorithm for %d iteration(s) with significance level %f",
             niter,

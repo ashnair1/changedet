@@ -23,7 +23,7 @@ class ImageDiff(MetaAlgo):
             im2 (np.ndarray): Image 2 array
             flags (dict): Flags for the algorithm
         """
-        logger = flags.get("logger", None)
+        logger = flags["logger"]
 
         # Calculate difference map
         logger.info("Calculating difference map")
