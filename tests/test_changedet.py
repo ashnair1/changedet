@@ -48,11 +48,11 @@ def test_changedet_irmad(caplog):
     assert caplog.records[1].message == "Change map written to irmad_cmap.tif"
 
 
-def test_changedet_cva(caplog):
-    # TODO: Add distance option
+@pytest.mark.parametrize("dist", ["euclidean", "manhattan"])
+def test_changedet_cva(caplog, dist):
     img1 = os.path.join(TEST_DATA, "t1.tif")
     img2 = os.path.join(TEST_DATA, "t2.tif")
-    fire.Fire(ChangeDetPipeline, ["--algo", "cva", "run", img1, img2])
+    fire.Fire(ChangeDetPipeline, ["--algo", "cva", "run", img1, img2, "--distance", dist])
     assert caplog.records[0].message == "Calculating change vectors"
     assert caplog.records[1].message == "Change map written to cva_cmap.tif"
 

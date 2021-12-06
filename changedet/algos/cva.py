@@ -69,11 +69,14 @@ class CVA(MetaAlgo):
             im2 (np.ndarray): Image 2 array
             flags (dict): Flags for the algorithm
         """
+        distance = flags.get("distance", "euclidean")
         logger = flags.get("logger", None)
+
+        assert distance in ["euclidean", "manhattan"]
 
         # Calculate change vectors
         logger.info("Calculating change vectors")
-        mag, theta = calc_cvs(im1, im2)
+        mag, theta = calc_cvs(im1, im2, distance)
         bcm = appy_threshold(mag)
 
         return bcm
