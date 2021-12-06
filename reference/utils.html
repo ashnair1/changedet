@@ -1,0 +1,2426 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.6">
+    
+    
+      
+        <title>utils - changedet</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.a57b2b03.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="teal">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#changedet.utils" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="changedet" class="md-header__button md-logo" aria-label="changedet" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            changedet
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              utils
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/ashnair1/changedet/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    changedet
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../index.html" class="md-tabs__link">
+      Home
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../installation.html" class="md-tabs__link">
+      Installation
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../usage.html" class="md-tabs__link">
+      Usage
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="algos/base.html" class="md-tabs__link md-tabs__link--active">
+        API Reference
+      </a>
+    </li>
+  
+
+  
+
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="changedet" class="md-nav__button md-logo" aria-label="changedet" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    changedet
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/ashnair1/changedet/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    changedet
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation.html" class="md-nav__link">
+        Installation
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usage.html" class="md-nav__link">
+        Usage
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          API Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          API Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_1" type="checkbox" id="__nav_4_1" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_1">
+          changedet
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="changedet" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          changedet
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_1_1" type="checkbox" id="__nav_4_1_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_1_1">
+          algos
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="algos" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          algos
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="algos/base.html" class="md-nav__link">
+        base
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="algos/catalog.html" class="md-nav__link">
+        catalog
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="algos/cva.html" class="md-nav__link">
+        cva
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="algos/imgdiff.html" class="md-nav__link">
+        imgdiff
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="algos/ipca.html" class="md-nav__link">
+        ipca
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="algos/irmad.html" class="md-nav__link">
+        irmad
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cli.html" class="md-nav__link">
+        cli
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="pipeline.html" class="md-nav__link">
+        pipeline
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          utils
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="utils.html" class="md-nav__link md-nav__link--active">
+        utils
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#changedet.utils" class="md-nav__link">
+    utils
+  </a>
+  
+    <nav class="md-nav" aria-label="utils">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#changedet.utils.GMM" class="md-nav__link">
+    GMM
+  </a>
+  
+    <nav class="md-nav" aria-label="GMM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#changedet.utils.GMM.e_step" class="md-nav__link">
+    e_step()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changedet.utils.GMM.fit" class="md-nav__link">
+    fit()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changedet.utils.GMM.init_cluster_params" class="md-nav__link">
+    init_cluster_params()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changedet.utils.GMM.m_step" class="md-nav__link">
+    m_step()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changedet.utils.InitialChangeMask" class="md-nav__link">
+    InitialChangeMask
+  </a>
+  
+    <nav class="md-nav" aria-label="InitialChangeMask">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#changedet.utils.InitialChangeMask--references" class="md-nav__link">
+    References
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changedet.utils.InitialChangeMask.roots" class="md-nav__link">
+    roots()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changedet.utils.check_pos_semi_def" class="md-nav__link">
+    check_pos_semi_def()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changedet.utils.contrast_stretch" class="md-nav__link">
+    contrast_stretch()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changedet.utils.estimate_full_covariance" class="md-nav__link">
+    estimate_full_covariance()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changedet.utils.estimate_tied_covariance" class="md-nav__link">
+    estimate_tied_covariance()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changedet.utils.histplot" class="md-nav__link">
+    histplot()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changedet.utils.init_logger" class="md-nav__link">
+    init_logger()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changedet.utils.np_weight_stats" class="md-nav__link">
+    np_weight_stats()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#changedet.utils" class="md-nav__link">
+    utils
+  </a>
+  
+    <nav class="md-nav" aria-label="utils">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#changedet.utils.GMM" class="md-nav__link">
+    GMM
+  </a>
+  
+    <nav class="md-nav" aria-label="GMM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#changedet.utils.GMM.e_step" class="md-nav__link">
+    e_step()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changedet.utils.GMM.fit" class="md-nav__link">
+    fit()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changedet.utils.GMM.init_cluster_params" class="md-nav__link">
+    init_cluster_params()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changedet.utils.GMM.m_step" class="md-nav__link">
+    m_step()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changedet.utils.InitialChangeMask" class="md-nav__link">
+    InitialChangeMask
+  </a>
+  
+    <nav class="md-nav" aria-label="InitialChangeMask">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#changedet.utils.InitialChangeMask--references" class="md-nav__link">
+    References
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changedet.utils.InitialChangeMask.roots" class="md-nav__link">
+    roots()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changedet.utils.check_pos_semi_def" class="md-nav__link">
+    check_pos_semi_def()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changedet.utils.contrast_stretch" class="md-nav__link">
+    contrast_stretch()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changedet.utils.estimate_full_covariance" class="md-nav__link">
+    estimate_full_covariance()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changedet.utils.estimate_tied_covariance" class="md-nav__link">
+    estimate_tied_covariance()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changedet.utils.histplot" class="md-nav__link">
+    histplot()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changedet.utils.init_logger" class="md-nav__link">
+    init_logger()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changedet.utils.np_weight_stats" class="md-nav__link">
+    np_weight_stats()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/ashnair1/changedet/edit/master/docs/changedet/utils.py" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  <h1>utils</h1>
+                
+                <div class="doc doc-object doc-module">
+
+
+
+<h2 class="doc doc-heading" id="changedet.utils">
+        <code>changedet.utils</code>
+
+
+
+<a class="headerlink" href="#changedet.utils" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 class="doc doc-heading" id="changedet.utils.GMM">
+        <code>
+GMM        </code>
+
+
+
+<a class="headerlink" href="#changedet.utils.GMM" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h4 class="doc doc-heading" id="changedet.utils.GMM.e_step">
+<code class="highlight language-python"><span class="n">e_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">resp</span><span class="p">,</span> <span class="n">means</span><span class="p">,</span> <span class="n">cov</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">sample_inds</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#changedet.utils.GMM.e_step" title="Permanent link">&para;</a></h4>
+
+    <div class="doc doc-contents ">
+
+      <p>Expectation step</p>
+<p>Shape notation:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>N: number of samples
+D: number of features
+K: number of mixture components
+</code></pre></div>
+</td></tr></table>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>X</code></td>
+        <td><code>ndarray</code></td>
+        <td><p>Data matrix of shape (N, D)</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>resp</code></td>
+        <td><code>ndarray</code></td>
+        <td><p>Responsibility matrix of shape (N,K)</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>means</code></td>
+        <td><code>ndarray</code></td>
+        <td><p>Means array of shape (K, D)</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>cov</code></td>
+        <td><code>ndarray</code></td>
+        <td><p>Covariance matrix of shape (K,D,D) - full</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>pi</code></td>
+        <td><code>ndarray</code></td>
+        <td><p>Mixture weights of shape (K,)</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>sample_inds</code></td>
+        <td><code>Union[Sequence[Sequence[Sequence[Sequence[Sequence[Any]]]]], numpy._array_like._SupportsArray[numpy.dtype], Sequence[numpy._array_like._SupportsArray[numpy.dtype]], Sequence[Sequence[numpy._array_like._SupportsArray[numpy.dtype]]], Sequence[Sequence[Sequence[numpy._array_like._SupportsArray[numpy.dtype]]]], Sequence[Sequence[Sequence[Sequence[numpy._array_like._SupportsArray[numpy.dtype]]]]], bool, int, float, complex, str, bytes, Sequence[Union[bool, int, float, complex, str, bytes]], Sequence[Sequence[Union[bool, int, float, complex, str, bytes]]], Sequence[Sequence[Sequence[Union[bool, int, float, complex, str, bytes]]]], Sequence[Sequence[Sequence[Sequence[Union[bool, int, float, complex, str, bytes]]]]]]</code></td>
+        <td><p>Samples to be considered</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Tuple[numpy.ndarray, numpy.ndarray]</code></td>
+      <td><ul>
+<li>resp (numpy.ndarray): Responsibility matrix of shape (N,K)</li>
+<li>wpdf (numpy.ndarray): Unnormalised responsibility matrix of shape (N,K)</li>
+</ul></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>changedet/utils.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">e_step</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">resp</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">means</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">cov</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">pi</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">sample_inds</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Expectation step</span>
+
+<span class="sd">    Shape notation:</span>
+
+<span class="sd">        N: number of samples</span>
+<span class="sd">        D: number of features</span>
+<span class="sd">        K: number of mixture components</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        X (numpy.ndarray): Data matrix of shape (N, D)</span>
+<span class="sd">        resp (numpy.ndarray): Responsibility matrix of shape (N,K)</span>
+<span class="sd">        means (numpy.ndarray): Means array of shape (K, D)</span>
+<span class="sd">        cov (numpy.ndarray): Covariance matrix of shape (K,D,D) - full</span>
+<span class="sd">        pi (numpy.ndarray): Mixture weights of shape (K,)</span>
+<span class="sd">        sample_inds (array-like): Samples to be considered</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple:</span>
+<span class="sd">        - resp (numpy.ndarray): Responsibility matrix of shape (N,K)</span>
+<span class="sd">        - wpdf (numpy.ndarray): Unnormalised responsibility matrix of shape (N,K)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="p">):</span>
+        <span class="n">resp</span><span class="p">[</span><span class="n">sample_inds</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">pi</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="n">multivariate_normal</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span>
+            <span class="n">X</span><span class="p">[</span><span class="n">sample_inds</span><span class="p">],</span> <span class="n">means</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">cov</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+        <span class="p">)</span>
+    <span class="n">wpdf</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>  <span class="c1"># For log likelihood computation</span>
+    <span class="c1"># Safe normalisation</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">resp</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">a</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">resp</span> <span class="o">=</span> <span class="n">resp</span> <span class="o">/</span> <span class="n">a</span>
+    <span class="k">return</span> <span class="n">resp</span><span class="p">,</span> <span class="n">wpdf</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h4 class="doc doc-heading" id="changedet.utils.GMM.fit">
+<code class="highlight language-python"><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">resp</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_inds</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#changedet.utils.GMM.fit" title="Permanent link">&para;</a></h4>
+
+    <div class="doc doc-contents ">
+
+      <p>Fit a GMM to X with initial responsibility resp. If sample_inds are specified, only those
+indexes are considered.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>X</code></td>
+        <td><code>ndarray</code></td>
+        <td><p>Data matrix</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>resp</code></td>
+        <td><code>Optional[numpy.ndarray]</code></td>
+        <td><p>Initial responsibility matrix. Defaults to None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>sample_inds</code></td>
+        <td><code>Union[Sequence[Sequence[Sequence[Sequence[Sequence[Any]]]]], numpy._array_like._SupportsArray[numpy.dtype], Sequence[numpy._array_like._SupportsArray[numpy.dtype]], Sequence[Sequence[numpy._array_like._SupportsArray[numpy.dtype]]], Sequence[Sequence[Sequence[numpy._array_like._SupportsArray[numpy.dtype]]]], Sequence[Sequence[Sequence[Sequence[numpy._array_like._SupportsArray[numpy.dtype]]]]], bool, int, float, complex, str, bytes, Sequence[Union[bool, int, float, complex, str, bytes]], Sequence[Sequence[Union[bool, int, float, complex, str, bytes]]], Sequence[Sequence[Sequence[Union[bool, int, float, complex, str, bytes]]]], Sequence[Sequence[Sequence[Sequence[Union[bool, int, float, complex, str, bytes]]]]]]</code></td>
+        <td><p>Sample indexes to be considered. Defaults to None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>ndarray</code></td>
+      <td><p>resp (numpy.ndarray): Responsibility matrix</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>changedet/utils.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">fit</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">resp</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">sample_inds</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Fit a GMM to X with initial responsibility resp. If sample_inds are specified, only those</span>
+<span class="sd">    indexes are considered.</span>
+
+
+<span class="sd">    Args:</span>
+<span class="sd">        X (numpy.ndarray): Data matrix</span>
+<span class="sd">        resp (numpy.ndarray, optional): Initial responsibility matrix. Defaults to None.</span>
+<span class="sd">        sample_inds (array-like, optional): Sample indexes to be considered. Defaults to None.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        resp (numpy.ndarray): Responsibility matrix</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">n_samples</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+
+    <span class="k">if</span> <span class="n">sample_inds</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">sample_inds</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_samples</span><span class="p">)</span>
+
+    <span class="n">means</span><span class="p">,</span> <span class="n">cov</span><span class="p">,</span> <span class="n">pi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_cluster_params</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">lls</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">if</span> <span class="n">resp</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n_samples</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="p">)</span>
+        <span class="n">resp</span> <span class="o">/=</span> <span class="n">resp</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">means</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">cov</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_step</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">resp</span><span class="p">)</span>
+
+    <span class="c1"># EM algorithm</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">niter</span><span class="p">):</span>
+        <span class="c1"># resp_old = resp + 0.0</span>
+
+        <span class="c1"># E step</span>
+        <span class="n">resp</span><span class="p">,</span> <span class="n">wpdf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">e_step</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">resp</span><span class="p">,</span> <span class="n">means</span><span class="p">,</span> <span class="n">cov</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">sample_inds</span><span class="p">)</span>
+        <span class="c1"># M step</span>
+        <span class="n">means</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">cov</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_step</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">resp</span><span class="p">)</span>
+
+        <span class="c1"># resp_flat = resp.ravel()</span>
+        <span class="c1"># resp_old_flat = resp_old.ravel()</span>
+        <span class="c1"># idx = np.where(resp.flat)[0]</span>
+        <span class="c1"># ll = np.sum(resp_old_flat[idx] * np.log(resp_flat[idx]))</span>
+        <span class="n">ll</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">wpdf</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="n">lls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ll</span><span class="p">)</span>
+
+        <span class="c1"># print(f&quot;Log-likelihood:{ll}&quot;)</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">lls</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">lls</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">:</span>
+            <span class="c1"># print(&quot;Exiting&quot;)</span>
+            <span class="k">break</span>
+
+    <span class="k">return</span> <span class="n">resp</span><span class="p">,</span> <span class="n">means</span><span class="p">,</span> <span class="n">cov</span><span class="p">,</span> <span class="n">pi</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h4 class="doc doc-heading" id="changedet.utils.GMM.init_cluster_params">
+<code class="highlight language-python"><span class="n">init_cluster_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#changedet.utils.GMM.init_cluster_params" title="Permanent link">&para;</a></h4>
+
+    <div class="doc doc-contents ">
+
+      <p>Initialse cluster parameters</p>
+<p>Shape notation:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>N: number of samples
+D: number of features
+K: number of mixture components
+</code></pre></div>
+</td></tr></table>
+<p>Initialisation method:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Initialise means to a random data point in X
+Initialse cov to a spherical covariance matrix of variance 1
+Initialse pi to uniform distribution
+</code></pre></div>
+</td></tr></table>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>X</code></td>
+        <td><code>ndarray</code></td>
+        <td><p>Data matrix of shape (N,D)</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Tuple[numpy.ndarray, numpy.ndarray, numpy.ndarray]</code></td>
+      <td><ul>
+<li>means (numpy.ndarray): Means array of shape (K, D)</li>
+<li>cov (numpy.ndarray): Covariance matrix of shape (K,D,D)</li>
+<li>pi (numpy.ndarray): Mixture weights of shape (K,)</li>
+</ul></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>changedet/utils.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">init_cluster_params</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Initialse cluster parameters</span>
+
+<span class="sd">    Shape notation:</span>
+
+<span class="sd">        N: number of samples</span>
+<span class="sd">        D: number of features</span>
+<span class="sd">        K: number of mixture components</span>
+
+<span class="sd">    Initialisation method:</span>
+
+<span class="sd">        Initialise means to a random data point in X</span>
+<span class="sd">        Initialse cov to a spherical covariance matrix of variance 1</span>
+<span class="sd">        Initialse pi to uniform distribution</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        X (numpy.ndarray): Data matrix of shape (N,D)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple:</span>
+<span class="sd">        - means (numpy.ndarray): Means array of shape (K, D)</span>
+<span class="sd">        - cov (numpy.ndarray): Covariance matrix of shape (K,D,D)</span>
+<span class="sd">        - pi (numpy.ndarray): Mixture weights of shape (K,)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">n_samples</span><span class="p">,</span> <span class="n">n_features</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">means</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="p">,</span> <span class="n">n_features</span><span class="p">))</span>
+    <span class="n">cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="p">,</span> <span class="n">n_features</span><span class="p">,</span> <span class="n">n_features</span><span class="p">))</span>
+
+    <span class="c1"># Initialise</span>
+    <span class="c1"># Mean -&gt; random data point</span>
+    <span class="c1"># Cov -&gt; spherical covariance - all clusters have same diagonal cov</span>
+    <span class="c1"># matrix and diagonal elements are all equal</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="p">):</span>
+        <span class="n">means</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">n_samples</span><span class="p">)]</span>
+        <span class="n">cov</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n_features</span><span class="p">)</span>
+
+    <span class="n">pi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span>
+
+    <span class="k">return</span> <span class="n">means</span><span class="p">,</span> <span class="n">cov</span><span class="p">,</span> <span class="n">pi</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h4 class="doc doc-heading" id="changedet.utils.GMM.m_step">
+<code class="highlight language-python"><span class="n">m_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">resp</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#changedet.utils.GMM.m_step" title="Permanent link">&para;</a></h4>
+
+    <div class="doc doc-contents ">
+
+      <p>Maximisation step</p>
+<p>Shape notation:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>N: number of samples
+D: number of features
+K: number of mixture components
+</code></pre></div>
+</td></tr></table>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>X</code></td>
+        <td><code>ndarray</code></td>
+        <td><p>Data matrix of shape (N, D)</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>resp</code></td>
+        <td><code>ndarray</code></td>
+        <td><p>Responsibility matrix of shape (N,K)</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Tuple[numpy.ndarray, numpy.ndarray, numpy.ndarray]</code></td>
+      <td><ul>
+<li>means (numpy.ndarray): Means array of shape (K, D)</li>
+<li>cov (numpy.ndarray): Covariance matrix of shape (K,D,D) - full</li>
+<li>pi (numpy.ndarray): Mixture weights of shape (K,)</li>
+</ul></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>changedet/utils.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">m_step</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">resp</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Maximisation step</span>
+
+<span class="sd">    Shape notation:</span>
+
+<span class="sd">        N: number of samples</span>
+<span class="sd">        D: number of features</span>
+<span class="sd">        K: number of mixture components</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        X (numpy.ndarray): Data matrix of shape (N, D)</span>
+<span class="sd">        resp (numpy.ndarray): Responsibility matrix of shape (N,K)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple:</span>
+<span class="sd">        - means (numpy.ndarray): Means array of shape (K, D)</span>
+<span class="sd">        - cov (numpy.ndarray): Covariance matrix of shape (K,D,D) - full</span>
+<span class="sd">        - pi (numpy.ndarray): Mixture weights of shape (K,)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># M step</span>
+    <span class="n">n_samples</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">nk</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">means</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span> <span class="o">/</span> <span class="n">nk</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+    <span class="n">pi</span> <span class="o">=</span> <span class="n">nk</span> <span class="o">/</span> <span class="n">n_samples</span>
+
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cov_type</span> <span class="o">==</span> <span class="s2">&quot;tied&quot;</span><span class="p">:</span>
+        <span class="n">cov</span> <span class="o">=</span> <span class="n">estimate_tied_covariance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">resp</span><span class="p">,</span> <span class="n">nk</span><span class="p">,</span> <span class="n">means</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reg_covar</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">cov</span> <span class="o">=</span> <span class="n">estimate_full_covariance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">resp</span><span class="p">,</span> <span class="n">nk</span><span class="p">,</span> <span class="n">means</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reg_covar</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">means</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">cov</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 class="doc doc-heading" id="changedet.utils.InitialChangeMask">
+        <code>
+InitialChangeMask        </code>
+
+
+
+<a class="headerlink" href="#changedet.utils.InitialChangeMask" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Initial Change Mask</p>
+<p>Create a change mask to remove strong changes and enable better radiometric
+normalisation.</p>
+<h6 id="changedet.utils.InitialChangeMask--references">References<a class="headerlink" href="#changedet.utils.InitialChangeMask--references" title="Permanent link">&para;</a></h6>
+<ul>
+<li>P. R. Marpu, P. Gamba and M. J. Canty, "Improving Change Detection Results
+  of IR-MAD by Eliminating Strong Changes," in IEEE Geoscience and Remote
+  Sensing Letters, vol. 8 no. 4, pp. 799-803, July 2011,
+  doi:10.1109/LGRS.2011.2109697.</li>
+</ul>
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h4 class="doc doc-heading" id="changedet.utils.InitialChangeMask.roots">
+<code class="highlight language-python"><span class="n">roots</span><span class="p">(</span><span class="n">mean</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">pi</span><span class="p">)</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-staticmethod"><code>staticmethod</code></small>
+  </span>
+
+<a class="headerlink" href="#changedet.utils.InitialChangeMask.roots" title="Permanent link">&para;</a></h4>
+
+    <div class="doc doc-contents ">
+
+      <p>Compute the threshold between the no-change and change distributions
+from the mean, variance and mixture weight (pi) of no change, change and
+ambigous distributions.</p>
+<p>Refer https://gist.github.com/ashnair1/433ffbc1e747f80067f8a0439e346279
+for full derivation.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>mean</code></td>
+        <td><code>ndarray</code></td>
+        <td><p>means of distributions</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>var</code></td>
+        <td><code>ndarray</code></td>
+        <td><p>variances of distributions</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>pi</code></td>
+        <td><code>ndarray</code></td>
+        <td><p>mixture weights</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Tuple[float, float]</code></td>
+      <td><p>Tuple[float, float]: thresholds</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>changedet/utils.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@staticmethod</span>
+<span class="k">def</span> <span class="nf">roots</span><span class="p">(</span><span class="n">mean</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">var</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">pi</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Compute the threshold between the no-change and change distributions</span>
+<span class="sd">    from the mean, variance and mixture weight (pi) of no change, change and</span>
+<span class="sd">    ambigous distributions.</span>
+
+<span class="sd">    Refer https://gist.github.com/ashnair1/433ffbc1e747f80067f8a0439e346279</span>
+<span class="sd">    for full derivation.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        mean (np.ndarray): means of distributions</span>
+<span class="sd">        var (np.ndarray): variances of distributions</span>
+<span class="sd">        pi (np.ndarray): mixture weights</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple[float, float]: thresholds</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">std1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">std2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">var</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">((</span><span class="n">std1</span> <span class="o">*</span> <span class="n">pi</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">std2</span> <span class="o">*</span> <span class="n">pi</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="n">n1</span> <span class="o">=</span> <span class="n">var</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">mean</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">mean</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">n2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
+        <span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">var</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">mean</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">mean</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">k</span> <span class="o">*</span> <span class="p">(</span><span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">var</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="p">)</span>
+    <span class="n">d1</span> <span class="o">=</span> <span class="n">var</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">root1</span> <span class="o">=</span> <span class="p">(</span><span class="n">n1</span> <span class="o">+</span> <span class="n">n2</span><span class="p">)</span> <span class="o">/</span> <span class="n">d1</span>
+    <span class="n">root2</span> <span class="o">=</span> <span class="p">(</span><span class="n">n1</span> <span class="o">-</span> <span class="n">n2</span><span class="p">)</span> <span class="o">/</span> <span class="n">d1</span>
+    <span class="k">return</span> <span class="n">root1</span><span class="p">,</span> <span class="n">root2</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 class="doc doc-heading" id="changedet.utils.check_pos_semi_def">
+<code class="highlight language-python"><span class="n">check_pos_semi_def</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#changedet.utils.check_pos_semi_def" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Test whether matrix is positive semi-definite</p>
+<p>Ref:
+- https://scicomp.stackexchange.com/a/12984/39306
+- https://stackoverflow.com/a/63911811/10800115</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>mat</code></td>
+        <td><code>ndarray</code></td>
+        <td><p>Input matrix</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>bool</code></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>changedet/utils.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">check_pos_semi_def</span><span class="p">(</span><span class="n">mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Test whether matrix is positive semi-definite</span>
+
+<span class="sd">    Ref:</span>
+<span class="sd">    - https://scicomp.stackexchange.com/a/12984/39306</span>
+<span class="sd">    - https://stackoverflow.com/a/63911811/10800115</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        mat (np.ndarray): Input matrix</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        bool: True if mat is positive semi-definite else False</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">reg_mat</span> <span class="o">=</span> <span class="n">mat</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="mf">1e-3</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">cholesky</span><span class="p">(</span><span class="n">reg_mat</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">except</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">LinAlgError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 class="doc doc-heading" id="changedet.utils.contrast_stretch">
+<code class="highlight language-python"><span class="n">contrast_stretch</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">target_type</span><span class="o">=</span><span class="s1">&#39;uint8&#39;</span><span class="p">,</span> <span class="n">stretch_type</span><span class="o">=</span><span class="s1">&#39;minmax&#39;</span><span class="p">,</span> <span class="n">percentile</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">98</span><span class="p">))</span></code>
+
+
+<a class="headerlink" href="#changedet.utils.contrast_stretch" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Change image distribution to cover full range of target_type.</p>
+<p>Types of contrast stretching:
+- minmax (Default)
+- percentile</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>img</code></td>
+        <td><code>ndarray</code></td>
+        <td><p>Input image</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>target_type</code></td>
+        <td><code>str</code></td>
+        <td><p>Target type of rescaled image. Defaults to "uint8".</p></td>
+        <td><code>&#39;uint8&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>stretch_type</code></td>
+        <td><code>str</code></td>
+        <td><p>Types of contrast stretching. Defaults to "minmax".</p></td>
+        <td><code>&#39;minmax&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>percentile</code></td>
+        <td><code>Tuple[int, int]</code></td>
+        <td><p>Cut off percentiles if stretch_type = "percentile". Defaults to (2, 98).</p></td>
+        <td><code>(2, 98)</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>ndarray</code></td>
+      <td><p>scaled (numpy.ndarray): Rescaled image</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>changedet/utils.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">contrast_stretch</span><span class="p">(</span>
+    <span class="n">img</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">target_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;uint8&quot;</span><span class="p">,</span>
+    <span class="n">stretch_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;minmax&quot;</span><span class="p">,</span>
+    <span class="n">percentile</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">98</span><span class="p">),</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Change image distribution to cover full range of target_type.</span>
+
+<span class="sd">    Types of contrast stretching:</span>
+<span class="sd">    - minmax (Default)</span>
+<span class="sd">    - percentile</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        img (numpy.ndarray): Input image</span>
+<span class="sd">        target_type (dtype): Target type of rescaled image. Defaults to &quot;uint8&quot;.</span>
+<span class="sd">        stretch_type (str): Types of contrast stretching. Defaults to &quot;minmax&quot;.</span>
+<span class="sd">        percentile (tuple): Cut off percentiles if stretch_type = &quot;percentile&quot;. Defaults to (2, 98).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        scaled (numpy.ndarray): Rescaled image</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">type_info</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">target_type</span><span class="p">)</span>
+    <span class="n">minout</span> <span class="o">=</span> <span class="n">type_info</span><span class="o">.</span><span class="n">min</span>
+    <span class="n">maxout</span> <span class="o">=</span> <span class="n">type_info</span><span class="o">.</span><span class="n">max</span>
+
+    <span class="k">if</span> <span class="n">stretch_type</span> <span class="o">==</span> <span class="s2">&quot;percentile&quot;</span><span class="p">:</span>
+        <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanpercentile</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">percentile</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">lower</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+        <span class="n">upper</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+
+    <span class="c1"># Contrast Stretching</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="n">maxout</span> <span class="o">-</span> <span class="n">minout</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">upper</span> <span class="o">-</span> <span class="n">lower</span><span class="p">)</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">minout</span> <span class="o">-</span> <span class="n">a</span> <span class="o">*</span> <span class="n">lower</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">img</span> <span class="o">+</span> <span class="n">b</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">minout</span><span class="p">,</span> <span class="n">maxout</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 class="doc doc-heading" id="changedet.utils.estimate_full_covariance">
+<code class="highlight language-python"><span class="n">estimate_full_covariance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">resp</span><span class="p">,</span> <span class="n">nk</span><span class="p">,</span> <span class="n">means</span><span class="p">,</span> <span class="n">reg_covar</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#changedet.utils.estimate_full_covariance" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Estimate full covariance matrix</p>
+<p>Shape notation:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    N: number of samples
+    D: number of features
+    K: number of mixture components
+</code></pre></div>
+</td></tr></table>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>X</code></td>
+        <td><code>ndarray</code></td>
+        <td><p>Data matrix of shape (N, D)</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>resp</code></td>
+        <td><code>ndarray</code></td>
+        <td><p>Responsibility matrix of shape (N,K)</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>nk</code></td>
+        <td><code>ndarray</code></td>
+        <td><p>Total responsibility per cluster of shape (K,)</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>means</code></td>
+        <td><code>ndarray</code></td>
+        <td><p>Means array of shape (K, D)</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>reg_covar</code></td>
+        <td><code>float</code></td>
+        <td><p>Regularisation added to diagonal of covariance matrix             to ensure positive definiteness</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>ndarray</code></td>
+      <td><p>cov (numpy.ndarray): Covariance matrix of shape (K,D,D)</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>changedet/utils.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">estimate_full_covariance</span><span class="p">(</span>
+    <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">resp</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">nk</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">means</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">reg_covar</span><span class="p">:</span> <span class="nb">float</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Estimate full covariance matrix</span>
+
+<span class="sd">    Shape notation:</span>
+
+<span class="sd">            N: number of samples</span>
+<span class="sd">            D: number of features</span>
+<span class="sd">            K: number of mixture components</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        X (numpy.ndarray): Data matrix of shape (N, D)</span>
+<span class="sd">        resp (numpy.ndarray): Responsibility matrix of shape (N,K)</span>
+<span class="sd">        nk (numpy.ndarray): Total responsibility per cluster of shape (K,)</span>
+<span class="sd">        means (numpy.ndarray): Means array of shape (K, D)</span>
+<span class="sd">        reg_covar (float): Regularisation added to diagonal of covariance matrix \</span>
+<span class="sd">            to ensure positive definiteness</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        cov (numpy.ndarray): Covariance matrix of shape (K,D,D)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n_components</span><span class="p">,</span> <span class="n">n_features</span> <span class="o">=</span> <span class="n">means</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">n_components</span><span class="p">,</span> <span class="n">n_features</span><span class="p">,</span> <span class="n">n_features</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_components</span><span class="p">):</span>
+        <span class="n">delta</span> <span class="o">=</span> <span class="n">X</span> <span class="o">-</span> <span class="n">means</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+        <span class="n">cov</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">resp</span><span class="p">[:,</span> <span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="n">delta</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">delta</span><span class="p">)</span> <span class="o">/</span> <span class="n">nk</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n_features</span><span class="p">)</span> <span class="o">*</span> <span class="n">reg_covar</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">cov</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 class="doc doc-heading" id="changedet.utils.estimate_tied_covariance">
+<code class="highlight language-python"><span class="n">estimate_tied_covariance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">resp</span><span class="p">,</span> <span class="n">nk</span><span class="p">,</span> <span class="n">means</span><span class="p">,</span> <span class="n">reg_covar</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#changedet.utils.estimate_tied_covariance" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Estimate tied covariance matrix</p>
+<p>Shape notation:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    N: number of samples
+    D: number of features
+    K: number of mixture components
+</code></pre></div>
+</td></tr></table>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>X</code></td>
+        <td><code>ndarray</code></td>
+        <td><p>Data matrix of shape (N, D)</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>resp</code></td>
+        <td><code>ndarray</code></td>
+        <td><p>Responsibility matrix of shape (N,K)</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>nk</code></td>
+        <td><code>ndarray</code></td>
+        <td><p>Total responsibility per cluster of shape (K,)</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>means</code></td>
+        <td><code>ndarray</code></td>
+        <td><p>Means array of shape (K, D)</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>reg_covar</code></td>
+        <td><code>float</code></td>
+        <td><p>Regularisation added to diagonal of covariance matrix             to ensure positive definiteness</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>ndarray</code></td>
+      <td><p>cov (numpy.ndarray): Covariance matrix of shape (K,D,D)</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>changedet/utils.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">estimate_tied_covariance</span><span class="p">(</span>
+    <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">resp</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">nk</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">means</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">reg_covar</span><span class="p">:</span> <span class="nb">float</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Estimate tied covariance matrix</span>
+
+<span class="sd">    Shape notation:</span>
+
+<span class="sd">            N: number of samples</span>
+<span class="sd">            D: number of features</span>
+<span class="sd">            K: number of mixture components</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        X (numpy.ndarray): Data matrix of shape (N, D)</span>
+<span class="sd">        resp (numpy.ndarray): Responsibility matrix of shape (N,K)</span>
+<span class="sd">        nk (numpy.ndarray): Total responsibility per cluster of shape (K,)</span>
+<span class="sd">        means (numpy.ndarray): Means array of shape (K, D)</span>
+<span class="sd">        reg_covar (float): Regularisation added to diagonal of covariance matrix \</span>
+<span class="sd">            to ensure positive definiteness</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        cov (numpy.ndarray): Covariance matrix of shape (K,D,D)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n_components</span><span class="p">,</span> <span class="n">n_features</span> <span class="o">=</span> <span class="n">means</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">avg_X2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+    <span class="n">avg_means2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">nk</span> <span class="o">*</span> <span class="n">means</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">means</span><span class="p">)</span>
+    <span class="n">cov</span> <span class="o">=</span> <span class="p">(</span><span class="n">avg_X2</span> <span class="o">-</span> <span class="n">avg_means2</span><span class="p">)</span> <span class="o">/</span> <span class="n">nk</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n_features</span><span class="p">)</span> <span class="o">*</span> <span class="n">reg_covar</span>
+
+    <span class="c1"># Convert (D,D) cov to (K,D,D) cov where all K cov matrices are equal</span>
+    <span class="n">cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">cov</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span> <span class="n">n_components</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cov</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 class="doc doc-heading" id="changedet.utils.histplot">
+<code class="highlight language-python"><span class="n">histplot</span><span class="p">(</span><span class="n">xlist</span><span class="p">,</span> <span class="n">xlabel</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#changedet.utils.histplot" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Plot multiple histograms in the same figure</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>xlist</code></td>
+        <td><code>Union[Sequence[Sequence[Sequence[Sequence[Sequence[Any]]]]], numpy._array_like._SupportsArray[numpy.dtype], Sequence[numpy._array_like._SupportsArray[numpy.dtype]], Sequence[Sequence[numpy._array_like._SupportsArray[numpy.dtype]]], Sequence[Sequence[Sequence[numpy._array_like._SupportsArray[numpy.dtype]]]], Sequence[Sequence[Sequence[Sequence[numpy._array_like._SupportsArray[numpy.dtype]]]]], bool, int, float, complex, str, bytes, Sequence[Union[bool, int, float, complex, str, bytes]], Sequence[Sequence[Union[bool, int, float, complex, str, bytes]]], Sequence[Sequence[Sequence[Union[bool, int, float, complex, str, bytes]]]], Sequence[Sequence[Sequence[Sequence[Union[bool, int, float, complex, str, bytes]]]]]]</code></td>
+        <td><p>Sequence</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>xlabel</code></td>
+        <td><code>List[str]</code></td>
+        <td><p>Sequence label</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>bins</code></td>
+        <td><code>Optional[int]</code></td>
+        <td><p>Histogram bins. Defaults to 50.</p></td>
+        <td><code>50</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Figure</code></td>
+      <td><p>matplotlib.figure.figure: Figure with histograms</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>changedet/utils.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">histplot</span><span class="p">(</span><span class="n">xlist</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span> <span class="n">xlabel</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">bins</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">50</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Figure</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Plot multiple histograms in the same figure</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        xlist (arraylike): Sequence</span>
+<span class="sd">        xlabel (list[str]): Sequence label</span>
+<span class="sd">        bins (int, optional): Histogram bins. Defaults to 50.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        matplotlib.figure.figure: Figure with histograms</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">xlist</span><span class="p">,</span> <span class="n">xlabel</span><span class="p">):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">i</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">j</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">f</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 class="doc doc-heading" id="changedet.utils.init_logger">
+<code class="highlight language-python"><span class="n">init_logger</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;logger&#39;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#changedet.utils.init_logger" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Initialise changedet logger</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>name</code></td>
+        <td><code>str</code></td>
+        <td><p>Name of this logger. Defaults to "logger".</p></td>
+        <td><code>&#39;logger&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>output</code></td>
+        <td><code>Optional[str]</code></td>
+        <td><p>Path to folder/file to write logs. If None, logs are not written</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>changedet/utils.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">init_logger</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;logger&quot;</span><span class="p">,</span> <span class="n">output</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Initialise changedet logger</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        name (str, optional): Name of this logger. Defaults to &quot;logger&quot;.</span>
+<span class="sd">        output (str, optional): Path to folder/file to write logs. If None, logs are not written</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+
+    <span class="c1"># Output logs to terminal</span>
+    <span class="n">streamhandler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
+    <span class="n">streamhandler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+    <span class="n">streamhandler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">_ColorFormatter</span><span class="p">(</span><span class="n">datefmt</span><span class="o">=</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">))</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">streamhandler</span><span class="p">)</span>
+
+    <span class="c1"># Output logs to file</span>
+    <span class="k">if</span> <span class="n">output</span><span class="p">:</span>
+        <span class="n">output_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+        <span class="n">logfile</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">output_path</span>
+            <span class="k">if</span> <span class="n">output_path</span><span class="o">.</span><span class="n">suffix</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;.log&quot;</span><span class="p">]</span>
+            <span class="k">else</span> <span class="n">output_path</span> <span class="o">/</span> <span class="s2">&quot;log.txt&quot;</span>
+        <span class="p">)</span>
+        <span class="n">Path</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">output_path</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span>
+
+        <span class="n">filehandler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">FileHandler</span><span class="p">(</span><span class="n">logfile</span><span class="p">)</span>
+        <span class="n">filehandler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+        <span class="n">filehandler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">_ColorFormatter</span><span class="p">(</span><span class="n">datefmt</span><span class="o">=</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">))</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">filehandler</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">logger</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 class="doc doc-heading" id="changedet.utils.np_weight_stats">
+<code class="highlight language-python"><span class="n">np_weight_stats</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ws</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#changedet.utils.np_weight_stats" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Calculate weighted mean and sample covariance.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>x</code></td>
+        <td><code>ndarray</code></td>
+        <td><p>Data matrix of shape (N,D)</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>ws</code></td>
+        <td><code>Optional[numpy.ndarray]</code></td>
+        <td><p>Weight vector of shape (N,). Defaults to None</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Tuple[numpy.ndarray, numpy.ndarray]</code></td>
+      <td><ul>
+<li>wsigma (numpy.ndarray): Weighted covariance matrix</li>
+<li>wmean (numpy.ndarray): Weighted mean</li>
+</ul></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>changedet/utils.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">np_weight_stats</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">ws</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Calculate weighted mean and sample covariance.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (numpy.ndarray): Data matrix of shape (N,D)</span>
+<span class="sd">        ws (numpy.ndarray, optional): Weight vector of shape (N,). Defaults to None</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple:</span>
+<span class="sd">        - wsigma (numpy.ndarray): Weighted covariance matrix</span>
+<span class="sd">        - wmean (numpy.ndarray): Weighted mean</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Uniform weight if ws is unspecified or array of zeros</span>
+    <span class="k">if</span> <span class="n">ws</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">ws</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="n">ws</span><span class="p">)</span>
+    <span class="n">wmean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">mean</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># (H*W,) -&gt; (H*W,1)</span>
+    <span class="n">wsigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">rowvar</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">aweights</span><span class="o">=</span><span class="n">ws</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">wsigma</span><span class="p">,</span> <span class="n">wmean</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="pipeline.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: pipeline" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              pipeline
+            </div>
+          </div>
+        </a>
+      
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+            Material for MkDocs
+          </a>
+        
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+      <a href="https://github.com/ashnair1/changedet" target="_blank" rel="noopener" title="Github" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+      
+      
+      <a href="mailto:ashnair0007@gmail.com" target="_blank" rel="noopener" title="" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m20 8-8 5-8-5V6l8 5 8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.tabs.link", "navigation.sections", "navigation.tabs", "navigation.tracking", "search.highlight", "search.share", "search.suggest"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.fcfe8b6d.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.b1047164.min.js"></script>
+      
+    
+  </body>
+</html>
