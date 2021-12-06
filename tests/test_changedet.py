@@ -18,6 +18,14 @@ def test_changedet_cli(capsys):
     assert "['cva', 'imgdiff', 'ipca', 'irmad']\n" == result
 
 
+def test_changedet_incorrect_algo():
+    img1 = os.path.join(TEST_DATA, "t1.tif")
+    img2 = os.path.join(TEST_DATA, "t2.tiff")
+    fake_algo = "imdiff"
+    with pytest.raises(KeyError, match=f"Algorithm {fake_algo} is not registered"):
+        fire.Fire(ChangeDetPipeline, ["--algo", fake_algo, "run", img1, img2])
+
+
 def test_changedet_missing_inputs(caplog):
     img1 = os.path.join(TEST_DATA, "t1.tif")
     img2 = os.path.join(TEST_DATA, "t2.tiff")
