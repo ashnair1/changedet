@@ -80,7 +80,7 @@ class IteratedPCA(MetaAlgo):
 
             gmm = GMM(n_clusters, 60)
 
-            for itr in range(niter):
+            for _ in range(niter):
                 # Calculate responsibility matrix
                 U = np.random.rand(X.shape[0], n_clusters)
                 for _ in range(n_clusters):
