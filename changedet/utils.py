@@ -15,8 +15,9 @@ def check_pos_semi_def(mat: np.ndarray) -> bool:
     """Test whether matrix is positive semi-definite
 
     Ref:
-    - https://scicomp.stackexchange.com/a/12984/39306
-    - https://stackoverflow.com/a/63911811/10800115
+
+    - <https://scicomp.stackexchange.com/a/12984/39306>
+    - <https://stackoverflow.com/a/63911811/10800115>
 
     Args:
         mat (np.ndarray): Input matrix
@@ -140,7 +141,7 @@ class InitialChangeMask:
         from the mean, variance and mixture weight (pi) of no change, change and
         ambigous distributions.
 
-        Refer https://gist.github.com/ashnair1/433ffbc1e747f80067f8a0439e346279
+        Refer this [gist](<https://gist.github.com/ashnair1/433ffbc1e747f80067f8a0439e346279>)
         for full derivation.
 
         Args:
