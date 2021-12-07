@@ -34,7 +34,7 @@ def check_pos_semi_def(mat: np.ndarray) -> bool:
         return False
 
 
-class InitialChangeMask:
+class InitialChangeMask:  # pragma: no cover
     """Initial Change Mask
 
     Create a change mask to remove strong changes and enable better radiometric

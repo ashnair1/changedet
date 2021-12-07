@@ -65,18 +65,24 @@ def test_changedet_cva(caplog, dist):
     assert caplog.records[1].message == "Change map written to cva_cmap.tif"
 
 
-def test_changedet_ipca(caplog):
+@pytest.mark.parametrize("band", [1, -1])
+def test_changedet_ipca(caplog, band):
     img1 = os.path.join(TEST_DATA, "t1.tif")
     img2 = os.path.join(TEST_DATA, "t2.tif")
     niter = 2
-    band = 1
     fire.Fire(
         ChangeDetPipeline,
         ["--algo", "ipca", "run", img1, img2, "--niter", str(niter), "--band", str(band)],
     )
-    assert (
-        caplog.records[0].message
-        == f"Running IPCA algorithm for {niter} iteration(s) on band {band}"
-    )
-    assert caplog.records[1].message == f"Processing band {band}"
-    assert caplog.records[2].message == "Change map written to ipca_cmap.tif"
+    if band == 1:
+        assert (
+            caplog.records[0].message
+            == f"Running IPCA algorithm for {niter} iteration(s) on band {band}"
+        )
+    else:
+        assert (
+            caplog.records[0].message
+            == f"Running IPCA algorithm for {niter} iteration(s) on all bands"
+        )
+
+    assert caplog.records[-1].message == "Change map written to ipca_cmap.tif"

@@ -154,4 +154,4 @@ omit = ["changedet/cli.py"]
 [tool.coverage.report]
 show_missing = true
 fail_under = 75
-exclude_lines = ["raise NotImplementedError"]
+exclude_lines = ["pragma: no cover", "raise NotImplementedError"]
