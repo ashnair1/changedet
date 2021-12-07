@@ -621,6 +621,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#changedet.utils.GMM.estimate_full_covariance" class="md-nav__link">
+    estimate_full_covariance()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changedet.utils.GMM.estimate_tied_covariance" class="md-nav__link">
+    estimate_tied_covariance()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#changedet.utils.GMM.fit" class="md-nav__link">
     fit()
   </a>
@@ -683,20 +697,6 @@
           <li class="md-nav__item">
   <a href="#changedet.utils.contrast_stretch" class="md-nav__link">
     contrast_stretch()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#changedet.utils.estimate_full_covariance" class="md-nav__link">
-    estimate_full_covariance()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#changedet.utils.estimate_tied_covariance" class="md-nav__link">
-    estimate_tied_covariance()
   </a>
   
 </li>
@@ -798,6 +798,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#changedet.utils.GMM.estimate_full_covariance" class="md-nav__link">
+    estimate_full_covariance()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changedet.utils.GMM.estimate_tied_covariance" class="md-nav__link">
+    estimate_tied_covariance()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#changedet.utils.GMM.fit" class="md-nav__link">
     fit()
   </a>
@@ -860,20 +874,6 @@
           <li class="md-nav__item">
   <a href="#changedet.utils.contrast_stretch" class="md-nav__link">
     contrast_stretch()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#changedet.utils.estimate_full_covariance" class="md-nav__link">
-    estimate_full_covariance()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#changedet.utils.estimate_tied_covariance" class="md-nav__link">
-    estimate_tied_covariance()
   </a>
   
 </li>
@@ -1109,6 +1109,263 @@ K: number of mixture components
     <span class="n">a</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
     <span class="n">resp</span> <span class="o">=</span> <span class="n">resp</span> <span class="o">/</span> <span class="n">a</span>
     <span class="k">return</span> <span class="n">resp</span><span class="p">,</span> <span class="n">wpdf</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h4 id="changedet.utils.GMM.estimate_full_covariance" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">estimate_full_covariance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">resp</span><span class="p">,</span> <span class="n">nk</span><span class="p">,</span> <span class="n">means</span><span class="p">,</span> <span class="n">reg_covar</span><span class="p">)</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-staticmethod"><code>staticmethod</code></small>
+  </span>
+
+<a href="#changedet.utils.GMM.estimate_full_covariance" class="headerlink" title="Permanent link">&para;</a></h4>
+
+    <div class="doc doc-contents ">
+
+      <p>Estimate full covariance matrix</p>
+<p>Shape notation:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    N: number of samples
+    D: number of features
+    K: number of mixture components
+</code></pre></div>
+</td></tr></table>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>X</code></td>
+        <td><code>ndarray</code></td>
+        <td><p>Data matrix of shape (N, D)</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>resp</code></td>
+        <td><code>ndarray</code></td>
+        <td><p>Responsibility matrix of shape (N,K)</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>nk</code></td>
+        <td><code>ndarray</code></td>
+        <td><p>Total responsibility per cluster of shape (K,)</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>means</code></td>
+        <td><code>ndarray</code></td>
+        <td><p>Means array of shape (K, D)</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>reg_covar</code></td>
+        <td><code>float</code></td>
+        <td><p>Regularisation added to diagonal of covariance matrix                 to ensure positive definiteness</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>ndarray</code></td>
+      <td><p>cov (numpy.ndarray): Covariance matrix of shape (K,D,D)</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>changedet/utils.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@staticmethod</span>
+<span class="k">def</span> <span class="nf">estimate_full_covariance</span><span class="p">(</span>
+    <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">resp</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">nk</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">means</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">reg_covar</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Estimate full covariance matrix</span>
+
+<span class="sd">    Shape notation:</span>
+
+<span class="sd">            N: number of samples</span>
+<span class="sd">            D: number of features</span>
+<span class="sd">            K: number of mixture components</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        X (numpy.ndarray): Data matrix of shape (N, D)</span>
+<span class="sd">        resp (numpy.ndarray): Responsibility matrix of shape (N,K)</span>
+<span class="sd">        nk (numpy.ndarray): Total responsibility per cluster of shape (K,)</span>
+<span class="sd">        means (numpy.ndarray): Means array of shape (K, D)</span>
+<span class="sd">        reg_covar (float): Regularisation added to diagonal of covariance matrix \</span>
+<span class="sd">            to ensure positive definiteness</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        cov (numpy.ndarray): Covariance matrix of shape (K,D,D)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n_components</span><span class="p">,</span> <span class="n">n_features</span> <span class="o">=</span> <span class="n">means</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">n_components</span><span class="p">,</span> <span class="n">n_features</span><span class="p">,</span> <span class="n">n_features</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_components</span><span class="p">):</span>
+        <span class="n">delta</span> <span class="o">=</span> <span class="n">X</span> <span class="o">-</span> <span class="n">means</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+        <span class="n">cov</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">resp</span><span class="p">[:,</span> <span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="n">delta</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">delta</span><span class="p">)</span> <span class="o">/</span> <span class="n">nk</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+            <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n_features</span><span class="p">)</span> <span class="o">*</span> <span class="n">reg_covar</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">cov</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h4 id="changedet.utils.GMM.estimate_tied_covariance" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">estimate_tied_covariance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">resp</span><span class="p">,</span> <span class="n">nk</span><span class="p">,</span> <span class="n">means</span><span class="p">,</span> <span class="n">reg_covar</span><span class="p">)</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-staticmethod"><code>staticmethod</code></small>
+  </span>
+
+<a href="#changedet.utils.GMM.estimate_tied_covariance" class="headerlink" title="Permanent link">&para;</a></h4>
+
+    <div class="doc doc-contents ">
+
+      <p>Estimate tied covariance matrix</p>
+<p>Shape notation:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    N: number of samples
+    D: number of features
+    K: number of mixture components
+</code></pre></div>
+</td></tr></table>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>X</code></td>
+        <td><code>ndarray</code></td>
+        <td><p>Data matrix of shape (N, D)</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>resp</code></td>
+        <td><code>ndarray</code></td>
+        <td><p>Responsibility matrix of shape (N,K)</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>nk</code></td>
+        <td><code>ndarray</code></td>
+        <td><p>Total responsibility per cluster of shape (K,)</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>means</code></td>
+        <td><code>ndarray</code></td>
+        <td><p>Means array of shape (K, D)</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>reg_covar</code></td>
+        <td><code>float</code></td>
+        <td><p>Regularisation added to diagonal of covariance matrix                 to ensure positive definiteness</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>ndarray</code></td>
+      <td><p>cov (numpy.ndarray): Covariance matrix of shape (K,D,D)</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>changedet/utils.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@staticmethod</span>
+<span class="k">def</span> <span class="nf">estimate_tied_covariance</span><span class="p">(</span>
+    <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">resp</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">nk</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">means</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">reg_covar</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Estimate tied covariance matrix</span>
+
+<span class="sd">    Shape notation:</span>
+
+<span class="sd">            N: number of samples</span>
+<span class="sd">            D: number of features</span>
+<span class="sd">            K: number of mixture components</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        X (numpy.ndarray): Data matrix of shape (N, D)</span>
+<span class="sd">        resp (numpy.ndarray): Responsibility matrix of shape (N,K)</span>
+<span class="sd">        nk (numpy.ndarray): Total responsibility per cluster of shape (K,)</span>
+<span class="sd">        means (numpy.ndarray): Means array of shape (K, D)</span>
+<span class="sd">        reg_covar (float): Regularisation added to diagonal of covariance matrix \</span>
+<span class="sd">            to ensure positive definiteness</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        cov (numpy.ndarray): Covariance matrix of shape (K,D,D)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n_components</span><span class="p">,</span> <span class="n">n_features</span> <span class="o">=</span> <span class="n">means</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">avg_X2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+    <span class="n">avg_means2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">nk</span> <span class="o">*</span> <span class="n">means</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">means</span><span class="p">)</span>
+    <span class="n">cov</span> <span class="o">=</span> <span class="p">(</span><span class="n">avg_X2</span> <span class="o">-</span> <span class="n">avg_means2</span><span class="p">)</span> <span class="o">/</span> <span class="n">nk</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n_features</span><span class="p">)</span> <span class="o">*</span> <span class="n">reg_covar</span>
+
+    <span class="c1"># Convert (D,D) cov to (K,D,D) cov where all K cov matrices are equal</span>
+    <span class="n">cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">cov</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span> <span class="n">n_components</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cov</span>
 </code></pre></div>
         </details>
     </div>
@@ -1460,9 +1717,9 @@ K: number of mixture components
     <span class="n">pi</span> <span class="o">=</span> <span class="n">nk</span> <span class="o">/</span> <span class="n">n_samples</span>
 
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cov_type</span> <span class="o">==</span> <span class="s2">&quot;tied&quot;</span><span class="p">:</span>
-        <span class="n">cov</span> <span class="o">=</span> <span class="n">estimate_tied_covariance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">resp</span><span class="p">,</span> <span class="n">nk</span><span class="p">,</span> <span class="n">means</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reg_covar</span><span class="p">)</span>
+        <span class="n">cov</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimate_tied_covariance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">resp</span><span class="p">,</span> <span class="n">nk</span><span class="p">,</span> <span class="n">means</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reg_covar</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">cov</span> <span class="o">=</span> <span class="n">estimate_full_covariance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">resp</span><span class="p">,</span> <span class="n">nk</span><span class="p">,</span> <span class="n">means</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reg_covar</span><span class="p">)</span>
+        <span class="n">cov</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimate_full_covariance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">resp</span><span class="p">,</span> <span class="n">nk</span><span class="p">,</span> <span class="n">means</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reg_covar</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">means</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">cov</span>
 </code></pre></div>
@@ -1834,246 +2091,6 @@ for full derivation.</p>
     <span class="n">b</span> <span class="o">=</span> <span class="n">minout</span> <span class="o">-</span> <span class="n">a</span> <span class="o">*</span> <span class="n">lower</span>
     <span class="n">g</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">img</span> <span class="o">+</span> <span class="n">b</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">minout</span><span class="p">,</span> <span class="n">maxout</span><span class="p">)</span>
-</code></pre></div>
-        </details>
-    </div>
-
-  </div>
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-<h3 id="changedet.utils.estimate_full_covariance" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">estimate_full_covariance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">resp</span><span class="p">,</span> <span class="n">nk</span><span class="p">,</span> <span class="n">means</span><span class="p">,</span> <span class="n">reg_covar</span><span class="p">)</span></code>
-
-
-<a href="#changedet.utils.estimate_full_covariance" class="headerlink" title="Permanent link">&para;</a></h3>
-
-    <div class="doc doc-contents ">
-
-      <p>Estimate full covariance matrix</p>
-<p>Shape notation:</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    N: number of samples
-    D: number of features
-    K: number of mixture components
-</code></pre></div>
-</td></tr></table>
-
-<p><strong>Parameters:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
-      <tr>
-        <td><code>X</code></td>
-        <td><code>ndarray</code></td>
-        <td><p>Data matrix of shape (N, D)</p></td>
-        <td><em>required</em></td>
-      </tr>
-      <tr>
-        <td><code>resp</code></td>
-        <td><code>ndarray</code></td>
-        <td><p>Responsibility matrix of shape (N,K)</p></td>
-        <td><em>required</em></td>
-      </tr>
-      <tr>
-        <td><code>nk</code></td>
-        <td><code>ndarray</code></td>
-        <td><p>Total responsibility per cluster of shape (K,)</p></td>
-        <td><em>required</em></td>
-      </tr>
-      <tr>
-        <td><code>means</code></td>
-        <td><code>ndarray</code></td>
-        <td><p>Means array of shape (K, D)</p></td>
-        <td><em>required</em></td>
-      </tr>
-      <tr>
-        <td><code>reg_covar</code></td>
-        <td><code>float</code></td>
-        <td><p>Regularisation added to diagonal of covariance matrix             to ensure positive definiteness</p></td>
-        <td><em>required</em></td>
-      </tr>
-  </tbody>
-</table>
-<p><strong>Returns:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>ndarray</code></td>
-      <td><p>cov (numpy.ndarray): Covariance matrix of shape (K,D,D)</p></td>
-    </tr>
-  </tbody>
-</table>
-        <details class="quote">
-          <summary>Source code in <code>changedet/utils.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">estimate_full_covariance</span><span class="p">(</span>
-    <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">resp</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">nk</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">means</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">reg_covar</span><span class="p">:</span> <span class="nb">float</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Estimate full covariance matrix</span>
-
-<span class="sd">    Shape notation:</span>
-
-<span class="sd">            N: number of samples</span>
-<span class="sd">            D: number of features</span>
-<span class="sd">            K: number of mixture components</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        X (numpy.ndarray): Data matrix of shape (N, D)</span>
-<span class="sd">        resp (numpy.ndarray): Responsibility matrix of shape (N,K)</span>
-<span class="sd">        nk (numpy.ndarray): Total responsibility per cluster of shape (K,)</span>
-<span class="sd">        means (numpy.ndarray): Means array of shape (K, D)</span>
-<span class="sd">        reg_covar (float): Regularisation added to diagonal of covariance matrix \</span>
-<span class="sd">            to ensure positive definiteness</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        cov (numpy.ndarray): Covariance matrix of shape (K,D,D)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">n_components</span><span class="p">,</span> <span class="n">n_features</span> <span class="o">=</span> <span class="n">means</span><span class="o">.</span><span class="n">shape</span>
-    <span class="n">cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">n_components</span><span class="p">,</span> <span class="n">n_features</span><span class="p">,</span> <span class="n">n_features</span><span class="p">))</span>
-    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_components</span><span class="p">):</span>
-        <span class="n">delta</span> <span class="o">=</span> <span class="n">X</span> <span class="o">-</span> <span class="n">means</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
-        <span class="n">cov</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">resp</span><span class="p">[:,</span> <span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="n">delta</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">delta</span><span class="p">)</span> <span class="o">/</span> <span class="n">nk</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n_features</span><span class="p">)</span> <span class="o">*</span> <span class="n">reg_covar</span>
-        <span class="p">)</span>
-    <span class="k">return</span> <span class="n">cov</span>
-</code></pre></div>
-        </details>
-    </div>
-
-  </div>
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-<h3 id="changedet.utils.estimate_tied_covariance" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">estimate_tied_covariance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">resp</span><span class="p">,</span> <span class="n">nk</span><span class="p">,</span> <span class="n">means</span><span class="p">,</span> <span class="n">reg_covar</span><span class="p">)</span></code>
-
-
-<a href="#changedet.utils.estimate_tied_covariance" class="headerlink" title="Permanent link">&para;</a></h3>
-
-    <div class="doc doc-contents ">
-
-      <p>Estimate tied covariance matrix</p>
-<p>Shape notation:</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    N: number of samples
-    D: number of features
-    K: number of mixture components
-</code></pre></div>
-</td></tr></table>
-
-<p><strong>Parameters:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
-      <tr>
-        <td><code>X</code></td>
-        <td><code>ndarray</code></td>
-        <td><p>Data matrix of shape (N, D)</p></td>
-        <td><em>required</em></td>
-      </tr>
-      <tr>
-        <td><code>resp</code></td>
-        <td><code>ndarray</code></td>
-        <td><p>Responsibility matrix of shape (N,K)</p></td>
-        <td><em>required</em></td>
-      </tr>
-      <tr>
-        <td><code>nk</code></td>
-        <td><code>ndarray</code></td>
-        <td><p>Total responsibility per cluster of shape (K,)</p></td>
-        <td><em>required</em></td>
-      </tr>
-      <tr>
-        <td><code>means</code></td>
-        <td><code>ndarray</code></td>
-        <td><p>Means array of shape (K, D)</p></td>
-        <td><em>required</em></td>
-      </tr>
-      <tr>
-        <td><code>reg_covar</code></td>
-        <td><code>float</code></td>
-        <td><p>Regularisation added to diagonal of covariance matrix             to ensure positive definiteness</p></td>
-        <td><em>required</em></td>
-      </tr>
-  </tbody>
-</table>
-<p><strong>Returns:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>ndarray</code></td>
-      <td><p>cov (numpy.ndarray): Covariance matrix of shape (K,D,D)</p></td>
-    </tr>
-  </tbody>
-</table>
-        <details class="quote">
-          <summary>Source code in <code>changedet/utils.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">estimate_tied_covariance</span><span class="p">(</span>
-    <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">resp</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">nk</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">means</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">reg_covar</span><span class="p">:</span> <span class="nb">float</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Estimate tied covariance matrix</span>
-
-<span class="sd">    Shape notation:</span>
-
-<span class="sd">            N: number of samples</span>
-<span class="sd">            D: number of features</span>
-<span class="sd">            K: number of mixture components</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        X (numpy.ndarray): Data matrix of shape (N, D)</span>
-<span class="sd">        resp (numpy.ndarray): Responsibility matrix of shape (N,K)</span>
-<span class="sd">        nk (numpy.ndarray): Total responsibility per cluster of shape (K,)</span>
-<span class="sd">        means (numpy.ndarray): Means array of shape (K, D)</span>
-<span class="sd">        reg_covar (float): Regularisation added to diagonal of covariance matrix \</span>
-<span class="sd">            to ensure positive definiteness</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        cov (numpy.ndarray): Covariance matrix of shape (K,D,D)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">n_components</span><span class="p">,</span> <span class="n">n_features</span> <span class="o">=</span> <span class="n">means</span><span class="o">.</span><span class="n">shape</span>
-    <span class="n">avg_X2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
-    <span class="n">avg_means2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">nk</span> <span class="o">*</span> <span class="n">means</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">means</span><span class="p">)</span>
-    <span class="n">cov</span> <span class="o">=</span> <span class="p">(</span><span class="n">avg_X2</span> <span class="o">-</span> <span class="n">avg_means2</span><span class="p">)</span> <span class="o">/</span> <span class="n">nk</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n_features</span><span class="p">)</span> <span class="o">*</span> <span class="n">reg_covar</span>
-
-    <span class="c1"># Convert (D,D) cov to (K,D,D) cov where all K cov matrices are equal</span>
-    <span class="n">cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">cov</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span> <span class="n">n_components</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">cov</span>
 </code></pre></div>
         </details>
     </div>
