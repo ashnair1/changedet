@@ -804,7 +804,8 @@ MetaAlgo        </code>
 
         <details class="quote">
           <summary>Source code in <code>changedet/algos/base.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="nd">@abstractclassmethod</span>
+          <div class="highlight"><pre><span></span><code><span class="nd">@classmethod</span>
+<span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">im1</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">im2</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Abstract method to run change detection</span>
