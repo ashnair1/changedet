@@ -46,14 +46,14 @@ mkdocs  = { version = "^1.1.2", extras = ["doc"], optional = true}
 mkdocs-include-markdown-plugin  = { version = "^3.0.0", extras = ["doc"], optional = true}
 mkdocs-material  = { version = "^7.3.0", extras = ["doc"], optional = true}
 mkdocstrings  = { version = "^0.16.0", extras = ["doc"], optional = true}
-mkdocs-material-extensions  = { version = "^1.0.1", optional = true}
+mkdocs-material-extensions  = { version = "^1.0.1", extras = ["doc"], optional = true}
 mkdocs-literate-nav = {version = "^0.4.0", extras = ["doc"], optional = true}
 mkdocs-gen-files = {version = "^0.3.3", extras = ["doc"], optional = true}
 mkdocs-section-index = {version = "^0.3.1", optional = true}
-twine  = { version = "^3.3.0", optional = true}
 mkdocs-autorefs = {version = "0.1.1", extras = ["doc"], optional = true}
 pre-commit = {version = "^2.12.0", optional = true}
 toml = {version = "^0.10.2", optional = true}
+twine  = { version = "^3.3.0", optional = true}
 
 # [tool.poetry.group.dev]
 # optional = true
@@ -107,7 +107,7 @@ doc = [
     "mkdocs-include-markdown-plugin",
     "mkdocs-literate-nav",
     "mkdocs-material",
-    "mkdocs-material-extension",
+    "mkdocs-material-extensions",
     "mkdocstrings",
     "mkdocs-autorefs",
     "mkdocs-section-index"
