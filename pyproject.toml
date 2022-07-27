@@ -90,12 +90,13 @@ twine  = { version = "^3.3.0", optional = true}
 
 [tool.poetry.extras]
 test = [
-    "pytest",
     "black",
     "isort",
     "flake8",
     "flake8-docstrings",
-    "pytest-cov"
+    "pytest",
+    "pytest-cov",
+    "coverage",
     ]
 
 dev = ["pre-commit", "virtualenv", "pip", "twine", "toml"]
