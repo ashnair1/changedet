@@ -39,7 +39,7 @@ class IteratedPCA(MetaAlgo):
         Args:
             im1 (np.ndarray): Image 1 array
             im2 (np.ndarray): Image 2 array
-            flags (dict): Flags for the algorithm
+            **flags (dict): Flags for the algorithm
 
         Run `changedet --algo ipca algo --help` for information on flags
         """

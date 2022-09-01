@@ -203,9 +203,9 @@ class GMM:
 
         Returns:
             tuple:
-            - means (numpy.ndarray): Means array of shape (K, D)
-            - cov (numpy.ndarray): Covariance matrix of shape (K,D,D)
-            - pi (numpy.ndarray): Mixture weights of shape (K,)
+                - means (numpy.ndarray): Means array of shape (K, D)
+                - cov (numpy.ndarray): Covariance matrix of shape (K,D,D)
+                - pi (numpy.ndarray): Mixture weights of shape (K,)
         """
 
         n_samples, n_features = X.shape
@@ -323,12 +323,12 @@ class GMM:
             means (numpy.ndarray): Means array of shape (K, D)
             cov (numpy.ndarray): Covariance matrix of shape (K,D,D) - full
             pi (numpy.ndarray): Mixture weights of shape (K,)
-            sample_inds (array-like): Samples to be considered
+            sample_inds (ArrayLike): Samples to be considered
 
         Returns:
             tuple:
-            - resp (numpy.ndarray): Responsibility matrix of shape (N,K)
-            - wpdf (numpy.ndarray): Unnormalised responsibility matrix of shape (N,K)
+                - resp (numpy.ndarray): Responsibility matrix of shape (N,K)
+                - wpdf (numpy.ndarray): Unnormalised responsibility matrix of shape (N,K)
         """
         for k in range(self.n_components):
             resp[sample_inds, k] = pi[k] * multivariate_normal.pdf(
@@ -359,9 +359,9 @@ class GMM:
 
         Returns:
             tuple:
-            - means (numpy.ndarray): Means array of shape (K, D)
-            - cov (numpy.ndarray): Covariance matrix of shape (K,D,D) - full
-            - pi (numpy.ndarray): Mixture weights of shape (K,)
+                - means (numpy.ndarray): Means array of shape (K, D)
+                - cov (numpy.ndarray): Covariance matrix of shape (K,D,D) - full
+                - pi (numpy.ndarray): Mixture weights of shape (K,)
         """
         # M step
         n_samples, _ = X.shape
@@ -390,7 +390,7 @@ class GMM:
         Args:
             X (numpy.ndarray): Data matrix
             resp (numpy.ndarray, optional): Initial responsibility matrix. Defaults to None.
-            sample_inds (array-like, optional): Sample indexes to be considered. Defaults to None.
+            sample_inds (ArrayLike, optional): Sample indexes to be considered. Defaults to None.
 
         Returns:
             resp (numpy.ndarray): Responsibility matrix
@@ -464,8 +464,8 @@ def np_weight_stats(
 
     Returns:
         tuple:
-        - wsigma (numpy.ndarray): Weighted covariance matrix
-        - wmean (numpy.ndarray): Weighted mean
+            - wsigma (numpy.ndarray): Weighted covariance matrix
+            - wmean (numpy.ndarray): Weighted mean
     """
     # Uniform weight if ws is unspecified or array of zeros
     if ws is None or not np.any(ws):

@@ -49,8 +49,8 @@ class ChangeDetPipeline:
 
         Returns:
             tuple:
-            - arr1 (numpy.ndarray): Image 1 array of shape (B, H, W)
-            - arr2 (numpy.ndarray): Image 2 array of shape (B, H, W)
+                - arr1 (numpy.ndarray): Image 1 array of shape (B, H, W)
+                - arr2 (numpy.ndarray): Image 2 array of shape (B, H, W)
         """
         try:
             assert Path(im1).exists() and Path(im2).exists()
