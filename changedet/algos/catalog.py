@@ -5,7 +5,7 @@ from changedet.algos.base import MetaAlgo
 
 # Refer https://github.com/python/typing/issues/60
 if TYPE_CHECKING:
-    _Base = UserDict[str, type[MetaAlgo]]
+    _Base = UserDict[str, type[MetaAlgo]]  # pragma: no cover
 else:
     _Base = UserDict
 
