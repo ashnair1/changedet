@@ -1,7 +1,7 @@
 import logging
 import sys
 from pathlib import Path
-from typing import List, Optional, Tuple
+from typing import Optional
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -136,7 +136,7 @@ class InitialChangeMask:  # pragma: no cover
         return icm
 
     @staticmethod
-    def roots(mean: np.ndarray, var: np.ndarray, pi: np.ndarray) -> Tuple[float, float]:
+    def roots(mean: np.ndarray, var: np.ndarray, pi: np.ndarray) -> tuple[float, float]:
         """Compute the threshold between the no-change and change distributions
         from the mean, variance and mixture weight (pi) of no change, change and
         ambigous distributions.
@@ -183,7 +183,7 @@ class GMM:
 
     def init_cluster_params(
         self, X: np.ndarray
-    ) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+    ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
         """Initialse cluster parameters
 
         Shape notation:
@@ -308,7 +308,7 @@ class GMM:
         cov: np.ndarray,
         pi: np.ndarray,
         sample_inds: ArrayLike,
-    ) -> Tuple[np.ndarray, np.ndarray]:
+    ) -> tuple[np.ndarray, np.ndarray]:
         """Expectation step
 
         Shape notation:
@@ -344,7 +344,7 @@ class GMM:
 
     def m_step(
         self, X: np.ndarray, resp: np.ndarray
-    ) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+    ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
         """Maximisation step
 
         Shape notation:
@@ -455,7 +455,7 @@ class OnlineWeightStats:
 
 def np_weight_stats(
     x: np.ndarray, ws: Optional[np.ndarray] = None
-) -> Tuple[np.ndarray, np.ndarray]:
+) -> tuple[np.ndarray, np.ndarray]:
     """Calculate weighted mean and sample covariance.
 
     Args:
@@ -481,7 +481,7 @@ def contrast_stretch(
     *,
     target_type: str = "uint8",
     stretch_type: str = "minmax",
-    percentile: Tuple[int, int] = (2, 98),
+    percentile: tuple[int, int] = (2, 98),
 ) -> np.ndarray:
     """Change image distribution to cover full range of target_type.
 
@@ -518,7 +518,7 @@ def contrast_stretch(
 
 def histogram_equalisation(
     im: np.ndarray, nbr_bins: int = 256
-) -> Tuple[np.ndarray, np.ndarray]:
+) -> tuple[np.ndarray, np.ndarray]:
     # Refer http://www.janeriksolem.net/histogram-equalization-with-python-and.html
     # get image histogram
     imhist, bins = np.histogram(im.flatten(), nbr_bins)
@@ -560,7 +560,7 @@ class _ColorFormatter(logging.Formatter):
             # Python3 compatibility
             self._style._fmt = fmt
         self._fmt = fmt
-        return super(_ColorFormatter, self).format(record)
+        return super().format(record)
 
 
 def init_logger(name: str = "logger", output: Optional[str] = None) -> logging.Logger:
@@ -597,7 +597,7 @@ def init_logger(name: str = "logger", output: Optional[str] = None) -> logging.L
     return logger
 
 
-def histplot(xlist: ArrayLike, xlabel: List[str], bins: Optional[int] = 50) -> Figure:
+def histplot(xlist: ArrayLike, xlabel: list[str], bins: Optional[int] = 50) -> Figure:
     """Plot multiple histograms in the same figure
 
     Args:

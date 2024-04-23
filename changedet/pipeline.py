@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Any, Tuple
+from typing import Any
 
 import numpy as np
 import rasterio as rio
@@ -35,7 +35,7 @@ class ChangeDetPipeline:
         self.logger = init_logger("changedet")
 
     # Image loading and sanity checks should be done here
-    def read(self, im1: str, im2: str, band: int) -> Tuple[np.ndarray, np.ndarray]:
+    def read(self, im1: str, im2: str, band: int) -> tuple[np.ndarray, np.ndarray]:
         """Read and prepare images
 
         Args:
@@ -75,7 +75,7 @@ class ChangeDetPipeline:
 
         return arr1, arr2
 
-    def _read(self, im: str, band: int) -> Tuple[np.ndarray, CRS, Profile]:
+    def _read(self, im: str, band: int) -> tuple[np.ndarray, CRS, Profile]:
         with rio.open(im) as raster:
             profile = raster.profile
             crs = raster.crs
