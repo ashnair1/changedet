@@ -44,7 +44,7 @@ flake8-docstrings = { version = "^1.6.0"}
 pytest  = { version = "^6.2.0"}
 pytest-cov  = { version = "^2.10.1"}
 virtualenv  = { version = "^20.2.2"}
-pip  = { version = "^22.0"}
+pip  = { version = "^23.3"}
 twine  = { version = "^3.3.0"}
 pre-commit = {version = "^2.12.0"}
 toml = {version = "^0.10.2"}

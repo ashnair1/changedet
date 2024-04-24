@@ -1639,13 +1639,13 @@ xmp = ["defusedxml"]
 
 [[package]]
 name = "pip"
-version = "22.3.1"
+version = "23.3.2"
 description = "The PyPA recommended tool for installing Python packages."
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "pip-22.3.1-py3-none-any.whl", hash = "sha256:908c78e6bc29b676ede1c4d57981d490cb892eb45cd8c214ab6298125119e077"},
-    {file = "pip-22.3.1.tar.gz", hash = "sha256:65fd48317359f3af8e593943e6ae1506b66325085ea64b706a998c6e83eeaf38"},
+    {file = "pip-23.3.2-py3-none-any.whl", hash = "sha256:5052d7889c1f9d05224cd41741acb7c5d6fa735ab34e339624a614eaaa7e7d76"},
+    {file = "pip-23.3.2.tar.gz", hash = "sha256:7fd9972f96db22c8077a1ee2691b172c8089b17a5652a44494a9ecb0d78f9149"},
 ]
 
 [[package]]
@@ -2521,4 +2521,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<3.12"
-content-hash = "75946247a6fae78d1e81be56be1d58b0c51967c1cccdc633dbda71360a088dd3"
+content-hash = "37dde872372663fbc21b8df3f27497cf435a611ce0036c3041cfc6efd23a8486"
