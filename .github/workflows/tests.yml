@@ -54,7 +54,7 @@ jobs:
 
       - name: Run pytest checks
         run:
-          poetry run pytest --cov=changedet --cov-report=xml
+          poetry run pytest -v --cov=changedet --cov-report=xml
 
       - name: Report coverage
         uses: codecov/codecov-action@v2
