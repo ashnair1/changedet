@@ -1,11 +1,11 @@
 from collections import UserDict
-from typing import TYPE_CHECKING, Callable, List, Type
+from typing import TYPE_CHECKING, Callable
 
 from changedet.algos.base import MetaAlgo
 
 # Refer https://github.com/python/typing/issues/60
 if TYPE_CHECKING:
-    _Base = UserDict[str, Type[MetaAlgo]]
+    _Base = UserDict[str, type[MetaAlgo]]  # pragma: no cover
 else:
     _Base = UserDict
 
@@ -30,8 +30,8 @@ class AlgoCatalog_(_Base):
 
     """
 
-    def register(self, name: str) -> Callable[[Type[MetaAlgo]], Type[MetaAlgo]]:
-        def inner_wrapper(wrapped_class: Type[MetaAlgo]) -> Type[MetaAlgo]:
+    def register(self, name: str) -> Callable[[type[MetaAlgo]], type[MetaAlgo]]:
+        def inner_wrapper(wrapped_class: type[MetaAlgo]) -> type[MetaAlgo]:
             if name in self.keys():
                 raise AssertionError(f"Algorithm {name} already exists.")
             self[name] = wrapped_class
@@ -39,7 +39,7 @@ class AlgoCatalog_(_Base):
 
         return inner_wrapper
 
-    def get(self, name: str) -> Type[MetaAlgo]:  # type: ignore[override]
+    def get(self, name: str) -> type[MetaAlgo]:  # type: ignore[override]
         try:
             f = self[name]
         except KeyError as e:
@@ -52,7 +52,7 @@ class AlgoCatalog_(_Base):
                 f = None
         return f
 
-    def list(self) -> List[str]:
+    def list(self) -> list[str]:
         """List all registered algorithms.
 
         Returns:

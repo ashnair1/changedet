@@ -1,4 +1,4 @@
-from typing import Any, Tuple
+from typing import Any
 
 import numpy as np
 
@@ -8,7 +8,7 @@ from changedet.algos.catalog import AlgoCatalog
 
 def calc_cvs(
     im1: np.ndarray, im2: np.ndarray, distance: str = "euclidean"
-) -> Tuple[np.ndarray, np.ndarray]:
+) -> tuple[np.ndarray, np.ndarray]:
     diffmap = im2 - im1
     if distance == "manhattan":
         # Manhattan distance/L1 norm
