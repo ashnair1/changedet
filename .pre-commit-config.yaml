@@ -1,27 +1,27 @@
 repos:
     -   repo: https://github.com/asottile/pyupgrade
-        rev: v3.15.2
+        rev: v3.21.2
         hooks:
         -   id: pyupgrade
-            args: [--py39-plus]
+            args: [--py311-plus]
 
     -  repo: https://github.com/pycqa/isort
-       rev: 5.13.2
+       rev: 7.0.0
        hooks:
        - id: isort
 
     -   repo: https://github.com/psf/black
-        rev: 24.4.0
+        rev: 25.11.0
         hooks:
         - id: black
 
     -   repo: https://github.com/pycqa/flake8
-        rev: 7.0.0
+        rev: 7.3.0
         hooks:
         - id: flake8
 
     -   repo: https://github.com/pre-commit/mirrors-mypy
-        rev: v1.9.0
+        rev: v1.19.0
         hooks:
         -   id: mypy
             args: [--strict, --ignore-missing-imports, --show-error-codes]
@@ -29,8 +29,6 @@ repos:
             exclude: (docs|tests)/
 
     -   repo: https://github.com/python-poetry/poetry
-        rev: 1.8.0
+        rev: 2.2.1
         hooks:
         - id: poetry-check
-        - id: poetry-lock
-          args: [--no-update]

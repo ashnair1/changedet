@@ -1,7 +1,6 @@
 import logging
 import sys
 from pathlib import Path
-from typing import Optional
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -379,8 +378,8 @@ class GMM:
     def fit(
         self,
         X: np.ndarray,
-        resp: Optional[np.ndarray] = None,
-        sample_inds: Optional[ArrayLike] = None,
+        resp: np.ndarray | None = None,
+        sample_inds: ArrayLike | None = None,
     ) -> np.ndarray:
         """
         Fit a GMM to X with initial responsibility resp. If sample_inds are specified, only those
@@ -440,7 +439,7 @@ class OnlineWeightStats:
         self.wsum = 1e-7
         self.xpsum = np.zeros((N, N))  # Sum of cross-products
 
-    def update(self, X: np.ndarray, weights: Optional[np.ndarray] = None) -> None:
+    def update(self, X: np.ndarray, weights: np.ndarray | None = None) -> None:
         if weights is None:
             weights = np.ones(X.shape[0])
         for d, w in zip(X, weights):
@@ -454,7 +453,7 @@ class OnlineWeightStats:
 
 
 def np_weight_stats(
-    x: np.ndarray, ws: Optional[np.ndarray] = None
+    x: np.ndarray, ws: np.ndarray | None = None
 ) -> tuple[np.ndarray, np.ndarray]:
     """Calculate weighted mean and sample covariance.
 
@@ -563,7 +562,7 @@ class _ColorFormatter(logging.Formatter):
         return super().format(record)
 
 
-def init_logger(name: str = "logger", output: Optional[str] = None) -> logging.Logger:
+def init_logger(name: str = "logger", output: str | None = None) -> logging.Logger:
     """
     Initialise changedet logger
 
@@ -597,7 +596,7 @@ def init_logger(name: str = "logger", output: Optional[str] = None) -> logging.L
     return logger
 
 
-def histplot(xlist: ArrayLike, xlabel: list[str], bins: Optional[int] = 50) -> Figure:
+def histplot(xlist: ArrayLike, xlabel: list[str], bins: int | None = 50) -> Figure:
     """Plot multiple histograms in the same figure
 
     Args:

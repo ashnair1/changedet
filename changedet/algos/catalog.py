@@ -1,5 +1,6 @@
 from collections import UserDict
-from typing import TYPE_CHECKING, Callable
+from collections.abc import Callable
+from typing import TYPE_CHECKING
 
 from changedet.algos.base import MetaAlgo
 

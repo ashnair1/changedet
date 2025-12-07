@@ -1,9 +1,9 @@
 site_name: changedet
-site_url: "" #http://www.jieyu.ai
+site_url: https://ashnair1.github.io/changedet/
 repo_url: https://github.com/ashnair1/changedet
 repo_name: changedet
 use_directory_urls: False
-#strict: true
+strict: true
 
         
 # Configuration
@@ -90,9 +90,3 @@ extra:
       name: Github
     - icon: material/email
       link: "mailto:ashnair0007@gmail.com"
-  # to enable disqus, uncomment the following and put your disqus id below
-  # disqus: disqus_id
-# uncomment the following and put your google tracking id below to enable GA
-#google_analytics:
-  #- UA-xxx
-  #- auto
