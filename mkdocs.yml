@@ -3,7 +3,6 @@ site_url: https://ashnair1.github.io/changedet/
 repo_url: https://github.com/ashnair1/changedet
 repo_name: changedet
 use_directory_urls: False
-strict: true
 
         
 # Configuration
@@ -63,18 +62,13 @@ plugins:
   - include-markdown
   - search:
       lang: en
+  - autorefs
   - mkdocstrings:
       handlers:
         python:
-          setup_commands:
-          - import sys
-          - sys.path.append("docs")
-          selection:
-            new_path_syntax: yes
-          rendering:
+          paths: [.]
+          options:
             show_root_heading: true
-      watch:
-        - changedet
   - gen-files:
       scripts:
        - docs/gen_doc_stubs.py
