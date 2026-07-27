@@ -57,7 +57,7 @@ jobs:
           poetry run pytest -v --cov=changedet --cov-report=xml
 
       - name: Report coverage
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
